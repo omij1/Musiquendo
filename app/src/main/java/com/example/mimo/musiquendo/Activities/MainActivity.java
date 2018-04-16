@@ -1,24 +1,26 @@
-package com.example.mimo.musiquendo;
+package com.example.mimo.musiquendo.Activities;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.mimo.musiquendo.Adapters.CategoriesAdapter;
+import com.example.mimo.musiquendo.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -42,11 +44,14 @@ public class MainActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
-        /*TabLayout tabs = findViewById(R.id.tabs);
+        TabLayout tabs = findViewById(R.id.tabs);
         ViewPager pager = findViewById(R.id.pager);
-        pager.setAdapter(new PagerAdapter(getSupportFragmentManager()));
+        pager.setAdapter(new CategoriesAdapter(getSupportFragmentManager()));
         pager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabs));
-        tabs.setupWithViewPager(pager);*/
+        tabs.setupWithViewPager(pager);
+
+        NavigationView navigationView = findViewById(R.id.navigation_view);
+        navigationView.setNavigationItemSelectedListener(this);
     }
 
     @Override
@@ -67,7 +72,27 @@ public class MainActivity extends AppCompatActivity {
             case R.id.filter:
                 Toast.makeText(this, "hola", Toast.LENGTH_SHORT).show();
                 return true;
+            case R.id.biblioteca:
+                drawer.closeDrawers();
+                return true;
+            case R.id.registro:
+                drawer.closeDrawers();
+                return true;
+            case R.id.login:
+                drawer.closeDrawers();
+                return true;
+            case R.id.ajustes:
+                drawer.closeDrawers();
+                return true;
+            case R.id.licencias:
+                drawer.closeDrawers();
+                return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        return onOptionsItemSelected(item);
     }
 }
