@@ -3,4 +3,12 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="albumes">Albumes</string>
+    <string name="artistas">Artistas</string>
+    <string name="listas">Listas</string>
+    <string name="registro">Crear cuenta</string>
+    <string name="login">Login</string>
+    <string name="licencias">Licencias</string>
+    <string name="ajustes">Ajustes</string>
+    <string name="biblioteca">Biblioteca</string>
 </resources>
