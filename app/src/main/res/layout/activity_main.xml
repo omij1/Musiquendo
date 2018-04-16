@@ -18,7 +18,7 @@
         android:layout_gravity="start"
         app:menu="@menu/lateral_menu"
         app:headerLayout="@layout/navigation_header"
-        android:background="@color/colorPrimaryDark"
+        android:background="@drawable/degradado_menu_lateral"
         app:itemTextAppearance="@style/Base.TextAppearance.AppCompat.Large"/>
 
 </android.support.v4.widget.DrawerLayout>

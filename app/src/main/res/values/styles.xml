@@ -5,11 +5,26 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:textColorPrimary">@color/menu_text</item>
+        <item name="android:textColorSecondary">@color/colorAccent</item>
     </style>
 
     <style name="AppTheme.Translucent">
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
+    <style name="DrawerHeaderMainText">
+        <item name="android:textColor">@color/menu_text</item>
+        <item name="android:textSize">@dimen/header_text_size</item>
+        <item name="android:fontFamily">serif</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="DrawerSecondaryText">
+        <item name="android:textColor">@color/menu_text</item>
+        <item name="android:textSize">@dimen/header_secondary_text_size</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:layout_marginRight">@dimen/activity_horizontal_margin</item>
     </style>
 
 </resources>

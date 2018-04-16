@@ -2,24 +2,38 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/registro"
-        android:title="@string/registro"
-        android:icon="@drawable/ic_home_black_24dp"/>
+        android:title="@string/principal">
+        <menu>
+            <item
+                android:id="@+id/biblioteca"
+                android:title="@string/biblioteca"/>
+        </menu>
+    </item>
 
     <item
-        android:id="@+id/login"
-        android:title="@string/login"/>
+        android:title="@string/cuenta">
+        <menu>
+            <item
+                android:id="@+id/registro"
+                android:title="@string/registro"/>
+
+            <item
+                android:id="@+id/login"
+                android:title="@string/login"/>
+        </menu>
+    </item>
 
     <item
-        android:id="@+id/biblioteca"
-        android:title="@string/biblioteca"/>
+        android:title="@string/configuracion">
+        <menu>
+            <item
+                android:id="@+id/ajustes"
+                android:title="@string/ajustes"/>
 
-    <item
-        android:id="@+id/ajustes"
-        android:title="@string/ajustes"/>
-
-    <item
-        android:id="@+id/licencias"
-        android:title="@string/licencias"/>
+            <item
+                android:id="@+id/licencias"
+                android:title="@string/licencias"/>
+        </menu>
+    </item>
 
 </menu>

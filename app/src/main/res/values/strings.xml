@@ -11,4 +11,8 @@
     <string name="licencias">Licencias</string>
     <string name="ajustes">Ajustes</string>
     <string name="biblioteca">Biblioteca</string>
+    <string name="version">Version 1.0</string>
+    <string name="cuenta">Cuenta</string>
+    <string name="configuracion">Configuración</string>
+    <string name="principal">Principal</string>
 </resources>
