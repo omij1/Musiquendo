@@ -15,4 +15,6 @@
     <string name="cuenta">Cuenta</string>
     <string name="configuracion">Configuración</string>
     <string name="principal">Principal</string>
+    <string name="search">Buscar</string>
+    <string name="filtrar">Filtrar</string>
 </resources>
