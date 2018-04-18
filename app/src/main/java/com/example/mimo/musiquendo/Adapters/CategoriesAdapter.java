@@ -4,9 +4,14 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.example.mimo.musiquendo.Fragments.FragmentAlbumes;
+import com.example.mimo.musiquendo.Fragments.FragmentAlbums;
+import com.example.mimo.musiquendo.Fragments.FragmentArtists;
+import com.example.mimo.musiquendo.Fragments.FragmentLists;
 import com.example.mimo.musiquendo.Model.Categories;
 
+/**
+ * Adaptador del TabLayout principal que se encarga de cambiar los fragment según el tab seleccionado
+ */
 public class CategoriesAdapter extends FragmentStatePagerAdapter {
 
     public CategoriesAdapter(FragmentManager fm) {
@@ -15,7 +20,15 @@ public class CategoriesAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return FragmentAlbumes.newInstance(getDataType(position));
+        switch (position) {
+            case 0:
+                return FragmentAlbums.newInstance(getDataType(position));
+            case 1:
+                return FragmentArtists.newInstance(getDataType(position));
+            case 2:
+                return FragmentLists.newInstance(getDataType(position));
+        }
+        return null;
     }
 
     @Override

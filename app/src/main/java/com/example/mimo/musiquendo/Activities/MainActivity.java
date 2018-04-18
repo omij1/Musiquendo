@@ -26,6 +26,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     Toolbar toolbar;
     @BindView(R.id.drawer)
     DrawerLayout drawer;
+    @BindView(R.id.tabs)
+    TabLayout tabs;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -44,7 +46,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
-        TabLayout tabs = findViewById(R.id.tabs);
         ViewPager pager = findViewById(R.id.pager);
         pager.setAdapter(new CategoriesAdapter(getSupportFragmentManager()));
         pager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabs));
