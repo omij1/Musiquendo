@@ -7,8 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.mimo.musiquendo.Model.Artist;
 import com.example.mimo.musiquendo.Model.Categories;
 import com.example.mimo.musiquendo.R;
+
+import java.util.List;
 
 /**
  * fragmento que muestra la colección de artistas en la pantalla principal
@@ -17,6 +20,7 @@ import com.example.mimo.musiquendo.R;
 public class FragmentArtists extends Fragment {
 
     private static final String TYPE = "FragmentType";
+    private List<Artist> artistList;
 
     /**
      * Función que crea un nuevo fragmento con el identificador de la categoría a la que pertenece

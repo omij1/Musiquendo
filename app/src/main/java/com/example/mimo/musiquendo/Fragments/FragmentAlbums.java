@@ -8,11 +8,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.mimo.musiquendo.Adapters.AlbumAdapter;
 import com.example.mimo.musiquendo.Model.Album;
 import com.example.mimo.musiquendo.Model.Categories;
 
+import com.example.mimo.musiquendo.Provider.JamendoProvider;
+import com.example.mimo.musiquendo.Provider.VolleyCallback;
 import com.example.mimo.musiquendo.R;
 
 import java.util.ArrayList;
@@ -33,7 +36,9 @@ public class FragmentAlbums extends Fragment {
     SwipeRefreshLayout refresh;
     private static final String TYPE = "FragmentType";
     private List<Album> albumList;
+    private AlbumAdapter albumAdapter;
     private Categories category;
+    private JamendoProvider jamendo;
 
     /**
      * Función que crea un nuevo fragmento con el identificador de la categoría a la que pertenece
@@ -45,6 +50,7 @@ public class FragmentAlbums extends Fragment {
         Bundle bundle = new Bundle();
         bundle.putString(TYPE, category.key);
         fragment.setArguments(bundle);
+
         return fragment;
     }
 
@@ -56,7 +62,18 @@ public class FragmentAlbums extends Fragment {
         super.onCreate(savedInstanceState);
         String key = getArguments() != null ? getArguments().getString(TYPE) : "";
         category = Categories.fromKey(key);
-        albumList = new ArrayList<Album>();
+        jamendo = new JamendoProvider();
+        jamendo.getAlbumList(getContext(), albums -> {
+            albumList = albums;
+            loadContent();
+            return albums;
+        });
+    }
+
+    private void loadContent() {
+        albumAdapter = new AlbumAdapter(albumList);
+        albums.setAdapter(albumAdapter);
+        albumAdapter.notifyDataSetChanged();
     }
 
     @Nullable
@@ -64,9 +81,10 @@ public class FragmentAlbums extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_albums, container ,false);
         ButterKnife.bind(this, view);
-        AlbumAdapter albumAdapter = new AlbumAdapter(new ArrayList<Album>());
-        albums.setAdapter(albumAdapter);
-
+        if (albumList != null) {
+            albumAdapter = new AlbumAdapter(albumList);
+            albums.setAdapter(albumAdapter);
+        }
         return view;
     }
 }

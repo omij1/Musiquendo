@@ -6,6 +6,7 @@ import android.util.Log;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.example.mimo.musiquendo.BuildConfig;
 import com.example.mimo.musiquendo.Model.Album;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -25,7 +26,8 @@ import java.util.List;
 
 public class JamendoProvider {
 
-    Gson gson;
+    private Gson gson;
+    private static final Integer IMAGESIZE = 400;
 
     public JamendoProvider() {
         gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();//El formato de fecha es para que no falle el parsing
@@ -35,7 +37,8 @@ public class JamendoProvider {
 
     public void getAlbumList(Context context, VolleyCallback callback) {
 
-        CustomJSONObject objectRequest = new CustomJSONObject(Request.Method.GET, "https://api.jamendo.com/v3.0/albums/?client_id=fe762082&format=jsonpretty", null,
+        String url = BuildConfig.ALBUM_LIST+"?client_id="+BuildConfig.JAMENDO_API_KEY+"&imagesize="+IMAGESIZE+"&format=jsonpretty&limit=all";
+        CustomJSONObject objectRequest = new CustomJSONObject(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -61,11 +64,13 @@ public class JamendoProvider {
 
     public void getArtistList() {
 
+
     }
 
     ////////////////////////////////////METODOS RELACIONADOS CON LAS LISTAS DE REPRODUCCION\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
     public void getPlayLists() {
+
 
     }
 }
