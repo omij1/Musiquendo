@@ -10,6 +10,10 @@ import android.view.ViewGroup;
 import com.example.mimo.musiquendo.Model.Categories;
 import com.example.mimo.musiquendo.R;
 
+/**
+ * fragmento que muestra la colección de artistas en la pantalla principal
+ */
+
 public class FragmentArtists extends Fragment {
 
     private static final String TYPE = "FragmentType";

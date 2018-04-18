@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Clase que contiene la información básica de un álbum
  */
+
 public class Album {
 
     @SerializedName("id")

@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.example.mimo.musiquendo.Fragments.FragmentAlbums;
 import com.example.mimo.musiquendo.Fragments.FragmentArtists;
-import com.example.mimo.musiquendo.Fragments.FragmentLists;
+import com.example.mimo.musiquendo.Fragments.FragmentPlayLists;
 import com.example.mimo.musiquendo.Model.Categories;
 
 /**
@@ -26,7 +26,7 @@ public class CategoriesAdapter extends FragmentStatePagerAdapter {
             case 1:
                 return FragmentArtists.newInstance(getDataType(position));
             case 2:
-                return FragmentLists.newInstance(getDataType(position));
+                return FragmentPlayLists.newInstance(getDataType(position));
         }
         return null;
     }

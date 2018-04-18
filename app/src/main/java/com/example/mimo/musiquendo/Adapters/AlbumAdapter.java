@@ -51,7 +51,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
 
         @BindView(R.id.album_item_image)
         ImageView albumImage;
-        @BindView(R.id.album_item_title)
+        @BindView(R.id.album_item_name)
         TextView name;
         @BindView(R.id.album_item_autor)
         TextView autor;

@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/refresh_albums_list"
@@ -17,11 +16,10 @@
             android:id="@+id/albums_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="center"
             app:layoutManager="android.support.v7.widget.GridLayoutManager"
             app:spanCount="3"
             tools:listitem="@layout/album_item"/>
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
-</LinearLayout>
+</FrameLayout>

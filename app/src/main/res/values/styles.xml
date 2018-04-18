@@ -29,4 +29,37 @@
         <item name="android:layout_marginRight">@dimen/activity_horizontal_margin</item>
     </style>
 
+    <style name="AlbumItemName">
+        <item name="android:gravity">center</item>
+        <item name="android:layout_below">@id/album_item_image</item>
+        <item name="android:background">@color/colorAccent</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/album_item_name</item>
+    </style>
+
+    <style name="AlbumItemAutor">
+        <item name="android:gravity">center</item>
+        <item name="android:layout_below">@id/album_item_name</item>
+        <item name="android:background">@color/colorAccent</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:textSize">@dimen/album_item_autor</item>
+    </style>
+
+    <style name="ArtistItemImage">
+        <item name="android:padding">@dimen/artist_item_image_padding</item>
+        <item name="android:elevation">@dimen/album_item_elevation</item>
+    </style>
+
+    <style name="ArtistItemName">
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:textAppearance">@style/Base.TextAppearance.AppCompat.Large</item>
+        <item name="android:textSize">@dimen/album_item_name</item>
+    </style>
+
+    <style name="ArtistItemJoinDate">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textSize">@dimen/artist_item_joindate</item>
+        <item name="android:textStyle">italic</item>
+    </style>
+
 </resources>

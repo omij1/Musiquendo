@@ -21,6 +21,10 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * Fragmento que muestra la colección de álbumes en la pantalla principal
+ */
+
 public class FragmentAlbums extends Fragment {
 
     @BindView(R.id.albums_list)

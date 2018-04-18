@@ -10,7 +10,11 @@ import android.view.ViewGroup;
 import com.example.mimo.musiquendo.Model.Categories;
 import com.example.mimo.musiquendo.R;
 
-public class FragmentLists extends Fragment {
+/**
+ * Fragmento que muestra la colección de listas de reproducción en la pantalla principal
+ */
+
+public class FragmentPlayLists extends Fragment {
 
     private static final String TYPE = "FragmentType";
 
@@ -20,14 +24,14 @@ public class FragmentLists extends Fragment {
      * @return Nuevo fragmento
      */
     public static Fragment newInstance(Categories category) {
-        Fragment fragment = new FragmentArtists();
+        Fragment fragment = new FragmentPlayLists();
         Bundle bundle = new Bundle();
         bundle.putString(TYPE, category.key);
         fragment.setArguments(bundle);
         return fragment;
     }
 
-    public FragmentLists() {
+    public FragmentPlayLists() {
     }
 
     @Override
