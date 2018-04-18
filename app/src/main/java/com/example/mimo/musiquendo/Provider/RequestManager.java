@@ -6,6 +6,10 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 
+/**
+ * Singleton que permite manejar la cola de Volley según las recomendaciones de Android para evitar problemas con el contexto.
+ */
+
 public class RequestManager {
 
     private static RequestManager jamendoInstance;

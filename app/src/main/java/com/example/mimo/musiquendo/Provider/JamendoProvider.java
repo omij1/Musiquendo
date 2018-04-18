@@ -19,6 +19,10 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Clase que se comunica con el API de Jamendo para obtener los datos
+ */
+
 public class JamendoProvider {
 
     Gson gson;
