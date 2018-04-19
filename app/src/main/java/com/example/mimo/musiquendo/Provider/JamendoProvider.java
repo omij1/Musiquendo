@@ -37,8 +37,9 @@ public class JamendoProvider {
 
     public void getAlbumList(Context context, VolleyCallback callback) {
 
+        //El API no ofrece un mecanismo de paginación y es por ello que uso el parámetro limit=all
         String url = BuildConfig.ALBUM_LIST+"?client_id="+BuildConfig.JAMENDO_API_KEY+"&imagesize="+IMAGESIZE+"&format=jsonpretty&limit=all";
-        CustomJSONObject objectRequest = new CustomJSONObject(Request.Method.GET, url, null,
+        CustomJSONObject albumsRequest = new CustomJSONObject(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -55,22 +56,49 @@ public class JamendoProvider {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e("ERROR", "onErrorResponse: "+error);
+                //TODO que pasa si no hay internet
             }
         });
-        RequestManager.getInstance().addToRequestQueue(context, objectRequest);
+        RequestManager.getInstance().addToRequestQueue(context, albumsRequest);
     }
 
     ////////////////////////////////////METODOS RELACIONADOS CON LOS ARTISTAS\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
-    public void getArtistList() {
+    public void getArtistList(Context context, VolleyCallback callback) {
 
+        String url = BuildConfig.ARTIST_LIST+"?client_id="+BuildConfig.JAMENDO_API_KEY;
+        CustomJSONObject artistRequest = new CustomJSONObject(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
 
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        RequestManager.getInstance().addToRequestQueue(context, artistRequest);
     }
 
     ////////////////////////////////////METODOS RELACIONADOS CON LAS LISTAS DE REPRODUCCION\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
-    public void getPlayLists() {
+    public void getPlayLists(Context context, VolleyCallback callback) {
 
+        String url = BuildConfig.PLAYLIST_LIST+"?client_id="+BuildConfig.JAMENDO_API_KEY;
+        CustomJSONObject playlistRequest = new CustomJSONObject(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
 
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        RequestManager.getInstance().addToRequestQueue(context, playlistRequest);
     }
 }

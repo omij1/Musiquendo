@@ -1,5 +1,6 @@
 package com.example.mimo.musiquendo.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -28,16 +29,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     DrawerLayout drawer;
     @BindView(R.id.tabs)
     TabLayout tabs;
-
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-            return false;
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,18 +66,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return true;
             case R.id.biblioteca:
                 drawer.closeDrawers();
+                Intent library = new Intent(this, LibraryActivity.class);
+                startActivity(library);
                 return true;
             case R.id.registro:
                 drawer.closeDrawers();
+                Intent sign_in = new Intent(this, SigninActivity.class);
+                startActivity(sign_in);
                 return true;
             case R.id.login:
                 drawer.closeDrawers();
+                Intent login = new Intent(this, LoginActivity.class);
+                startActivity(login);
                 return true;
             case R.id.ajustes:
                 drawer.closeDrawers();
+                Intent settings = new Intent(this, SettingsActivity.class);
+                startActivity(settings);
                 return true;
             case R.id.licencias:
                 drawer.closeDrawers();
+                Intent licenses = new Intent(this, LicensesActivity.class);
+                startActivity(licenses);
                 return true;
         }
         return super.onOptionsItemSelected(item);

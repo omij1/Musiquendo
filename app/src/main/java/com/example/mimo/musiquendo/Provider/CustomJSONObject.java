@@ -37,7 +37,7 @@ public class CustomJSONObject extends Request<JSONObject> {
                             Response.Listener<JSONObject> responseListener, Response.ErrorListener errorListener) {
         super(method, url, errorListener);
         this.listener = responseListener;
-        this.params = params;
+        this.params = params;//se refiere al body de un POST
     }
 
     /**
