@@ -3,8 +3,10 @@ package com.example.mimo.musiquendo.Fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +30,7 @@ import butterknife.ButterKnife;
  * Fragmento que muestra la colección de álbumes en la pantalla principal
  */
 
-public class FragmentAlbums extends Fragment {
+public class FragmentAlbums extends Fragment implements AlbumAdapter.OnItemClickListener {
 
     @BindView(R.id.albums_list)
     RecyclerView albums;
@@ -64,16 +66,12 @@ public class FragmentAlbums extends Fragment {
         category = Categories.fromKey(key);
         jamendo = new JamendoProvider();
         jamendo.getAlbumList(getContext(), albums -> {
+            if (albumList != null) {
+                albumList.clear();
+            }
             albumList = albums;
             loadContent();
-            return albums;
-        });
-    }
-
-    private void loadContent() {
-        albumAdapter = new AlbumAdapter(albumList);
-        albums.setAdapter(albumAdapter);
-        albumAdapter.notifyDataSetChanged();
+         });
     }
 
     @Nullable
@@ -81,10 +79,30 @@ public class FragmentAlbums extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_albums, container ,false);
         ButterKnife.bind(this, view);
-        if (albumList != null) {
-            albumAdapter = new AlbumAdapter(albumList);
-            albums.setAdapter(albumAdapter);
-        }
+        refresh.setColorSchemeColors(getResources().getColor(R.color.colorPrimary),
+                getResources().getColor(R.color.colorPrimaryDark), getResources().getColor(R.color.colorAccent));
+        refresh.setOnRefreshListener(() -> jamendo.getArtistList(getContext(), albumsResponse -> {
+            albumAdapter.swapItems(albumsResponse);
+            refresh.setRefreshing(false);
+        }));
         return view;
+    }
+
+    @Override
+    public void onAlbumClick(View view, Album album) {
+        FragmentActivity activity = getActivity();
+        if (activity == null){
+            return;
+        }
+        Toast.makeText(getContext(), "hola", Toast.LENGTH_SHORT).show();
+    }
+
+
+    /**
+     * Método que se ejecuta cuando volley obtiene los datos del API
+     */
+    private void loadContent() {
+        albumAdapter = new AlbumAdapter(albumList, this);
+        albums.setAdapter(albumAdapter);
     }
 }

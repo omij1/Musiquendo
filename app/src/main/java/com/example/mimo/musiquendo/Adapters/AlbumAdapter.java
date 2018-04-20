@@ -1,6 +1,5 @@
 package com.example.mimo.musiquendo.Adapters;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,15 +22,21 @@ import butterknife.ButterKnife;
 
 public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> {
 
-    interface OnItemClickListener {
-        void onItemClick(View view, Album album);
+    public interface OnItemClickListener {
+        void onAlbumClick(View view, Album album);
     }
 
     private List<Album> albums;
-    //private final OnItemClickListener listener;
+    private final OnItemClickListener listener;
 
-    public AlbumAdapter(List<Album> albums) {
+    public AlbumAdapter(List<Album> albums, OnItemClickListener listener) {
         this.albums = albums;
+        this.listener = listener;
+    }
+
+    public void swapItems(List<Album> items) {
+        this.albums = items;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -43,7 +48,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(AlbumAdapter.ViewHolder holder, int position) {
-        holder.bind(albums.get(position), null);
+        holder.bind(albums.get(position), listener);
     }
 
     @Override
@@ -69,12 +74,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
             name.setText(album.getName());
             autor.setText(album.getArtist_name());
             Picasso.get().load(album.getImage()).into(albumImage);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    listener.onItemClick(itemView, album);
-                }
-            });
+            itemView.setOnClickListener(v -> listener.onAlbumClick(itemView, album));
         }
     }
 

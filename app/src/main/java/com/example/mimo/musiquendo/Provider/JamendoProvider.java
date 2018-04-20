@@ -66,17 +66,24 @@ public class JamendoProvider {
 
     public void getArtistList(Context context, VolleyCallback callback) {
 
-        String url = BuildConfig.ARTIST_LIST+"?client_id="+BuildConfig.JAMENDO_API_KEY;
+        String url = BuildConfig.ALBUM_LIST+"?client_id="+BuildConfig.JAMENDO_API_KEY+"&imagesize="+IMAGESIZE+"&format=jsonpretty";
         CustomJSONObject artistRequest = new CustomJSONObject(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
-                    public void onResponse(JSONObject response) {
-
+                    public void onResponse(JSONObject response) {//revisar
+                        try {
+                            JSONArray results = response.getJSONArray("results");
+                            Type list = new TypeToken<ArrayList<Album>>(){}.getType();
+                            List<Album> albumRequest = gson.fromJson(String.valueOf(results), list);
+                            callback.onSuccess(albumRequest);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                Log.e("ERROR", "onErrorResponse: "+error);
             }
         });
         RequestManager.getInstance().addToRequestQueue(context, artistRequest);
@@ -96,7 +103,7 @@ public class JamendoProvider {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                Log.e("ERROR", "onErrorResponse: "+error);
             }
         });
         RequestManager.getInstance().addToRequestQueue(context, playlistRequest);

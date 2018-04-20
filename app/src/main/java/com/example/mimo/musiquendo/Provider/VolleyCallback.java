@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface VolleyCallback {
 
-    List<Album> onSuccess(List<Album> albums);
+    void onSuccess(List<Album> albums);
 }
