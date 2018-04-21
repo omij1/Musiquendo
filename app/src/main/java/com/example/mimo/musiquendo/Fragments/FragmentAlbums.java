@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,10 +16,8 @@ import com.example.mimo.musiquendo.Model.Album;
 import com.example.mimo.musiquendo.Model.Categories;
 
 import com.example.mimo.musiquendo.Provider.JamendoProvider;
-import com.example.mimo.musiquendo.Provider.VolleyCallback;
 import com.example.mimo.musiquendo.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -41,6 +38,13 @@ public class FragmentAlbums extends Fragment implements AlbumAdapter.OnItemClick
     private AlbumAdapter albumAdapter;
     private Categories category;
     private JamendoProvider jamendo;
+
+    /**
+     * Interfaz que contiene el callback que se ejecuta cuando se reciben los datos de internet
+     */
+    public interface AlbumsCallback {
+        void onAlbumsSuccess(List<Album> albums);
+    }
 
     /**
      * Función que crea un nuevo fragmento con el identificador de la categoría a la que pertenece
@@ -65,13 +69,10 @@ public class FragmentAlbums extends Fragment implements AlbumAdapter.OnItemClick
         String key = getArguments() != null ? getArguments().getString(TYPE) : "";
         category = Categories.fromKey(key);
         jamendo = new JamendoProvider();
-        jamendo.getAlbumList(getContext(), albums -> {
-            if (albumList != null) {
-                albumList.clear();
-            }
-            albumList = albums;
+        jamendo.getAlbumList(getContext(), albumsResponse -> {
+            albumList = albumsResponse;
             loadContent();
-         });
+        });
     }
 
     @Nullable
@@ -81,9 +82,12 @@ public class FragmentAlbums extends Fragment implements AlbumAdapter.OnItemClick
         ButterKnife.bind(this, view);
         refresh.setColorSchemeColors(getResources().getColor(R.color.colorPrimary),
                 getResources().getColor(R.color.colorPrimaryDark), getResources().getColor(R.color.colorAccent));
-        refresh.setOnRefreshListener(() -> jamendo.getArtistList(getContext(), albumsResponse -> {
-            albumAdapter.swapItems(albumsResponse);
-            refresh.setRefreshing(false);
+        refresh.setOnRefreshListener(() -> jamendo.getAlbumList(getContext(), new AlbumsCallback() {
+            @Override
+            public void onAlbumsSuccess(List<Album> albumsResponse) {
+                albumAdapter.swapItems(albumsResponse);
+                refresh.setRefreshing(false);
+            }
         }));
         return view;
     }
@@ -96,7 +100,6 @@ public class FragmentAlbums extends Fragment implements AlbumAdapter.OnItemClick
         }
         Toast.makeText(getContext(), "hola", Toast.LENGTH_SHORT).show();
     }
-
 
     /**
      * Método que se ejecuta cuando volley obtiene los datos del API

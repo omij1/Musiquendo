@@ -17,7 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Adaptador que rellena el RecyclerView de los álbumes
+ * Adaptador que rellena el RecyclerView con los álbumes
  */
 
 public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> {

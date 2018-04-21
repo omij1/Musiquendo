@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.example.mimo.musiquendo.Model.Artist;
 import com.example.mimo.musiquendo.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -16,16 +17,27 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Adaptador que rellena el RecyclerView de la lista de artistas
+ * Adaptador que rellena el RecyclerView con la lista de artistas
  */
 
 public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ViewHolder> {
 
-    interface OnItemClickListener {
-        void onItemClick(View view, Artist artist);
+    public interface OnItemClickListener {
+        void onArtistClick(View view, Artist artist);
     }
 
     private List<Artist> artists;
+    private final OnItemClickListener listener;
+
+    public ArtistAdapter(List<Artist> artists, OnItemClickListener listener) {
+        this.artists = artists;
+        this.listener = listener;
+    }
+
+    public void swapItems(List<Artist> items) {
+        this.artists = items;
+        notifyDataSetChanged();
+    }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -36,7 +48,7 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.bind(artists.get(position), null);
+        holder.bind(artists.get(position), listener);
     }
 
     @Override
@@ -50,8 +62,6 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ViewHolder
         ImageView artistImage;
         @BindView(R.id.artist_item_name)
         TextView name;
-        @BindView(R.id.artist_item_joindate)
-        TextView joinDate;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -59,8 +69,14 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ViewHolder
         }
 
 
-        public void bind(Artist artist, Object o) {
-
+        public void bind(final Artist artist, final OnItemClickListener listener) {
+            name.setText(artist.getName());
+            if (!artist.getImage().equals("")) {
+                Picasso.get().load(artist.getImage()).into(artistImage);
+            } else {
+                artistImage.setImageDrawable(itemView.getResources().getDrawable(R.drawable.no_image));
+            }
+            itemView.setOnClickListener(v -> listener.onArtistClick(itemView, artist));
         }
     }
 }

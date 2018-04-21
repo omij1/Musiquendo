@@ -7,7 +7,12 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.example.mimo.musiquendo.BuildConfig;
+import com.example.mimo.musiquendo.Fragments.FragmentAlbums;
+import com.example.mimo.musiquendo.Fragments.FragmentArtists;
+import com.example.mimo.musiquendo.Fragments.FragmentPlayLists;
 import com.example.mimo.musiquendo.Model.Album;
+import com.example.mimo.musiquendo.Model.Artist;
+import com.example.mimo.musiquendo.Model.PlayList;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -35,77 +40,63 @@ public class JamendoProvider {
 
     ////////////////////////////////////METODOS RELACIONADOS CON LOS ALBUMES\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
-    public void getAlbumList(Context context, VolleyCallback callback) {
+    public void getAlbumList(Context context, FragmentAlbums.AlbumsCallback callback) {
 
         //El API no ofrece un mecanismo de paginación y es por ello que uso el parámetro limit=all
         String url = BuildConfig.ALBUM_LIST+"?client_id="+BuildConfig.JAMENDO_API_KEY+"&imagesize="+IMAGESIZE+"&format=jsonpretty&limit=all";
         CustomJSONObject albumsRequest = new CustomJSONObject(Request.Method.GET, url, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            JSONArray results = response.getJSONArray("results");
-                            Type list = new TypeToken<ArrayList<Album>>(){}.getType();
-                            List<Album> albumRequest = gson.fromJson(String.valueOf(results), list);
-                            callback.onSuccess(albumRequest);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                response -> {
+                    try {
+                        JSONArray results = response.getJSONArray("results");
+                        Type list = new TypeToken<ArrayList<Album>>(){}.getType();
+                        List<Album> albumRequest = gson.fromJson(String.valueOf(results), list);
+                        callback.onAlbumsSuccess(albumRequest);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("ERROR", "onErrorResponse: "+error);
-                //TODO que pasa si no hay internet
-            }
-        });
+                }, error -> {
+                    Log.e("ERROR", "onErrorResponse: "+error);
+                    //TODO que pasa si no hay internet
+                });
         RequestManager.getInstance().addToRequestQueue(context, albumsRequest);
     }
 
     ////////////////////////////////////METODOS RELACIONADOS CON LOS ARTISTAS\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
-    public void getArtistList(Context context, VolleyCallback callback) {
+    public void getArtistList(Context context, FragmentArtists.ArtistsCallback callback) {
 
-        String url = BuildConfig.ALBUM_LIST+"?client_id="+BuildConfig.JAMENDO_API_KEY+"&imagesize="+IMAGESIZE+"&format=jsonpretty";
-        CustomJSONObject artistRequest = new CustomJSONObject(Request.Method.GET, url, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {//revisar
-                        try {
-                            JSONArray results = response.getJSONArray("results");
-                            Type list = new TypeToken<ArrayList<Album>>(){}.getType();
-                            List<Album> albumRequest = gson.fromJson(String.valueOf(results), list);
-                            callback.onSuccess(albumRequest);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+        String url = BuildConfig.ARTIST_LIST+"?client_id="+BuildConfig.JAMENDO_API_KEY+"&imagesize="+IMAGESIZE+"&format=jsonpretty&limit=all";
+        CustomJSONObject artistsRequest = new CustomJSONObject(Request.Method.GET, url, null,
+                response -> {
+                    try {
+                        JSONArray results = response.getJSONArray("results");
+                        Type list = new TypeToken<ArrayList<Artist>>(){}.getType();
+                        List<Artist> artistRequest = gson.fromJson(String.valueOf(results), list);
+                        callback.onArtistSuccess(artistRequest);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("ERROR", "onErrorResponse: "+error);
-            }
-        });
-        RequestManager.getInstance().addToRequestQueue(context, artistRequest);
+                }, error -> Log.e("ERROR", "onErrorResponse: "+error));
+        RequestManager.getInstance().addToRequestQueue(context, artistsRequest);
     }
 
     ////////////////////////////////////METODOS RELACIONADOS CON LAS LISTAS DE REPRODUCCION\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
-    public void getPlayLists(Context context, VolleyCallback callback) {
+    public void getPlayLists(Context context, FragmentPlayLists.PlaylistsCallback callback) {
 
-        String url = BuildConfig.PLAYLIST_LIST+"?client_id="+BuildConfig.JAMENDO_API_KEY;
-        CustomJSONObject playlistRequest = new CustomJSONObject(Request.Method.GET, url, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-
+        //El API no ofrece imágenes de las playlist, debido a esto la foto de la playlist será la de la primera canción
+        String url = BuildConfig.PLAYLIST_LIST+"?client_id="+BuildConfig.JAMENDO_API_KEY+"&format=jsonpretty&limit=all";
+        CustomJSONObject playlistsRequest = new CustomJSONObject(Request.Method.GET, url, null,
+                response -> {
+                    try {
+                        JSONArray results = response.getJSONArray("results");
+                        Type list = new TypeToken<ArrayList<PlayList>>(){}.getType();
+                        List<PlayList> playlistRequest = gson.fromJson(String.valueOf(results), list);
+                        callback.onPlaylistsSuccess(playlistRequest);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("ERROR", "onErrorResponse: "+error);
-            }
-        });
-        RequestManager.getInstance().addToRequestQueue(context, playlistRequest);
+                }, error -> Log.e("ERROR", "onErrorResponse: "+error));
+        RequestManager.getInstance().addToRequestQueue(context, playlistsRequest);
     }
 }

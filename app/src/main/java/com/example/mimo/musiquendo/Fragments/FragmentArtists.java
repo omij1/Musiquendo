@@ -3,24 +3,47 @@ package com.example.mimo.musiquendo.Fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.example.mimo.musiquendo.Adapters.ArtistAdapter;
 import com.example.mimo.musiquendo.Model.Artist;
 import com.example.mimo.musiquendo.Model.Categories;
+import com.example.mimo.musiquendo.Provider.JamendoProvider;
 import com.example.mimo.musiquendo.R;
 
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * fragmento que muestra la colección de artistas en la pantalla principal
  */
 
-public class FragmentArtists extends Fragment {
+public class FragmentArtists extends Fragment implements ArtistAdapter.OnItemClickListener{
 
+    @BindView(R.id.artists_list)
+    RecyclerView artists;
+    @BindView(R.id.refresh_artists_list)
+    SwipeRefreshLayout refresh;
     private static final String TYPE = "FragmentType";
     private List<Artist> artistList;
+    private ArtistAdapter artistAdapter;
+    private Categories category;
+    private JamendoProvider jamendo;
+
+    /**
+     * Interfaz que contiene el callback que se ejecuta cuando se reciben los datos de internet
+     */
+    public interface ArtistsCallback {
+        void onArtistSuccess(List<Artist> artists);
+    }
 
     /**
      * Función que crea un nuevo fragmento con el identificador de la categoría a la que pertenece
@@ -41,13 +64,48 @@ public class FragmentArtists extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        String key = getArguments() != null ? getArguments().getString(TYPE) : "";
+        category = Categories.fromKey(key);
+        jamendo = new JamendoProvider();
+        jamendo.getArtistList(getContext(), artistsResponse -> {
+            artistList = artistsResponse;
+            loadContent();
+        });
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_artists, container, false);
+        ButterKnife.bind(this, view);
+        refresh.setColorSchemeColors(getResources().getColor(R.color.colorPrimary),
+                getResources().getColor(R.color.colorPrimaryDark), getResources().getColor(R.color.colorAccent));
+        refresh.setOnRefreshListener(() -> jamendo.getArtistList(getContext(), new ArtistsCallback() {
+            @Override
+            public void onArtistSuccess(List<Artist> artistsResponse) {
+                artistAdapter.swapItems(artistsResponse);
+                refresh.setRefreshing(false);
+            }
+        }));
 
         return view;
+    }
+
+    @Override
+    public void onArtistClick(View view, Artist artist) {
+        FragmentActivity activity = getActivity();
+        if (activity == null){
+            return;
+        }
+        Toast.makeText(getContext(), "hola", Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * Método que se ejecuta cuando volley obtiene los datos del API
+     */
+    private void loadContent() {
+
+        artistAdapter = new ArtistAdapter(artistList, this);
+        artists.setAdapter(artistAdapter);
     }
 }

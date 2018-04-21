@@ -19,11 +19,22 @@ import butterknife.ButterKnife;
 
 public class PlayListAdapter extends RecyclerView.Adapter<PlayListAdapter.ViewHolder> {
 
-    interface OnItemClickListener {
-        void onItemClick(View view, PlayList playList);
+    public interface OnItemClickListener {
+        void onPlayListClick(View view, PlayList playList);
     }
 
     private List<PlayList> playLists;
+    private final OnItemClickListener listener;
+
+    public PlayListAdapter(List<PlayList> playLists, OnItemClickListener listener) {
+        this.playLists = playLists;
+        this.listener = listener;
+    }
+
+    public void swapItems(List<PlayList> items) {
+        this.playLists = items;
+        notifyDataSetChanged();
+    }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -34,7 +45,7 @@ public class PlayListAdapter extends RecyclerView.Adapter<PlayListAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.bind(playLists.get(position), null);
+        holder.bind(playLists.get(position), listener);
     }
 
     @Override
@@ -51,7 +62,8 @@ public class PlayListAdapter extends RecyclerView.Adapter<PlayListAdapter.ViewHo
             ButterKnife.bind(this, itemView);
         }
 
-        public void bind(PlayList playList, Object o) {
+        public void bind(PlayList playList, OnItemClickListener listener) {
+
         }
     }
 }

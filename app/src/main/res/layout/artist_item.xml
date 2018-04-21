@@ -1,40 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:background="@color/backgroundColor">
+    app:cardElevation="4dp"
+    app:cardCornerRadius="5dp"
+    app:cardUseCompatPadding="true">
 
-    <ImageView
-        android:id="@+id/artist_item_image"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="0.25"
-        style="@style/ArtistItemImage"
-        tools:src="@mipmap/ic_launcher"/>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <RelativeLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="0.75">
-
-        <TextView
-            android:id="@+id/artist_item_name"
+        <ImageView
+            android:id="@+id/artist_item_image"
+            style="@style/ArtistItemImage"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/ArtistItemName"/>
+            android:layout_height="170dp"
+            android:scaleType="centerCrop"
+            tools:src="@mipmap/ic_launcher" />
 
-        <TextView
-            android:id="@+id/artist_item_joindate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_below="@id/artist_item_name"
-            style="@style/ArtistItemJoinDate"/>
+    </FrameLayout>
 
-    </RelativeLayout>
+    <TextView
+        android:id="@+id/artist_item_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="bottom"
+        android:maxLines="1"
+        android:textStyle="bold"
+        android:textSize="22sp"
+        android:alpha="0.80"
+        android:background="@color/colorAccent"/>
 
 
-</LinearLayout>
+</android.support.v7.widget.CardView>
