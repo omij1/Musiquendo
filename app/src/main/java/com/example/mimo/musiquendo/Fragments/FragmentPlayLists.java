@@ -67,12 +67,8 @@ public class FragmentPlayLists extends Fragment implements PlayListAdapter.OnIte
         category = Categories.fromKey(key);
         jamendo = new JamendoProvider();
         jamendo.getPlayLists(getContext(), playListResponse -> {
-            /*Despues de obtener las listas de reproducción hay que coger de cada una su foto de portada ya que el api no la proporciona.
-            Para esto se debe realizar una petición por cada lista y coger la foto de su primera canción.*/
-            jamendo.getALbumCover(getContext(), playListResponse, playListWithCover -> {
-                playlistsList = playListWithCover;
-                loadContent();
-            });
+            playlistsList = playListResponse;
+            loadContent();
         });
     }
 
@@ -85,10 +81,8 @@ public class FragmentPlayLists extends Fragment implements PlayListAdapter.OnIte
         refresh.setColorSchemeColors(getResources().getColor(R.color.colorPrimary),
                 getResources().getColor(R.color.colorPrimaryDark), getResources().getColor(R.color.colorAccent));
         refresh.setOnRefreshListener(() -> jamendo.getPlayLists(getContext(), playListResponse -> {
-            jamendo.getALbumCover(getContext(), playListResponse, playListWithCover -> {
-                playListAdapter.swapItems(playListWithCover);
-                refresh.setRefreshing(false);
-            });
+            playListAdapter.swapItems(playListResponse);
+            refresh.setRefreshing(false);
         }));
 
         return view;
@@ -100,6 +94,11 @@ public class FragmentPlayLists extends Fragment implements PlayListAdapter.OnIte
         if (activity == null){
             return;
         }
+
+    }
+
+    @Override
+    public void onDownloadItemClick(PlayList playList) {
 
     }
 

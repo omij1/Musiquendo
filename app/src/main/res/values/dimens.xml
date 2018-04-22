@@ -16,4 +16,6 @@
     <dimen name="artist_item_creation">16sp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="artist_item_image">170dp</dimen>
+    <dimen name="playlist_item_image_height">100dp</dimen>
+    <dimen name="playlist_item_name">24sp</dimen>
 </resources>
