@@ -13,6 +13,7 @@
     <dimen name="album_item_autor">11sp</dimen>
     <dimen name="artist_item_image_padding">7dp</dimen>
     <dimen name="artist_item_name">22sp</dimen>
-    <dimen name="artist_item_joindate">16sp</dimen>
+    <dimen name="artist_item_creation">16sp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="artist_item_image">170dp</dimen>
 </resources>

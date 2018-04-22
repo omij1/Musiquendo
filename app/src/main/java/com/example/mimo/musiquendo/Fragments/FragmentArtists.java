@@ -9,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.mimo.musiquendo.Adapters.ArtistAdapter;
 import com.example.mimo.musiquendo.Model.Artist;
@@ -58,8 +57,7 @@ public class FragmentArtists extends Fragment implements ArtistAdapter.OnItemCli
         return fragment;
     }
 
-    public FragmentArtists() {
-    }
+    public FragmentArtists() {}
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -97,7 +95,7 @@ public class FragmentArtists extends Fragment implements ArtistAdapter.OnItemCli
         if (activity == null){
             return;
         }
-        Toast.makeText(getContext(), "hola", Toast.LENGTH_SHORT).show();
+
     }
 
     /**

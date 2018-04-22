@@ -8,4 +8,14 @@
     tools:context=".Activities.LibraryActivity"
     android:background="@color/backgroundColor">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_library"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:navigationIcon="@drawable/ic_arrow_back"
+        app:layout_scrollFlags="scroll|enterAlways|snap"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
 </android.support.constraint.ConstraintLayout>

@@ -9,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.mimo.musiquendo.Adapters.PlayListAdapter;
 import com.example.mimo.musiquendo.Model.Categories;
@@ -42,6 +41,10 @@ public class FragmentPlayLists extends Fragment implements PlayListAdapter.OnIte
         void onPlaylistsSuccess(List<PlayList> playListList);
     }
 
+    public interface CoverCallback {
+        void onCoversSuccess(List<PlayList> playListsWithCover);
+    }
+
     /**
      * Función que crea un nuevo fragmento con el identificador de la categoría a la que pertenece
      * @param category Categoría a la que pertenece el fragmento
@@ -55,8 +58,7 @@ public class FragmentPlayLists extends Fragment implements PlayListAdapter.OnIte
         return fragment;
     }
 
-    public FragmentPlayLists() {
-    }
+    public FragmentPlayLists() {}
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,12 +66,13 @@ public class FragmentPlayLists extends Fragment implements PlayListAdapter.OnIte
         String key = getArguments() != null ? getArguments().getString(TYPE) : "";
         category = Categories.fromKey(key);
         jamendo = new JamendoProvider();
-        jamendo.getPlayLists(getContext(), new PlaylistsCallback() {
-            @Override
-            public void onPlaylistsSuccess(List<PlayList> playListResponse) {
-                playlistsList = playListResponse;
+        jamendo.getPlayLists(getContext(), playListResponse -> {
+            /*Despues de obtener las listas de reproducción hay que coger de cada una su foto de portada ya que el api no la proporciona.
+            Para esto se debe realizar una petición por cada lista y coger la foto de su primera canción.*/
+            jamendo.getALbumCover(getContext(), playListResponse, playListWithCover -> {
+                playlistsList = playListWithCover;
                 loadContent();
-            }
+            });
         });
     }
 
@@ -78,16 +81,18 @@ public class FragmentPlayLists extends Fragment implements PlayListAdapter.OnIte
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_playlists, container, false);
         ButterKnife.bind(this, view);
+        playLists.addItemDecoration(new PaddingItemDecorator(3));
         refresh.setColorSchemeColors(getResources().getColor(R.color.colorPrimary),
                 getResources().getColor(R.color.colorPrimaryDark), getResources().getColor(R.color.colorAccent));
         refresh.setOnRefreshListener(() -> jamendo.getPlayLists(getContext(), playListResponse -> {
-            playListAdapter.swapItems(playListResponse);
-            refresh.setRefreshing(false);
+            jamendo.getALbumCover(getContext(), playListResponse, playListWithCover -> {
+                playListAdapter.swapItems(playListWithCover);
+                refresh.setRefreshing(false);
+            });
         }));
 
         return view;
     }
-
 
     @Override
     public void onPlayListClick(View view, PlayList playList) {
@@ -95,7 +100,7 @@ public class FragmentPlayLists extends Fragment implements PlayListAdapter.OnIte
         if (activity == null){
             return;
         }
-        Toast.makeText(getContext(), "hola", Toast.LENGTH_SHORT).show();
+
     }
 
     /**

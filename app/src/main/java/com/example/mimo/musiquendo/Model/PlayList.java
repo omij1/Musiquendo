@@ -20,14 +20,16 @@ public class PlayList {
     private String user_name;
     @SerializedName("zip")
     private String zip;
+    private String cover;
 
-    public PlayList(String id, String name, String creation, String user_id, String user_name, String zip) {
+    public PlayList(String id, String name, String creation, String user_id, String user_name, String zip, String cover) {
         this.id = id;
         this.name = name;
         this.creation = creation;
         this.user_id = user_id;
         this.user_name = user_name;
         this.zip = zip;
+        this.cover = cover;
     }
 
     public String getId() {
@@ -76,5 +78,13 @@ public class PlayList {
 
     public void setZip(String zip) {
         this.zip = zip;
+    }
+
+    public String getCover() {
+        return cover;
+    }
+
+    public void setCover(String cover) {
+        this.cover = cover;
     }
 }

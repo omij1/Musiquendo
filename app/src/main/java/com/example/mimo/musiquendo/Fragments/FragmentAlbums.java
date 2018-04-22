@@ -9,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.mimo.musiquendo.Adapters.AlbumAdapter;
 import com.example.mimo.musiquendo.Model.Album;
@@ -60,8 +59,7 @@ public class FragmentAlbums extends Fragment implements AlbumAdapter.OnItemClick
         return fragment;
     }
 
-    public FragmentAlbums() {
-    }
+    public FragmentAlbums() {}
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -82,12 +80,9 @@ public class FragmentAlbums extends Fragment implements AlbumAdapter.OnItemClick
         ButterKnife.bind(this, view);
         refresh.setColorSchemeColors(getResources().getColor(R.color.colorPrimary),
                 getResources().getColor(R.color.colorPrimaryDark), getResources().getColor(R.color.colorAccent));
-        refresh.setOnRefreshListener(() -> jamendo.getAlbumList(getContext(), new AlbumsCallback() {
-            @Override
-            public void onAlbumsSuccess(List<Album> albumsResponse) {
-                albumAdapter.swapItems(albumsResponse);
-                refresh.setRefreshing(false);
-            }
+        refresh.setOnRefreshListener(() -> jamendo.getAlbumList(getContext(), albumsResponse -> {
+            albumAdapter.swapItems(albumsResponse);
+            refresh.setRefreshing(false);
         }));
         return view;
     }
@@ -98,7 +93,7 @@ public class FragmentAlbums extends Fragment implements AlbumAdapter.OnItemClick
         if (activity == null){
             return;
         }
-        Toast.makeText(getContext(), "hola", Toast.LENGTH_SHORT).show();
+
     }
 
     /**

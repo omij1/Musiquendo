@@ -34,6 +34,10 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ViewHolder
         this.listener = listener;
     }
 
+    /**
+     * Método que permite actualizar el contenido del recycler view
+     * @param items Nuevos elementos que deben mostrarse
+     */
     public void swapItems(List<Artist> items) {
         this.artists = items;
         notifyDataSetChanged();

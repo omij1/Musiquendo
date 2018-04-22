@@ -34,6 +34,10 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
         this.listener = listener;
     }
 
+    /**
+     * Método que permite actualizar el contenido del recycler view
+     * @param items Nuevos elementos que deben mostrarse
+     */
     public void swapItems(List<Album> items) {
         this.albums = items;
         notifyDataSetChanged();
