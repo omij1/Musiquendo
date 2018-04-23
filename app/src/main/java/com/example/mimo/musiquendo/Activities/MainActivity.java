@@ -12,6 +12,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -51,7 +52,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         pager.setAdapter(adapter);
         pager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabs));
         tabs.setupWithViewPager(pager);
-        fragmentCommunicator = (FragmentCommunicator) adapter.getItem(pager.getCurrentItem());
 
         NavigationView navigationView = findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -73,7 +73,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                fragmentCommunicator.startSearch(query);
+                /*Instancio el fragmentCommunicator cada vez que se busca porque puedo estar en tres
+                fragmentos diferentes. A lo mejor la primera búsqueda es de álbumes y la siguiente de artistas
+                por lo que hay que cambiar el fragmento al que se debe llamar*/
+                fragmentCommunicator = (FragmentCommunicator) adapter.getCurrentFragment(pager.getCurrentItem());
+                if (fragmentCommunicator != null)
+                    fragmentCommunicator.startSearch(query);
                 return false;
             }
 

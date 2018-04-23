@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.mimo.musiquendo.Activities.MainActivity;
 import com.example.mimo.musiquendo.Adapters.PlayListAdapter;
 import com.example.mimo.musiquendo.Model.Categories;
 import com.example.mimo.musiquendo.Model.PlayList;
@@ -25,7 +26,8 @@ import butterknife.ButterKnife;
  * Fragmento que muestra la colección de listas de reproducción en la pantalla principal
  */
 
-public class FragmentPlayLists extends Fragment implements PlayListAdapter.OnItemClickListener{
+public class FragmentPlayLists extends Fragment implements PlayListAdapter.OnItemClickListener,
+        MainActivity.FragmentCommunicator {
 
     @BindView(R.id.playlists_list)
     RecyclerView playLists;
@@ -96,6 +98,17 @@ public class FragmentPlayLists extends Fragment implements PlayListAdapter.OnIte
     @Override
     public void onDownloadItemClick(PlayList playList) {
 
+    }
+
+    @Override
+    public void startSearch(String search) {
+        String formattedSearch = search.replaceAll(" ", "%20");
+        jamendo.searchPlayList(formattedSearch, playListListSearch -> playListAdapter.swapItems(playListListSearch));
+    }
+
+    @Override
+    public void finishSearch() {
+        playListAdapter.swapItems(playlistsList);
     }
 
     /**

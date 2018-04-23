@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.mimo.musiquendo.Activities.MainActivity;
 import com.example.mimo.musiquendo.Adapters.ArtistAdapter;
 import com.example.mimo.musiquendo.Model.Artist;
 import com.example.mimo.musiquendo.Model.Categories;
@@ -25,7 +26,8 @@ import butterknife.ButterKnife;
  * fragmento que muestra la colección de artistas en la pantalla principal
  */
 
-public class FragmentArtists extends Fragment implements ArtistAdapter.OnItemClickListener{
+public class FragmentArtists extends Fragment implements ArtistAdapter.OnItemClickListener,
+        MainActivity.FragmentCommunicator {
 
     @BindView(R.id.artists_list)
     RecyclerView artists;
@@ -96,6 +98,17 @@ public class FragmentArtists extends Fragment implements ArtistAdapter.OnItemCli
             return;
         }
 
+    }
+
+    @Override
+    public void startSearch(String search) {
+        String formattedSearch = search.replaceAll(" ", "%20");
+        jamendo.searchArtist(formattedSearch, artistsSearch -> artistAdapter.swapItems(artistsSearch));
+    }
+
+    @Override
+    public void finishSearch() {
+        artistAdapter.swapItems(artistList);
     }
 
     /**

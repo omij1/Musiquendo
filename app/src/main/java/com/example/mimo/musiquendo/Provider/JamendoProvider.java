@@ -70,6 +70,12 @@ public class JamendoProvider {
         RequestManager.getInstance().addToRequestQueue(context, albumsRequest);
     }
 
+
+    /**
+     * Método que permite buscar álbumes por su nombre
+     * @param query El nombre del álbum que se quiere buscar
+     * @param callback Callback que se ejecuta cuando se obtienen y parsean los datos
+     */
     public void searchAlbum(String query, FragmentAlbums.AlbumsCallback callback) {
 
         String url = BuildConfig.ALBUM_LIST+"?client_id="+BuildConfig.JAMENDO_API_KEY+"&imagesize="+
@@ -114,6 +120,32 @@ public class JamendoProvider {
         RequestManager.getInstance().addToRequestQueue(context, artistsRequest);
     }
 
+
+    /**
+     * Método que permite buscar artistas por su nombre
+     * @param query El nombre del artista que se quiere buscar
+     * @param callback Callback que se ejecuta cuando se obtienen y parsean los datos
+     */
+    public void searchArtist(String query, FragmentArtists.ArtistsCallback callback) {
+
+        String url = BuildConfig.ARTIST_LIST+"?client_id="+BuildConfig.JAMENDO_API_KEY+"&imagesize="+
+                IMAGESIZE+"&format=jsonpretty&namesearch="+query;
+        CustomJSONObject search = new CustomJSONObject(Request.Method.GET, url, null,
+                response -> {
+                    try {
+                        JSONArray results = response.getJSONArray("results");
+                        Type list = new TypeToken<ArrayList<Artist>>(){}.getType();
+                        List<Artist> artistRequest = gson.fromJson(String.valueOf(results), list);
+                        callback.onArtistSuccess(artistRequest);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }, error -> {
+                    Log.e("ERROR", "onErrorResponse: "+error);
+                });
+        RequestManager.getInstance().addToRequestQueue(context,search);
+    }
+
     ////////////////////////////////////METODOS RELACIONADOS CON LAS LISTAS DE REPRODUCCION\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
     /**
@@ -123,7 +155,8 @@ public class JamendoProvider {
     public void getPlayLists(FragmentPlayLists.PlaylistsCallback callback) {
 
         //El API no ofrece imágenes de las playlist, debido a esto la foto de la playlist será la de la primera canción
-        String url = BuildConfig.PLAYLIST_LIST+"?client_id="+BuildConfig.JAMENDO_API_KEY+"&format=jsonpretty&limit=all";
+        String url = BuildConfig.PLAYLIST_LIST+"?client_id="+BuildConfig.JAMENDO_API_KEY+
+                "&format=jsonpretty&limit=all";
         CustomJSONObject playlistsRequest = new CustomJSONObject(Request.Method.GET, url, null,
                 response -> {
                     try {
@@ -137,6 +170,29 @@ public class JamendoProvider {
                 }, error -> Log.e("ERROR", "onErrorResponse: "+error));
         RequestManager.getInstance().addToRequestQueue(context, playlistsRequest);
     }
+
+
+    /**
+     * Método que permite buscar listas de reproducción por su nombre
+     * @param query El nombre de la lista que se desea buscar
+     * @param callback Callback que se ejecuta cuando se obtienen y parsean los datos
+     */
+    public void searchPlayList(String query, FragmentPlayLists.PlaylistsCallback callback) {
+        String url = BuildConfig.PLAYLIST_LIST+"?client_id="+BuildConfig.JAMENDO_API_KEY+
+                "&format=jsonpretty&namesearch="+query;
+        CustomJSONObject search = new CustomJSONObject(Request.Method.GET, url, null, response -> {
+            try {
+                JSONArray results = response.getJSONArray("results");
+                Type list = new TypeToken<ArrayList<PlayList>>(){}.getType();
+                List<PlayList> playlistRequest = gson.fromJson(String.valueOf(results), list);
+                callback.onPlaylistsSuccess(playlistRequest);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }, error -> Log.e("ERROR", "onErrorResponse: "+error));
+        RequestManager.getInstance().addToRequestQueue(context, search);
+    }
+
 
     /**
      * Método que obtiene las portadas de las listas de reproducción que se corresponden con la portada de la primera canción

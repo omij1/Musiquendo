@@ -78,7 +78,6 @@ public class FragmentAlbums extends Fragment implements AlbumAdapter.OnItemClick
         jamendo = new JamendoProvider(getContext());
         jamendo.getAlbumList(albumsResponse -> {
             albumList = albumsResponse;
-            Log.d("FRAGMENTALBUMS", "onCreate: callback");
             loadContent();
         });
     }
@@ -92,7 +91,7 @@ public class FragmentAlbums extends Fragment implements AlbumAdapter.OnItemClick
                 getResources().getColor(R.color.colorPrimaryDark), getResources().getColor(R.color.colorAccent));
         refresh.setOnRefreshListener(() -> jamendo.getAlbumList(albumsResponse -> {
             albumAdapter.swapItems(albumsResponse);
-            refresh.setRefreshing(false);Log.d("FRAGMENTALBUMS", "onCreate: callback");
+            refresh.setRefreshing(false);
         }));
         return view;
     }
@@ -113,11 +112,10 @@ public class FragmentAlbums extends Fragment implements AlbumAdapter.OnItemClick
 
     @Override
     public void startSearch(String search) {
-        jamendo.searchAlbum(search, albumsSearch -> {
-            Log.d("FRAGMENTALBUMS", "onCreate: callback");
+        String formattedSearch = search.replaceAll(" ", "%20");
+        jamendo.searchAlbum(formattedSearch, albumsSearch -> {
             albumAdapter.swapItems(albumsSearch);
         });
-
     }
 
     @Override
