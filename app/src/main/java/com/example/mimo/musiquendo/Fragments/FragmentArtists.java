@@ -64,8 +64,8 @@ public class FragmentArtists extends Fragment implements ArtistAdapter.OnItemCli
         super.onCreate(savedInstanceState);
         String key = getArguments() != null ? getArguments().getString(TYPE) : "";
         category = Categories.fromKey(key);
-        jamendo = new JamendoProvider();
-        jamendo.getArtistList(getContext(), artistsResponse -> {
+        jamendo = new JamendoProvider(getContext());
+        jamendo.getArtistList(artistsResponse -> {
             artistList = artistsResponse;
             loadContent();
         });
@@ -78,7 +78,7 @@ public class FragmentArtists extends Fragment implements ArtistAdapter.OnItemCli
         ButterKnife.bind(this, view);
         refresh.setColorSchemeColors(getResources().getColor(R.color.colorPrimary),
                 getResources().getColor(R.color.colorPrimaryDark), getResources().getColor(R.color.colorAccent));
-        refresh.setOnRefreshListener(() -> jamendo.getArtistList(getContext(), new ArtistsCallback() {
+        refresh.setOnRefreshListener(() -> jamendo.getArtistList( new ArtistsCallback() {
             @Override
             public void onArtistSuccess(List<Artist> artistsResponse) {
                 artistAdapter.swapItems(artistsResponse);

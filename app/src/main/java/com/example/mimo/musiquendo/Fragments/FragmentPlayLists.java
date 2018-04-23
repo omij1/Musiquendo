@@ -41,10 +41,6 @@ public class FragmentPlayLists extends Fragment implements PlayListAdapter.OnIte
         void onPlaylistsSuccess(List<PlayList> playListList);
     }
 
-    public interface CoverCallback {
-        void onCoversSuccess(List<PlayList> playListsWithCover);
-    }
-
     /**
      * Función que crea un nuevo fragmento con el identificador de la categoría a la que pertenece
      * @param category Categoría a la que pertenece el fragmento
@@ -65,8 +61,8 @@ public class FragmentPlayLists extends Fragment implements PlayListAdapter.OnIte
         super.onCreate(savedInstanceState);
         String key = getArguments() != null ? getArguments().getString(TYPE) : "";
         category = Categories.fromKey(key);
-        jamendo = new JamendoProvider();
-        jamendo.getPlayLists(getContext(), playListResponse -> {
+        jamendo = new JamendoProvider(getContext());
+        jamendo.getPlayLists(playListResponse -> {
             playlistsList = playListResponse;
             loadContent();
         });
@@ -80,7 +76,7 @@ public class FragmentPlayLists extends Fragment implements PlayListAdapter.OnIte
         playLists.addItemDecoration(new PaddingItemDecorator(3));
         refresh.setColorSchemeColors(getResources().getColor(R.color.colorPrimary),
                 getResources().getColor(R.color.colorPrimaryDark), getResources().getColor(R.color.colorAccent));
-        refresh.setOnRefreshListener(() -> jamendo.getPlayLists(getContext(), playListResponse -> {
+        refresh.setOnRefreshListener(() -> jamendo.getPlayLists(playListResponse -> {
             playListAdapter.swapItems(playListResponse);
             refresh.setRefreshing(false);
         }));

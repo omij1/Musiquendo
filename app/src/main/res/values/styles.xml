@@ -29,6 +29,10 @@
         <item name="android:layout_marginRight">@dimen/activity_horizontal_margin</item>
     </style>
 
+    <style name="AlbumItemImage">
+        <item name="android:scaleType">centerCrop</item>
+    </style>
+
     <style name="AlbumItemName">
         <item name="android:gravity">center</item>
         <item name="android:layout_below">@id/album_item_image</item>

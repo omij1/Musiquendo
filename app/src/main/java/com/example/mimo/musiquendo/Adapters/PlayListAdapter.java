@@ -4,7 +4,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,7 +16,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * Adaptador que rellena el RecyclerView de las listas de reproducción
@@ -36,12 +34,10 @@ public class PlayListAdapter extends RecyclerView.Adapter<PlayListAdapter.ViewHo
 
     private List<PlayList> playLists;
     private final OnItemClickListener listener;
-    private static JamendoProvider jamendo;
 
     public PlayListAdapter(List<PlayList> playLists, OnItemClickListener listener) {
         this.playLists = playLists;
         this.listener = listener;
-        jamendo = new JamendoProvider();
     }
 
     /**
@@ -87,6 +83,9 @@ public class PlayListAdapter extends RecyclerView.Adapter<PlayListAdapter.ViewHo
         }
 
         public void bind(PlayList playList, OnItemClickListener listener) {
+
+            JamendoProvider jamendo = new JamendoProvider(itemView.getContext());
+
             playListName.setText(playList.getName());
             playListCreation.setText(playList.getCreation());
 
@@ -100,7 +99,7 @@ public class PlayListAdapter extends RecyclerView.Adapter<PlayListAdapter.ViewHo
             Opción dos obtener las listas de reproducción y que los datos se carguen rápido en el recycler y posteriormente según el usuario va haciendo
             scroll que se vayan cogiendo las imágenes. De esta forma no hay retardo y no se penaliza el rendimiento de la aplicación.*/
 
-            jamendo.getALbumCover(itemView.getContext(), playList, playlistWithCover -> {
+            jamendo.getALbumCover(playList, playlistWithCover -> {
                 if (!playlistWithCover.getCover().equals("")){
                     Picasso.get().load(playlistWithCover.getCover()).into(playListImage);
                 }

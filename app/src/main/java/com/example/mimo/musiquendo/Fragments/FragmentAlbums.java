@@ -1,15 +1,22 @@
 package com.example.mimo.musiquendo.Fragments;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.mimo.musiquendo.Activities.AlbumActivity;
+import com.example.mimo.musiquendo.Activities.MainActivity;
 import com.example.mimo.musiquendo.Adapters.AlbumAdapter;
 import com.example.mimo.musiquendo.Model.Album;
 import com.example.mimo.musiquendo.Model.Categories;
@@ -26,7 +33,8 @@ import butterknife.ButterKnife;
  * Fragmento que muestra la colección de álbumes en la pantalla principal
  */
 
-public class FragmentAlbums extends Fragment implements AlbumAdapter.OnItemClickListener {
+public class FragmentAlbums extends Fragment implements AlbumAdapter.OnItemClickListener,
+        MainActivity.FragmentCommunicator {
 
     @BindView(R.id.albums_list)
     RecyclerView albums;
@@ -61,14 +69,16 @@ public class FragmentAlbums extends Fragment implements AlbumAdapter.OnItemClick
 
     public FragmentAlbums() {}
 
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         String key = getArguments() != null ? getArguments().getString(TYPE) : "";
         category = Categories.fromKey(key);
-        jamendo = new JamendoProvider();
-        jamendo.getAlbumList(getContext(), albumsResponse -> {
+        jamendo = new JamendoProvider(getContext());
+        jamendo.getAlbumList(albumsResponse -> {
             albumList = albumsResponse;
+            Log.d("FRAGMENTALBUMS", "onCreate: callback");
             loadContent();
         });
     }
@@ -80,9 +90,9 @@ public class FragmentAlbums extends Fragment implements AlbumAdapter.OnItemClick
         ButterKnife.bind(this, view);
         refresh.setColorSchemeColors(getResources().getColor(R.color.colorPrimary),
                 getResources().getColor(R.color.colorPrimaryDark), getResources().getColor(R.color.colorAccent));
-        refresh.setOnRefreshListener(() -> jamendo.getAlbumList(getContext(), albumsResponse -> {
+        refresh.setOnRefreshListener(() -> jamendo.getAlbumList(albumsResponse -> {
             albumAdapter.swapItems(albumsResponse);
-            refresh.setRefreshing(false);
+            refresh.setRefreshing(false);Log.d("FRAGMENTALBUMS", "onCreate: callback");
         }));
         return view;
     }
@@ -93,7 +103,26 @@ public class FragmentAlbums extends Fragment implements AlbumAdapter.OnItemClick
         if (activity == null){
             return;
         }
+        Intent albumDetail = new Intent(getContext(), AlbumActivity.class);
 
+        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                activity,view.findViewById(R.id.album_item_image),getString(R.string.image_transition)
+        );
+        ActivityCompat.startActivity(activity, albumDetail, options.toBundle());
+    }
+
+    @Override
+    public void startSearch(String search) {
+        jamendo.searchAlbum(search, albumsSearch -> {
+            Log.d("FRAGMENTALBUMS", "onCreate: callback");
+            albumAdapter.swapItems(albumsSearch);
+        });
+
+    }
+
+    @Override
+    public void finishSearch() {
+        albumAdapter.swapItems(albumList);
     }
 
     /**
