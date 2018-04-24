@@ -7,6 +7,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import android.view.ViewGroup;
 import com.example.mimo.musiquendo.Activities.MainActivity;
 import com.example.mimo.musiquendo.Activities.PlayListActivity;
 import com.example.mimo.musiquendo.Adapters.PlayListAdapter;
+import com.example.mimo.musiquendo.Dialogs.SimpleDialog;
 import com.example.mimo.musiquendo.Model.Categories;
 import com.example.mimo.musiquendo.Model.PlayList;
 import com.example.mimo.musiquendo.Provider.JamendoProvider;
@@ -116,7 +118,7 @@ public class FragmentPlayLists extends Fragment implements PlayListAdapter.OnIte
     @Override
     public void startSearch(String search) {
         String formattedSearch = search.replaceAll(" ", "%20");
-        jamendo.searchPlayList(formattedSearch, playListListSearch -> playListAdapter.swapItems(playListListSearch));
+        jamendo.searchPlayList(formattedSearch, playListListSearch -> playListAdapter.swapItems(playListListSearch), () -> callDialog());
     }
 
     @Override
@@ -152,7 +154,7 @@ public class FragmentPlayLists extends Fragment implements PlayListAdapter.OnIte
      * @param filter Filtro que se va a aplicar
      */
     private void filterPlaylist(String filter){
-        jamendo.filterPlaylists(filter, playlistsFiltered -> playListAdapter.swapItems(playlistsFiltered));
+        jamendo.filterPlaylists(filter, playlistsFiltered -> playListAdapter.swapItems(playlistsFiltered), () -> callDialog());
     }
 
     /**
@@ -161,5 +163,15 @@ public class FragmentPlayLists extends Fragment implements PlayListAdapter.OnIte
     private void loadContent() {
         playListAdapter = new PlayListAdapter(playlistsList, this);
         playLists.setAdapter(playListAdapter);
+    }
+
+    /**
+     * Método que crea un nuevo diálogo
+     */
+    private void callDialog() {
+        String[] dialogContent = getResources().getStringArray(R.array.lost_connection);
+        SimpleDialog dialog = SimpleDialog.newInstance(dialogContent[0], dialogContent[1]);
+        FragmentManager fm = getFragmentManager();
+        dialog.show(fm, TYPE);
     }
 }

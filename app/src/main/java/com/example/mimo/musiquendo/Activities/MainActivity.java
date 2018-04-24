@@ -13,7 +13,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.drawable.DrawerArrowDrawable;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -23,7 +22,7 @@ import com.example.mimo.musiquendo.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -109,8 +108,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return true;
             case R.id.filter:
                 fragmentCommunicator = (FragmentCommunicator) adapter.getCurrentFragment(pager.getCurrentItem());
-                Log.d("MAIN", "onOptionsItemSelected: "+adapter.getCurrentFragments());
-                    fragmentCommunicator.showMenu();
+                    if (fragmentCommunicator != null)
+                        fragmentCommunicator.showMenu();
                 return true;
             case R.id.biblioteca:
                 drawer.closeDrawers();
@@ -145,5 +144,4 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         return onOptionsItemSelected(item);
     }
-
 }

@@ -8,6 +8,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import android.view.ViewGroup;
 import com.example.mimo.musiquendo.Activities.ArtistActivity;
 import com.example.mimo.musiquendo.Activities.MainActivity;
 import com.example.mimo.musiquendo.Adapters.ArtistAdapter;
+import com.example.mimo.musiquendo.Dialogs.SimpleDialog;
 import com.example.mimo.musiquendo.Model.Artist;
 import com.example.mimo.musiquendo.Model.Categories;
 import com.example.mimo.musiquendo.Provider.JamendoProvider;
@@ -83,6 +85,7 @@ public class FragmentArtists extends Fragment implements ArtistAdapter.OnItemCli
         });
     }
 
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -90,12 +93,9 @@ public class FragmentArtists extends Fragment implements ArtistAdapter.OnItemCli
         ButterKnife.bind(this, view);
         refresh.setColorSchemeColors(getResources().getColor(R.color.colorPrimary),
                 getResources().getColor(R.color.colorPrimaryDark), getResources().getColor(R.color.colorAccent));
-        refresh.setOnRefreshListener(() -> jamendo.getArtistList( new ArtistsCallback() {
-            @Override
-            public void onArtistSuccess(List<Artist> artistsResponse) {
-                artistAdapter.swapItems(artistsResponse);
-                refresh.setRefreshing(false);
-            }
+        refresh.setOnRefreshListener(() -> jamendo.getArtistList(artistsResponse -> {
+            artistAdapter.swapItems(artistsResponse);
+            refresh.setRefreshing(false);
         }));
 
         return view;
@@ -118,7 +118,7 @@ public class FragmentArtists extends Fragment implements ArtistAdapter.OnItemCli
     @Override
     public void startSearch(String search) {
         String formattedSearch = search.replaceAll(" ", "%20");
-        jamendo.searchArtist(formattedSearch, artistsSearch -> artistAdapter.swapItems(artistsSearch));
+        jamendo.searchArtist(formattedSearch, artistsSearch -> artistAdapter.swapItems(artistsSearch), () -> callDialog());
     }
 
     @Override
@@ -160,7 +160,7 @@ public class FragmentArtists extends Fragment implements ArtistAdapter.OnItemCli
      * @param filter Filtro que se va a aplicar
      */
     private void filterArtist(String filter){
-        jamendo.filterArtists(filter, artistsFiltered -> artistAdapter.swapItems(artistsFiltered));
+        jamendo.filterArtists(filter, artistsFiltered -> artistAdapter.swapItems(artistsFiltered), () -> callDialog());
     }
 
     /**
@@ -169,5 +169,15 @@ public class FragmentArtists extends Fragment implements ArtistAdapter.OnItemCli
     private void loadContent() {
         artistAdapter = new ArtistAdapter(artistList, this);
         artists.setAdapter(artistAdapter);
+    }
+
+    /**
+     * Método que crea un nuevo diálogo
+     */
+    private void callDialog() {
+        String[] dialogContent = getResources().getStringArray(R.array.lost_connection);
+        SimpleDialog dialog = SimpleDialog.newInstance(dialogContent[0], dialogContent[1]);
+        FragmentManager fm = getFragmentManager();
+        dialog.show(fm, TYPE);
     }
 }

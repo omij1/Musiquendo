@@ -15,6 +15,12 @@
 
     <style name="AppTheme.DarkOverlay" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
+    <style name="SimpleDialog" parent="android:Theme.Material.Dialog.Alert">
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:colorAccent">@color/colorAccent</item>
+    </style>
+
     <style name="DrawerHeaderMainText">
         <item name="android:textColor">@color/menu_text</item>
         <item name="android:textSize">@dimen/header_text_size</item>

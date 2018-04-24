@@ -7,8 +7,10 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +18,7 @@ import android.view.ViewGroup;
 import com.example.mimo.musiquendo.Activities.AlbumActivity;
 import com.example.mimo.musiquendo.Activities.MainActivity;
 import com.example.mimo.musiquendo.Adapters.AlbumAdapter;
+import com.example.mimo.musiquendo.Dialogs.SimpleDialog;
 import com.example.mimo.musiquendo.Model.Album;
 import com.example.mimo.musiquendo.Model.Categories;
 
@@ -81,6 +84,8 @@ public class FragmentAlbums extends Fragment implements AlbumAdapter.OnItemClick
         jamendo.getAlbumList(albumsResponse -> {
             albumList = albumsResponse;
             loadContent();
+        }, () -> {
+            callDialog();
         });
     }
 
@@ -93,6 +98,9 @@ public class FragmentAlbums extends Fragment implements AlbumAdapter.OnItemClick
                 getResources().getColor(R.color.colorPrimaryDark), getResources().getColor(R.color.colorAccent));
         refresh.setOnRefreshListener(() -> jamendo.getAlbumList(albumsResponse -> {
             albumAdapter.swapItems(albumsResponse);
+            refresh.setRefreshing(false);
+        }, () -> {
+            callDialog();
             refresh.setRefreshing(false);
         }));
         return view;
@@ -117,7 +125,7 @@ public class FragmentAlbums extends Fragment implements AlbumAdapter.OnItemClick
         String formattedSearch = search.replaceAll(" ", "%20");
         jamendo.searchAlbum(formattedSearch, albumsSearch -> {
             albumAdapter.swapItems(albumsSearch);
-        });
+        }, () -> callDialog());
     }
 
     @Override
@@ -154,12 +162,13 @@ public class FragmentAlbums extends Fragment implements AlbumAdapter.OnItemClick
         }
     }
 
+
     /**
      * Método que llama a la clase correspondiente para obtener los álbumes filtrados
      * @param filter Filtro que se va a aplicar
      */
     private void filterAlbums(String filter){
-        jamendo.filterAlbums(filter, albumsFiltered -> albumAdapter.swapItems(albumsFiltered));
+        jamendo.filterAlbums(filter, albumsFiltered -> albumAdapter.swapItems(albumsFiltered), () -> callDialog());
     }
 
     /**
@@ -168,5 +177,15 @@ public class FragmentAlbums extends Fragment implements AlbumAdapter.OnItemClick
     private void loadContent() {
         albumAdapter = new AlbumAdapter(albumList, this);
         albums.setAdapter(albumAdapter);
+    }
+
+    /**
+     * Método que crea un nuevo diálogo
+     */
+    private void callDialog() {
+        String[] dialogContent = getResources().getStringArray(R.array.lost_connection);
+        SimpleDialog dialog = SimpleDialog.newInstance(dialogContent[0], dialogContent[1]);
+        FragmentManager fm = getFragmentManager();
+        dialog.show(fm, TYPE);
     }
 }

@@ -6,8 +6,10 @@ import android.util.Log;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.example.mimo.musiquendo.Activities.MainActivity;
 import com.example.mimo.musiquendo.Adapters.PlayListAdapter;
 import com.example.mimo.musiquendo.BuildConfig;
+import com.example.mimo.musiquendo.Dialogs.SimpleDialog;
 import com.example.mimo.musiquendo.Fragments.FragmentAlbums;
 import com.example.mimo.musiquendo.Fragments.FragmentArtists;
 import com.example.mimo.musiquendo.Fragments.FragmentPlayLists;
@@ -46,9 +48,10 @@ public class JamendoProvider {
 
     /**
      * Método que obtiene la lista de álbumes que se muestran en la pestaña albumes
-      * @param callback Callback que se ejecuta cuando se obtienen y parsean los datos
+     * @param callback Callback que se ejecuta cuando se obtienen y parsean los datos
+     * @param errorCallback Callback que muestra un diálogo informando del error
      */
-    public void getAlbumList(FragmentAlbums.AlbumsCallback callback) {
+    public void getAlbumList(FragmentAlbums.AlbumsCallback callback, SimpleDialog.DialogListener errorCallback) {
 
         //El API no ofrece un mecanismo de paginación y es por ello que uso el parámetro limit=all
         String url = BuildConfig.ALBUM_LIST+"?client_id="+BuildConfig.JAMENDO_API_KEY+"&imagesize="+
@@ -65,7 +68,7 @@ public class JamendoProvider {
                     }
                 }, error -> {
                     Log.e("ERROR", "onErrorResponse: "+error);
-                    //TODO que pasa si no hay internet
+                    errorCallback.crearDialog();
                 });
         RequestManager.getInstance().addToRequestQueue(context, albumsRequest);
     }
@@ -75,8 +78,9 @@ public class JamendoProvider {
      * Método que permite buscar álbumes por su nombre
      * @param query El nombre del álbum que se quiere buscar
      * @param callback Callback que se ejecuta cuando se obtienen y parsean los datos
+     * @param errorCallback Callback que muestra un diálogo informando del error
      */
-    public void searchAlbum(String query, FragmentAlbums.AlbumsCallback callback) {
+    public void searchAlbum(String query, FragmentAlbums.AlbumsCallback callback, SimpleDialog.DialogListener errorCallback) {
 
         String url = BuildConfig.ALBUM_LIST+"?client_id="+BuildConfig.JAMENDO_API_KEY+"&imagesize="+
                 IMAGESIZE+"&format=jsonpretty&namesearch="+query;
@@ -92,6 +96,7 @@ public class JamendoProvider {
                     }
                 }, error -> {
                     Log.e("ERROR", "onErrorResponse: "+error);
+                    errorCallback.crearDialog();
                 });
         RequestManager.getInstance().addToRequestQueue(context, search);
     }
@@ -101,8 +106,9 @@ public class JamendoProvider {
      * Método que permite realizar búsquedas de álbumes según diversos filtros
      * @param filter El filtro que se va a aplicar
      * @param callback Callback que se ejecuta cuando se obtienen y parsean los datos
+     * @param errorCallback Callback que muestra un diálogo informando del error
      */
-    public void filterAlbums(String filter, FragmentAlbums.AlbumsCallback callback) {
+    public void filterAlbums(String filter, FragmentAlbums.AlbumsCallback callback, SimpleDialog.DialogListener errorCallback) {
 
         String url = BuildConfig.ALBUM_LIST+"?client_id="+BuildConfig.JAMENDO_API_KEY+"&imagesize="+
                 IMAGESIZE+"&format=jsonpretty&limit=all&order="+filter;
@@ -116,7 +122,10 @@ public class JamendoProvider {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                }, error -> Log.e("ERROR", "onErrorResponse: "+error));
+                }, error -> {
+                    Log.e("ERROR", "onErrorResponse: "+error);
+                    errorCallback.crearDialog();
+        });
         RequestManager.getInstance().addToRequestQueue(context, order);
     }
 
@@ -140,7 +149,9 @@ public class JamendoProvider {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                }, error -> Log.e("ERROR", "onErrorResponse: "+error));
+                }, error -> {
+                    Log.e("ERROR", "onErrorResponse: "+error);
+        });
         RequestManager.getInstance().addToRequestQueue(context, artistsRequest);
     }
 
@@ -149,8 +160,9 @@ public class JamendoProvider {
      * Método que permite buscar artistas por su nombre
      * @param query El nombre del artista que se quiere buscar
      * @param callback Callback que se ejecuta cuando se obtienen y parsean los datos
+     * @param errorCallback Callback que muestra un diálogo informando del error
      */
-    public void searchArtist(String query, FragmentArtists.ArtistsCallback callback) {
+    public void searchArtist(String query, FragmentArtists.ArtistsCallback callback, SimpleDialog.DialogListener errorCallback) {
 
         String url = BuildConfig.ARTIST_LIST+"?client_id="+BuildConfig.JAMENDO_API_KEY+"&imagesize="+
                 IMAGESIZE+"&format=jsonpretty&namesearch="+query;
@@ -166,6 +178,7 @@ public class JamendoProvider {
                     }
                 }, error -> {
                     Log.e("ERROR", "onErrorResponse: "+error);
+                    errorCallback.crearDialog();
                 });
         RequestManager.getInstance().addToRequestQueue(context,search);
     }
@@ -175,8 +188,9 @@ public class JamendoProvider {
      * Método que permite realizar búsquedas de artistas según diversos filtros
      * @param filter Filtro que se va a aplicar
      * @param callback Callback que se ejecuta cuando se obtienen y parsean los datos
+     * @param errorCallback Callback que muestra un diálogo informando del error
      */
-    public void filterArtists(String filter, FragmentArtists.ArtistsCallback callback){
+    public void filterArtists(String filter, FragmentArtists.ArtistsCallback callback, SimpleDialog.DialogListener errorCallback) {
 
         String url = BuildConfig.ARTIST_LIST+"?client_id="+BuildConfig.JAMENDO_API_KEY+"&imagesize="+
                 IMAGESIZE+"&format=jsonpretty&limit=all&order="+filter;
@@ -190,7 +204,10 @@ public class JamendoProvider {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                }, error -> Log.e("ERROR", "onErrorResponse: "+error));
+                }, error -> {
+                    Log.e("ERROR", "onErrorResponse: "+error);
+                    errorCallback.crearDialog();
+        });
         RequestManager.getInstance().addToRequestQueue(context, order);
     }
 
@@ -215,7 +232,9 @@ public class JamendoProvider {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                }, error -> Log.e("ERROR", "onErrorResponse: "+error));
+                }, error -> {
+                    Log.e("ERROR", "onErrorResponse: "+error);
+        });
         RequestManager.getInstance().addToRequestQueue(context, playlistsRequest);
     }
 
@@ -224,8 +243,9 @@ public class JamendoProvider {
      * Método que permite buscar listas de reproducción por su nombre
      * @param query El nombre de la lista que se desea buscar
      * @param callback Callback que se ejecuta cuando se obtienen y parsean los datos
+     * @param errorCallback Callback que muestra un diálogo con el error
      */
-    public void searchPlayList(String query, FragmentPlayLists.PlaylistsCallback callback) {
+    public void searchPlayList(String query, FragmentPlayLists.PlaylistsCallback callback, SimpleDialog.DialogListener errorCallback) {
         String url = BuildConfig.PLAYLIST_LIST+"?client_id="+BuildConfig.JAMENDO_API_KEY+
                 "&format=jsonpretty&namesearch="+query;
         CustomJSONObject search = new CustomJSONObject(Request.Method.GET, url, null, response -> {
@@ -237,7 +257,10 @@ public class JamendoProvider {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-        }, error -> Log.e("ERROR", "onErrorResponse: "+error));
+        }, error -> {
+            Log.e("ERROR", "onErrorResponse: "+error);
+            errorCallback.crearDialog();
+        });
         RequestManager.getInstance().addToRequestQueue(context, search);
     }
 
@@ -246,8 +269,9 @@ public class JamendoProvider {
      * Método que permite realizar búsquedas de listas de reproducción según diversos criterios
      * @param filter El filtro que se va a aplicar
      * @param callback Callback que se ejecuta cuando se obtienen y parsean los datos
+     * @param errorCallback Callback que muestra un diálogo con el error
      */
-    public void filterPlaylists(String filter, FragmentPlayLists.PlaylistsCallback callback) {
+    public void filterPlaylists(String filter, FragmentPlayLists.PlaylistsCallback callback, SimpleDialog.DialogListener errorCallback) {
         String url = BuildConfig.PLAYLIST_LIST+"?client_id="+BuildConfig.JAMENDO_API_KEY+
                 "&format=jsonpretty&limit=all&order="+filter;
         CustomJSONObject order = new CustomJSONObject(Request.Method.GET, url, null, response -> {
@@ -259,7 +283,10 @@ public class JamendoProvider {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            }, error -> Log.e("ERROR", "onErrorResponse: "+error));
+            }, error -> {
+                Log.e("ERROR", "onErrorResponse: "+error);
+                errorCallback.crearDialog();
+        });
         RequestManager.getInstance().addToRequestQueue(context, order);
     }
 
