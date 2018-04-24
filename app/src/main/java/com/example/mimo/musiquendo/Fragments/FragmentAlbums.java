@@ -128,7 +128,22 @@ public class FragmentAlbums extends Fragment implements AlbumAdapter.OnItemClick
     @Override
     public void showMenu() {
         if (getActivity() != null) {
+            String[] filtros = getResources().getStringArray(R.array.albums_filter);
             MenuSheetView menu = new MenuSheetView(getContext(), MenuSheetView.MenuType.LIST, getResources().getString(R.string.cabecera_bottomsheet), item -> {
+                switch (item.getItemId()){
+                    case R.id.name_albums:
+                        filterAlbums(filtros[0]);
+                        break;
+                    case R.id.popularity_total_albums:
+                        filterAlbums(filtros[1]);
+                        break;
+                    case R.id.popularity_month_albums:
+                        filterAlbums(filtros[2]);
+                        break;
+                    case R.id.popularity_week_albums:
+                        filterAlbums(filtros[3]);
+                        break;
+                }
                 if (bottomSheetLayout.isSheetShowing())
                     bottomSheetLayout.dismissSheet();
                 return true;
@@ -137,6 +152,14 @@ public class FragmentAlbums extends Fragment implements AlbumAdapter.OnItemClick
             bottomSheetLayout.setDefaultViewTransformer(new InsetViewTransformer());
             bottomSheetLayout.showWithSheetView(menu);
         }
+    }
+
+    /**
+     * Método que llama a la clase correspondiente para obtener los álbumes filtrados
+     * @param filter Filtro que se va a aplicar
+     */
+    private void filterAlbums(String filter){
+        jamendo.filterAlbums(filter, albumsFiltered -> albumAdapter.swapItems(albumsFiltered));
     }
 
     /**

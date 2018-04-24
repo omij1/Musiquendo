@@ -72,12 +72,6 @@ public class FragmentArtists extends Fragment implements ArtistAdapter.OnItemCli
     public FragmentArtists() {}
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        Title = getResources().getString(R.string.cabecera_bottomsheet);
-    }
-
-    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         String key = getArguments() != null ? getArguments().getString(TYPE) : "";
@@ -135,7 +129,22 @@ public class FragmentArtists extends Fragment implements ArtistAdapter.OnItemCli
     @Override
     public void showMenu() {
         if (getActivity() != null) {
+            String[] filtros = getResources().getStringArray(R.array.artists_filter);
             MenuSheetView menu = new MenuSheetView(getContext(), MenuSheetView.MenuType.LIST, getResources().getString(R.string.cabecera_bottomsheet), item -> {
+                switch (item.getItemId()){
+                    case R.id.name_artists:
+                        filterArtist(filtros[0]);
+                        break;
+                    case R.id.popularity_total_artists:
+                        filterArtist(filtros[1]);
+                        break;
+                    case R.id.popularity_month_artists:
+                        filterArtist(filtros[2]);
+                        break;
+                    case R.id.popularity_week_artists:
+                        filterArtist(filtros[3]);
+                        break;
+                }
                 if (bottomSheetLayout.isSheetShowing())
                     bottomSheetLayout.dismissSheet();
                 return true;
@@ -144,6 +153,14 @@ public class FragmentArtists extends Fragment implements ArtistAdapter.OnItemCli
             bottomSheetLayout.setDefaultViewTransformer(new InsetViewTransformer());
             bottomSheetLayout.showWithSheetView(menu);
         }
+    }
+
+    /**
+     * Método que llama a la clase correspondiente para obtener los artistas filtrados
+     * @param filter Filtro que se va a aplicar
+     */
+    private void filterArtist(String filter){
+        jamendo.filterArtists(filter, artistsFiltered -> artistAdapter.swapItems(artistsFiltered));
     }
 
     /**

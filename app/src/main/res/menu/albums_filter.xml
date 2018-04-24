@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/releasedate_albums"
-        android:title="@string/albums_fecha_publicacion"
+        android:id="@+id/name_albums"
+        android:title="@string/albums_name"
         app:showAsAction="never"/>
 
     <item

@@ -127,7 +127,16 @@ public class FragmentPlayLists extends Fragment implements PlayListAdapter.OnIte
     @Override
     public void showMenu() {
         if (getActivity() != null) {
+            String[] filtros = getResources().getStringArray(R.array.playlists_filter);
             MenuSheetView menu = new MenuSheetView(getContext(), MenuSheetView.MenuType.LIST, getString(R.string.cabecera_bottomsheet), item -> {
+                switch (item.getItemId()){
+                    case R.id.name_playlists:
+                        filterPlaylist(filtros[0]);
+                        break;
+                    case R.id.creationdate_playlists:
+                        filterPlaylist(filtros[1]);
+                        break;
+                }
                 if (bottomSheetLayout.isSheetShowing())
                     bottomSheetLayout.dismissSheet();
                 return true;
@@ -136,6 +145,14 @@ public class FragmentPlayLists extends Fragment implements PlayListAdapter.OnIte
             bottomSheetLayout.setDefaultViewTransformer(new InsetViewTransformer());
             bottomSheetLayout.showWithSheetView(menu);
         }
+    }
+
+    /**
+     * Método que llama a la clase correspondiente para obtener las listas de reproducción filtradas
+     * @param filter Filtro que se va a aplicar
+     */
+    private void filterPlaylist(String filter){
+        jamendo.filterPlaylists(filter, playlistsFiltered -> playListAdapter.swapItems(playlistsFiltered));
     }
 
     /**

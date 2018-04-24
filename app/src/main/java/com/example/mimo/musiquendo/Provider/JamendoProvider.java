@@ -96,6 +96,30 @@ public class JamendoProvider {
         RequestManager.getInstance().addToRequestQueue(context, search);
     }
 
+
+    /**
+     * Método que permite realizar búsquedas de álbumes según diversos filtros
+     * @param filter El filtro que se va a aplicar
+     * @param callback Callback que se ejecuta cuando se obtienen y parsean los datos
+     */
+    public void filterAlbums(String filter, FragmentAlbums.AlbumsCallback callback) {
+
+        String url = BuildConfig.ALBUM_LIST+"?client_id="+BuildConfig.JAMENDO_API_KEY+"&imagesize="+
+                IMAGESIZE+"&format=jsonpretty&limit=all&order="+filter;
+        CustomJSONObject order = new CustomJSONObject(Request.Method.GET, url, null,
+                response -> {
+                    try {
+                        JSONArray results = response.getJSONArray("results");
+                        Type list = new TypeToken<ArrayList<Album>>(){}.getType();
+                        List<Album> albumRequest = gson.fromJson(String.valueOf(results), list);
+                        callback.onAlbumsSuccess(albumRequest);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }, error -> Log.e("ERROR", "onErrorResponse: "+error));
+        RequestManager.getInstance().addToRequestQueue(context, order);
+    }
+
     ////////////////////////////////////METODOS RELACIONADOS CON LOS ARTISTAS\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
     /**
@@ -146,6 +170,30 @@ public class JamendoProvider {
         RequestManager.getInstance().addToRequestQueue(context,search);
     }
 
+
+    /**
+     * Método que permite realizar búsquedas de artistas según diversos filtros
+     * @param filter Filtro que se va a aplicar
+     * @param callback Callback que se ejecuta cuando se obtienen y parsean los datos
+     */
+    public void filterArtists(String filter, FragmentArtists.ArtistsCallback callback){
+
+        String url = BuildConfig.ARTIST_LIST+"?client_id="+BuildConfig.JAMENDO_API_KEY+"&imagesize="+
+                IMAGESIZE+"&format=jsonpretty&limit=all&order="+filter;
+        CustomJSONObject order = new CustomJSONObject(Request.Method.GET, url, null,
+                response -> {
+                    try {
+                        JSONArray results = response.getJSONArray("results");
+                        Type list = new TypeToken<ArrayList<Artist>>(){}.getType();
+                        List<Artist> artistRequest = gson.fromJson(String.valueOf(results), list);
+                        callback.onArtistSuccess(artistRequest);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }, error -> Log.e("ERROR", "onErrorResponse: "+error));
+        RequestManager.getInstance().addToRequestQueue(context, order);
+    }
+
     ////////////////////////////////////METODOS RELACIONADOS CON LAS LISTAS DE REPRODUCCION\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
     /**
@@ -191,6 +239,28 @@ public class JamendoProvider {
             }
         }, error -> Log.e("ERROR", "onErrorResponse: "+error));
         RequestManager.getInstance().addToRequestQueue(context, search);
+    }
+
+
+    /**
+     * Método que permite realizar búsquedas de listas de reproducción según diversos criterios
+     * @param filter El filtro que se va a aplicar
+     * @param callback Callback que se ejecuta cuando se obtienen y parsean los datos
+     */
+    public void filterPlaylists(String filter, FragmentPlayLists.PlaylistsCallback callback) {
+        String url = BuildConfig.PLAYLIST_LIST+"?client_id="+BuildConfig.JAMENDO_API_KEY+
+                "&format=jsonpretty&limit=all&order="+filter;
+        CustomJSONObject order = new CustomJSONObject(Request.Method.GET, url, null, response -> {
+            try {
+                JSONArray results = response.getJSONArray("results");
+                Type list = new TypeToken<ArrayList<PlayList>>(){}.getType();
+                List<PlayList> playlistRequest = gson.fromJson(String.valueOf(results), list);
+                callback.onPlaylistsSuccess(playlistRequest);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            }, error -> Log.e("ERROR", "onErrorResponse: "+error));
+        RequestManager.getInstance().addToRequestQueue(context, order);
     }
 
 
