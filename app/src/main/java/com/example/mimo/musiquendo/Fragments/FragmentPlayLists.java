@@ -1,7 +1,10 @@
 package com.example.mimo.musiquendo.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -11,11 +14,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.mimo.musiquendo.Activities.MainActivity;
+import com.example.mimo.musiquendo.Activities.PlayListActivity;
 import com.example.mimo.musiquendo.Adapters.PlayListAdapter;
 import com.example.mimo.musiquendo.Model.Categories;
 import com.example.mimo.musiquendo.Model.PlayList;
 import com.example.mimo.musiquendo.Provider.JamendoProvider;
 import com.example.mimo.musiquendo.R;
+import com.flipboard.bottomsheet.BottomSheetLayout;
+import com.flipboard.bottomsheet.commons.MenuSheetView;
 
 import java.util.List;
 
@@ -33,6 +39,8 @@ public class FragmentPlayLists extends Fragment implements PlayListAdapter.OnIte
     RecyclerView playLists;
     @BindView(R.id.refresh_playlists_list)
     SwipeRefreshLayout refresh;
+    @BindView(R.id.bottom_sheet_playlists)
+    BottomSheetLayout bottomSheetLayout;
     private static final String TYPE = "FragmentType";
     private List<PlayList> playlistsList;
     private PlayListAdapter playListAdapter;
@@ -92,7 +100,12 @@ public class FragmentPlayLists extends Fragment implements PlayListAdapter.OnIte
         if (activity == null){
             return;
         }
+        Intent playlistDetail = new Intent(getContext(), PlayListActivity.class);
 
+        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                activity,view.findViewById(R.id.playlist_item_image),getString(R.string.image_transition)
+        );
+        ActivityCompat.startActivity(activity, playlistDetail, options.toBundle());
     }
 
     @Override
@@ -109,6 +122,20 @@ public class FragmentPlayLists extends Fragment implements PlayListAdapter.OnIte
     @Override
     public void finishSearch() {
         playListAdapter.swapItems(playlistsList);
+    }
+
+    @Override
+    public void showMenu() {
+        if (getActivity() != null) {
+            MenuSheetView menu = new MenuSheetView(getContext(), MenuSheetView.MenuType.LIST, getString(R.string.cabecera_bottomsheet), item -> {
+                if (bottomSheetLayout.isSheetShowing())
+                    bottomSheetLayout.dismissSheet();
+                return true;
+            });
+            menu.inflateMenu(R.menu.playlists_filter);
+            bottomSheetLayout.setDefaultViewTransformer(new InsetViewTransformer());
+            bottomSheetLayout.showWithSheetView(menu);
+        }
     }
 
     /**

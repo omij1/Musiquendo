@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/joindate_artists"
+        android:title="@string/artistas_fecha_ingreso"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/popularity_total_artists"
+        android:title="@string/albums_mas_populares"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/popularity_month_artists"
+        android:title="@string/albums_populares_mes"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/popularity_week_artists"
+        android:title="@string/albums_populares_semana"
+        app:showAsAction="never"/>
+</menu>

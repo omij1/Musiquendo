@@ -10,6 +10,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.graphics.drawable.DrawerArrowDrawable;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -34,9 +35,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     ViewPager pager;
     private CategoriesAdapter adapter;
 
+
     public interface FragmentCommunicator {
         void startSearch(String search);
         void finishSearch();
+        void showMenu();
     }
 
     public FragmentCommunicator fragmentCommunicator;
@@ -47,11 +50,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
-        setSupportActionBar(toolbar);
         adapter = new CategoriesAdapter(getSupportFragmentManager());
         pager.setAdapter(adapter);
         pager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabs));
         tabs.setupWithViewPager(pager);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeAsUpIndicator(new DrawerArrowDrawable(toolbar.getContext()));
+        }
 
         NavigationView navigationView = findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -99,9 +106,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (item.getItemId()) {
             case android.R.id.home:
                 drawer.openDrawer(GravityCompat.START);
-            return true;
+                return true;
             case R.id.filter:
-
+                fragmentCommunicator = (FragmentCommunicator) adapter.getCurrentFragment(pager.getCurrentItem());
+                Log.d("MAIN", "onOptionsItemSelected: "+adapter.getCurrentFragments());
+                    fragmentCommunicator.showMenu();
                 return true;
             case R.id.biblioteca:
                 drawer.closeDrawers();
@@ -136,4 +145,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         return onOptionsItemSelected(item);
     }
+
 }

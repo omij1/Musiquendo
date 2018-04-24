@@ -26,7 +26,9 @@
         <activity android:name=".Activities.LoginActivity" />
         <activity android:name=".Activities.SettingsActivity" />
         <activity android:name=".Activities.LicensesActivity" />
-        <activity android:name=".Activities.AlbumActivity"></activity>
+        <activity android:name=".Activities.AlbumActivity" />
+        <activity android:name=".Activities.ArtistActivity" />
+        <activity android:name=".Activities.PlayListActivity"></activity>
     </application>
 
 </manifest>

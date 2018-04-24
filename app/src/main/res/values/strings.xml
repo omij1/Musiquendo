@@ -96,4 +96,12 @@
     <string name="pref_ringtone_silent">Silent</string>
 
     <string name="pref_title_vibrate">Vibrate</string>
+    <string name="albums_fecha_publicacion">Albumes por fecha de publicación</string>
+    <string name="albums_mas_populares">Más populares</string>
+    <string name="albums_populares_mes">Populares este mes</string>
+    <string name="albums_populares_semana">Populares esta semana</string>
+    <string name="cabecera_bottomsheet">Elija una opción</string>
+    <string name="artistas_fecha_ingreso">Artistas por fecha de ingreso</string>
+    <string name="playlists_fecha_de_creacion">Fecha de creación</string>
+    <string name="playlists_por_nombre">Ordenar por nombre</string>
 </resources>

@@ -1,6 +1,5 @@
 package com.example.mimo.musiquendo.Fragments;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,7 +9,6 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +21,8 @@ import com.example.mimo.musiquendo.Model.Categories;
 
 import com.example.mimo.musiquendo.Provider.JamendoProvider;
 import com.example.mimo.musiquendo.R;
+import com.flipboard.bottomsheet.BottomSheetLayout;
+import com.flipboard.bottomsheet.commons.MenuSheetView;
 
 import java.util.List;
 
@@ -40,6 +40,8 @@ public class FragmentAlbums extends Fragment implements AlbumAdapter.OnItemClick
     RecyclerView albums;
     @BindView(R.id.refresh_albums_list)
     SwipeRefreshLayout refresh;
+    @BindView(R.id.bottom_sheet_albums)
+    BottomSheetLayout bottomSheetLayout;
     private static final String TYPE = "FragmentType";
     private List<Album> albumList;
     private AlbumAdapter albumAdapter;
@@ -121,6 +123,20 @@ public class FragmentAlbums extends Fragment implements AlbumAdapter.OnItemClick
     @Override
     public void finishSearch() {
         albumAdapter.swapItems(albumList);
+    }
+
+    @Override
+    public void showMenu() {
+        if (getActivity() != null) {
+            MenuSheetView menu = new MenuSheetView(getContext(), MenuSheetView.MenuType.LIST, getResources().getString(R.string.cabecera_bottomsheet), item -> {
+                if (bottomSheetLayout.isSheetShowing())
+                    bottomSheetLayout.dismissSheet();
+                return true;
+            });
+            menu.inflateMenu(R.menu.albums_filter);
+            bottomSheetLayout.setDefaultViewTransformer(new InsetViewTransformer());
+            bottomSheetLayout.showWithSheetView(menu);
+        }
     }
 
     /**

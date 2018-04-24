@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/releasedate_albums"
+        android:title="@string/albums_fecha_publicacion"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/popularity_total_albums"
+        android:title="@string/albums_mas_populares"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/popularity_month_albums"
+        android:title="@string/albums_populares_mes"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/popularity_week_albums"
+        android:title="@string/albums_populares_semana"
+        app:showAsAction="never"/>
+</menu>

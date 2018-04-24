@@ -12,12 +12,19 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/albums_list"
+        <com.flipboard.bottomsheet.BottomSheetLayout
+            android:id="@+id/bottom_sheet_albums"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layoutManager="android.support.v7.widget.StaggeredGridLayoutManager"
-            app:spanCount="3"/>
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/albums_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layoutManager="android.support.v7.widget.StaggeredGridLayoutManager"
+                app:spanCount="3"/>
+
+        </com.flipboard.bottomsheet.BottomSheetLayout>
 
     </android.support.v4.widget.SwipeRefreshLayout>
 

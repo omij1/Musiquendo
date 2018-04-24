@@ -1,7 +1,11 @@
 package com.example.mimo.musiquendo.Fragments;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -10,12 +14,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.mimo.musiquendo.Activities.ArtistActivity;
 import com.example.mimo.musiquendo.Activities.MainActivity;
 import com.example.mimo.musiquendo.Adapters.ArtistAdapter;
 import com.example.mimo.musiquendo.Model.Artist;
 import com.example.mimo.musiquendo.Model.Categories;
 import com.example.mimo.musiquendo.Provider.JamendoProvider;
 import com.example.mimo.musiquendo.R;
+import com.flipboard.bottomsheet.BottomSheetLayout;
+import com.flipboard.bottomsheet.commons.MenuSheetView;
 
 import java.util.List;
 
@@ -33,11 +40,14 @@ public class FragmentArtists extends Fragment implements ArtistAdapter.OnItemCli
     RecyclerView artists;
     @BindView(R.id.refresh_artists_list)
     SwipeRefreshLayout refresh;
+    @BindView(R.id.bottom_sheet_artists)
+    BottomSheetLayout bottomSheetLayout;
     private static final String TYPE = "FragmentType";
     private List<Artist> artistList;
     private ArtistAdapter artistAdapter;
     private Categories category;
     private JamendoProvider jamendo;
+    private String Title;
 
     /**
      * Interfaz que contiene el callback que se ejecuta cuando se reciben los datos de internet
@@ -60,6 +70,12 @@ public class FragmentArtists extends Fragment implements ArtistAdapter.OnItemCli
     }
 
     public FragmentArtists() {}
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        Title = getResources().getString(R.string.cabecera_bottomsheet);
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -97,7 +113,12 @@ public class FragmentArtists extends Fragment implements ArtistAdapter.OnItemCli
         if (activity == null){
             return;
         }
+        Intent artistDetail = new Intent(getContext(), ArtistActivity.class);
 
+        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                activity,view.findViewById(R.id.artist_item_image),getString(R.string.image_transition)
+        );
+        ActivityCompat.startActivity(activity, artistDetail, options.toBundle());
     }
 
     @Override
@@ -111,11 +132,24 @@ public class FragmentArtists extends Fragment implements ArtistAdapter.OnItemCli
         artistAdapter.swapItems(artistList);
     }
 
+    @Override
+    public void showMenu() {
+        if (getActivity() != null) {
+            MenuSheetView menu = new MenuSheetView(getContext(), MenuSheetView.MenuType.LIST, getResources().getString(R.string.cabecera_bottomsheet), item -> {
+                if (bottomSheetLayout.isSheetShowing())
+                    bottomSheetLayout.dismissSheet();
+                return true;
+            });
+            menu.inflateMenu(R.menu.artists_filter);
+            bottomSheetLayout.setDefaultViewTransformer(new InsetViewTransformer());
+            bottomSheetLayout.showWithSheetView(menu);
+        }
+    }
+
     /**
      * Método que se ejecuta cuando volley obtiene los datos del API
      */
     private void loadContent() {
-
         artistAdapter = new ArtistAdapter(artistList, this);
         artists.setAdapter(artistAdapter);
     }
