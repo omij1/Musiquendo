@@ -22,6 +22,10 @@ import com.example.mimo.musiquendo.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * Actividad principal de la aplicación
+ */
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     @BindView(R.id.toolbar)
