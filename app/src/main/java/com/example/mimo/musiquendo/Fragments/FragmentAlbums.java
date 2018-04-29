@@ -10,7 +10,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,7 +47,6 @@ public class FragmentAlbums extends Fragment implements AlbumAdapter.OnItemClick
     private static final String TYPE = "FragmentType";
     private List<Album> albumList;
     private AlbumAdapter albumAdapter;
-    private Categories category;
     private JamendoProvider jamendo;
 
     /**
@@ -79,7 +77,7 @@ public class FragmentAlbums extends Fragment implements AlbumAdapter.OnItemClick
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         String key = getArguments() != null ? getArguments().getString(TYPE) : "";
-        category = Categories.fromKey(key);
+        Categories category = Categories.fromKey(key);
         jamendo = new JamendoProvider(getContext());
         jamendo.getAlbumList(albumsResponse -> {
             albumList = albumsResponse;
@@ -113,6 +111,8 @@ public class FragmentAlbums extends Fragment implements AlbumAdapter.OnItemClick
             return;
         }
         Intent albumDetail = new Intent(getContext(), AlbumActivity.class);
+        albumDetail.putExtra("Image", album.getImage());
+        albumDetail.putExtra("Name", album.getName());
 
         ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
                 activity,view.findViewById(R.id.album_item_image),getString(R.string.image_transition)
@@ -184,7 +184,7 @@ public class FragmentAlbums extends Fragment implements AlbumAdapter.OnItemClick
      */
     private void callDialog() {
         String[] dialogContent = getResources().getStringArray(R.array.lost_connection);
-        SimpleDialog dialog = SimpleDialog.newInstance(dialogContent[0], dialogContent[1]);
+        SimpleDialog dialog = SimpleDialog.newInstance(R.drawable.ic_signal_wifi_off ,dialogContent[0], dialogContent[1]);
         FragmentManager fm = getFragmentManager();
         dialog.show(fm, TYPE);
     }

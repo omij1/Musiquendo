@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/artist_detail"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_shape"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/headerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.4">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:cardElevation="4dp"
+            app:cardCornerRadius="6dp"
+            app:cardUseCompatPadding="true"
+            app:cardBackgroundColor="@color/backgroundColor"
+            style="@style/ArtistDetailCover">
+
+                <ImageView
+                    android:id="@+id/artist_detail_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"/>
+
+        </android.support.v7.widget.CardView>
+
+    </FrameLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1">
+
+        <TextView
+            android:id="@+id/artist_detail_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            style="@style/ArtistDetailName"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@+id/artist_detail_name">
+
+            <TextView
+                android:id="@+id/artist_detail_joindate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                style="@style/ArtistDetailJoin"/>
+
+            <TextView
+                android:id="@+id/artist_detail_website"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                style="@style/ArtistDetailWebsite"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/separator"
+        android:layout_marginTop="@dimen/margin_separator"
+        android:background="@color/colorAccent"/>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/artist_detail_songs"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"
+        android:layout_gravity="center"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
+
+</LinearLayout>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="ArtistDetailCover">
+        <item name="android:layout_marginEnd">50dp</item>
+        <item name="android:layout_marginStart">50dp</item>
+    </style>
+
+    <style name="ArtistDetailName">ArtistDetailName
+        <item name="android:gravity">center</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/artist_detail_name</item>
+    </style>
+
+    <style name="ArtistDetailJoin">ArtistDetailJoin
+        <item name="android:gravity">center</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">@dimen/artist_detail_join</item>
+    </style>
+
+    <style name="ArtistDetailWebsite">ArtistDetailWebsite
+        <item name="android:gravity">center</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:textSize">@dimen/artist_detail_website</item>
+    </style>
+</resources>

@@ -32,6 +32,7 @@ public class AlbumActivity extends AppCompatActivity {
             actionBar_album.setHomeAsUpIndicator(R.drawable.ic_arrow_back);
             actionBar_album.setDisplayHomeAsUpEnabled(true);
         }
+
     }
 
     @Override

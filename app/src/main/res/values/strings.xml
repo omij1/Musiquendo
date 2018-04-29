@@ -107,6 +107,8 @@
     <string name="artistas_name">Artistas por nombre</string>
     <string name="playlists_fecha_de_creacion">Fecha de creación</string>
     <string name="playlists_por_nombre">Ordenar por nombre</string>
+    <string name="artist_detail_name">Nombre del artista</string>
+    <string name="no_website">No website</string>
 
 
     <!-- Strings related to Albums filter-->
@@ -136,5 +138,11 @@
     <string-array name="lost_connection">
         <item>Conexión perdida</item>
         <item>Se ha perdido la conexión con el servidor. Por favor revise su conexión a internet</item>
+    </string-array>
+
+    <!-- Strings related to artist without data-->
+    <string-array name="artist_without_data">
+        <item>No hay información disponible</item>
+        <item>La información relacionada con ese artista no está disponible</item>
     </string-array>
 </resources>

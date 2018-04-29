@@ -17,6 +17,7 @@ android {
             buildConfigField "String", "ARTIST_LIST", "\"https://api.jamendo.com/v3.0/artists/\""
             buildConfigField "String", "PLAYLIST_LIST", "\"https://api.jamendo.com/v3.0/playlists/\""
             buildConfigField "String", "PLAYLIST_COVER", "\"https://api.jamendo.com/v3.0/playlists/tracks\""
+            buildConfigField "String", "ARTIST_DETAILS", "\"https://api.jamendo.com/v3.0/artists/tracks/\""
         }
 
         release {
@@ -27,6 +28,7 @@ android {
             buildConfigField "String", "ARTIST_LIST", "\"https://api.jamendo.com/v3.0/artists/\""
             buildConfigField "String", "PLAYLIST_LIST", "\"https://api.jamendo.com/v3.0/playlists/\""
             buildConfigField "String", "PLAYLIST_COVER", "\"https://api.jamendo.com/v3.0/playlists/tracks\""
+            buildConfigField "String", "ARTIST_DETAILS", "\"https://api.jamendo.com/v3.0/artists/tracks/\""
         }
 
     }

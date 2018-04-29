@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 /*Instancio el fragmentCommunicator cada vez que se busca porque puedo estar en tres
                 fragmentos diferentes. A lo mejor la primera búsqueda es de álbumes y la siguiente de artistas
                 por lo que hay que cambiar el fragmento al que se debe llamar*/
-                fragmentCommunicator = (FragmentCommunicator) adapter.getCurrentFragment(pager.getCurrentItem());
+                fragmentCommunicator = (FragmentCommunicator) adapter.getCurrent();
                 if (fragmentCommunicator != null)
                     fragmentCommunicator.startSearch(query);
                 return false;
@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 drawer.openDrawer(GravityCompat.START);
                 return true;
             case R.id.filter:
-                fragmentCommunicator = (FragmentCommunicator) adapter.getCurrentFragment(pager.getCurrentItem());
+                fragmentCommunicator = (FragmentCommunicator) adapter.getCurrent();
                     if (fragmentCommunicator != null)
                         fragmentCommunicator.showMenu();
                 return true;

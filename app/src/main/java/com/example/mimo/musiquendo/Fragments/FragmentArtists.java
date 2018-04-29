@@ -1,6 +1,5 @@
 package com.example.mimo.musiquendo.Fragments;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -47,9 +46,7 @@ public class FragmentArtists extends Fragment implements ArtistAdapter.OnItemCli
     private static final String TYPE = "FragmentType";
     private List<Artist> artistList;
     private ArtistAdapter artistAdapter;
-    private Categories category;
     private JamendoProvider jamendo;
-    private String Title;
 
     /**
      * Interfaz que contiene el callback que se ejecuta cuando se reciben los datos de internet
@@ -77,7 +74,7 @@ public class FragmentArtists extends Fragment implements ArtistAdapter.OnItemCli
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         String key = getArguments() != null ? getArguments().getString(TYPE) : "";
-        category = Categories.fromKey(key);
+        Categories category = Categories.fromKey(key);
         jamendo = new JamendoProvider(getContext());
         jamendo.getArtistList(artistsResponse -> {
             artistList = artistsResponse;
@@ -108,10 +105,13 @@ public class FragmentArtists extends Fragment implements ArtistAdapter.OnItemCli
             return;
         }
         Intent artistDetail = new Intent(getContext(), ArtistActivity.class);
+        artistDetail.putExtra("ID", artist.getId());
+        artistDetail.putExtra("NAME", artist.getName());
+        artistDetail.putExtra("JOIN", artist.getJoindate());
+        artistDetail.putExtra("WEB", artist.getWebsite());
 
         ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                activity,view.findViewById(R.id.artist_item_image),getString(R.string.image_transition)
-        );
+                activity,view.findViewById(R.id.artist_item_image),getString(R.string.image_transition));
         ActivityCompat.startActivity(activity, artistDetail, options.toBundle());
     }
 
@@ -176,7 +176,7 @@ public class FragmentArtists extends Fragment implements ArtistAdapter.OnItemCli
      */
     private void callDialog() {
         String[] dialogContent = getResources().getStringArray(R.array.lost_connection);
-        SimpleDialog dialog = SimpleDialog.newInstance(dialogContent[0], dialogContent[1]);
+        SimpleDialog dialog = SimpleDialog.newInstance(R.drawable.ic_signal_wifi_off, dialogContent[0], dialogContent[1]);
         FragmentManager fm = getFragmentManager();
         dialog.show(fm, TYPE);
     }

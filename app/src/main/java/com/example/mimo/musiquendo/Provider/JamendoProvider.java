@@ -11,10 +11,12 @@ import com.example.mimo.musiquendo.Adapters.PlayListAdapter;
 import com.example.mimo.musiquendo.BuildConfig;
 import com.example.mimo.musiquendo.Dialogs.SimpleDialog;
 import com.example.mimo.musiquendo.Fragments.FragmentAlbums;
+import com.example.mimo.musiquendo.Fragments.FragmentArtistDetail;
 import com.example.mimo.musiquendo.Fragments.FragmentArtists;
 import com.example.mimo.musiquendo.Fragments.FragmentPlayLists;
 import com.example.mimo.musiquendo.Model.Album;
 import com.example.mimo.musiquendo.Model.Artist;
+import com.example.mimo.musiquendo.Model.ArtistTracks;
 import com.example.mimo.musiquendo.Model.PlayList;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -209,6 +211,40 @@ public class JamendoProvider {
                     errorCallback.crearDialog();
         });
         RequestManager.getInstance().addToRequestQueue(context, order);
+    }
+
+
+    /**
+     * Método que obtiene las canciones de un artista determinado
+     * @param artistId Identificador del artista del que se quieren obtener sus canciones
+     * @param callback Callback que se ejecuta cuando se obtienen y parsean los datos
+     * @param errorCallback Callback que muestra un diálogo informando del error
+     */
+    public void artistDetails(String artistId, FragmentArtistDetail.ArtistDetailCallback callback, SimpleDialog.DialogListener errorCallback){
+
+        String url = BuildConfig.ARTIST_DETAILS+"?client_id="+BuildConfig.JAMENDO_API_KEY+"&imagesize="+
+                IMAGESIZE+"&format=jsonpretty&limit=all&id="+artistId;
+        CustomJSONObject details = new CustomJSONObject(Request.Method.GET, url, null, response -> {
+            try {
+                JSONArray results = response.getJSONArray("results");
+                String cover = null;
+                List<ArtistTracks> artistTracks = null;
+                if (results.length() > 0) {//Un artista puede no tener canciones
+                    JSONObject jsonObject = results.getJSONObject(0);
+                    cover = jsonObject.getString("image");
+                    JSONArray tracks = jsonObject.getJSONArray("tracks");
+                    Type list = new TypeToken<ArrayList<ArtistTracks>>() {}.getType();
+                    artistTracks = gson.fromJson(String.valueOf(tracks), list);
+                }
+                callback.onArtistDetailSuccess(artistTracks, cover);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }, error -> {
+            Log.e("ERROR", "onErrorResponse: "+error);
+            errorCallback.crearDialog();
+        });
+        RequestManager.getInstance().addToRequestQueue(context, details);
     }
 
     ////////////////////////////////////METODOS RELACIONADOS CON LAS LISTAS DE REPRODUCCION\\\\\\\\\\\\\\\\\\\\\\\\\\\

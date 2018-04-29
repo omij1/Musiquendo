@@ -58,7 +58,7 @@
     <style name="ArtistItemImage">
         <item name="android:elevation">@dimen/album_item_elevation</item>
         <item name="android:layout_height">@dimen/artist_item_image</item>
-        <item name="android:scaleType">centerCrop</item>
+        <item name="android:scaleType">fitXY</item>
     </style>
 
     <style name="ArtistItemName">

@@ -15,7 +15,7 @@ public class SimpleDialog extends DialogFragment {
         void crearDialog();
     }
 
-    private DialogListener listener;
+    private static final String ICON = "Icon";
     private static final String TITLE = "Title";
     private static final String TEXT = "Text";
 
@@ -23,9 +23,10 @@ public class SimpleDialog extends DialogFragment {
         super();
     }
 
-    public static SimpleDialog newInstance(String title, String text){
+    public static SimpleDialog newInstance(int icon, String title, String text){
         SimpleDialog dialog = new SimpleDialog();
         Bundle bundle = new Bundle();
+        bundle.putInt(ICON, icon);
         bundle.putString(TITLE, title);
         bundle.putString(TEXT, text);
         dialog.setArguments(bundle);
@@ -38,7 +39,7 @@ public class SimpleDialog extends DialogFragment {
         Bundle arguments = getArguments();
 
         return new AlertDialog.Builder(getActivity(), R.style.SimpleDialog)
-                .setIcon(R.drawable.ic_signal_wifi_off)
+                .setIcon(arguments.getInt(ICON))
                 .setTitle(arguments.getString(TITLE))
                 .setMessage(arguments.getString(TEXT))
                 .setPositiveButton(android.R.string.ok, (dialogInterface, i) -> {

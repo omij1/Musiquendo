@@ -46,7 +46,6 @@ public class FragmentPlayLists extends Fragment implements PlayListAdapter.OnIte
     private static final String TYPE = "FragmentType";
     private List<PlayList> playlistsList;
     private PlayListAdapter playListAdapter;
-    private Categories category;
     private JamendoProvider jamendo;
 
     public interface PlaylistsCallback {
@@ -72,7 +71,7 @@ public class FragmentPlayLists extends Fragment implements PlayListAdapter.OnIte
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         String key = getArguments() != null ? getArguments().getString(TYPE) : "";
-        category = Categories.fromKey(key);
+        Categories category = Categories.fromKey(key);
         jamendo = new JamendoProvider(getContext());
         jamendo.getPlayLists(playListResponse -> {
             playlistsList = playListResponse;
@@ -170,7 +169,7 @@ public class FragmentPlayLists extends Fragment implements PlayListAdapter.OnIte
      */
     private void callDialog() {
         String[] dialogContent = getResources().getStringArray(R.array.lost_connection);
-        SimpleDialog dialog = SimpleDialog.newInstance(dialogContent[0], dialogContent[1]);
+        SimpleDialog dialog = SimpleDialog.newInstance(R.drawable.ic_signal_wifi_off, dialogContent[0], dialogContent[1]);
         FragmentManager fm = getFragmentManager();
         dialog.show(fm, TYPE);
     }
