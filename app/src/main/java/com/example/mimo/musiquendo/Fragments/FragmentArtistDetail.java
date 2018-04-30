@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.mimo.musiquendo.Adapters.TracksAdapter;
+import com.example.mimo.musiquendo.Adapters.ArtistsTracksAdapter;
 import com.example.mimo.musiquendo.Dialogs.SimpleDialog;
 import com.example.mimo.musiquendo.Model.ArtistTracks;
 import com.example.mimo.musiquendo.Provider.JamendoProvider;
@@ -24,7 +24,11 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class FragmentArtistDetail extends Fragment implements TracksAdapter.OnItemClickListener{
+/**
+ * Fragmento que muestra los detalles de un artista
+ */
+
+public class FragmentArtistDetail extends Fragment implements ArtistsTracksAdapter.OnItemClickListener{
 
     @BindView(R.id.artist_detail_songs)
     RecyclerView songs;
@@ -41,7 +45,7 @@ public class FragmentArtistDetail extends Fragment implements TracksAdapter.OnIt
     private static final String JOIN = "JOIN";
     private static final String WEB = "WEB";
     private List<ArtistTracks> tracks;
-    private TracksAdapter adapter;
+    private ArtistsTracksAdapter adapter;
     private JamendoProvider jamendo;
 
 
@@ -53,7 +57,11 @@ public class FragmentArtistDetail extends Fragment implements TracksAdapter.OnIt
     }
 
     /**
-     * Función que crea un nuevo fragmento con el identificador de la categoría a la que pertenece
+     * Función que crea un nuevo fragmento que muestra los detalles de un artista
+     * @param artistId Identificador del artista
+     * @param name Nombre del artista del que se va a mostrar la información
+     * @param joinDate Fecha de registro del artista en Jamendo
+     * @param web Sitio web del artista
      * @return Nuevo fragmento
      */
     public static FragmentArtistDetail newInstance(String artistId, String name, String joinDate,
@@ -108,7 +116,7 @@ public class FragmentArtistDetail extends Fragment implements TracksAdapter.OnIt
 
     @Override
     public void onTrackClick(View view, ArtistTracks tracks, int playing) {
-        //view.findViewById(R.id.track_playing).setVisibility(View.VISIBLE);
+        view.findViewById(R.id.track_playing).setVisibility(View.VISIBLE);
 
     }
 
@@ -123,7 +131,7 @@ public class FragmentArtistDetail extends Fragment implements TracksAdapter.OnIt
             artistWeb.setText(getArguments().getString(WEB));
         }
         artistJoinDate.setText(getArguments().getString(JOIN));
-        adapter = new TracksAdapter(tracks, this);
+        adapter = new ArtistsTracksAdapter(tracks, this);
         songs.setAdapter(adapter);
     }
 

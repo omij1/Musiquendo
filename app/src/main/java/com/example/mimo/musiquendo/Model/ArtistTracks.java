@@ -8,10 +8,10 @@ import com.google.gson.annotations.SerializedName;
 
 public class ArtistTracks {
 
-    @SerializedName("album_id")
-    private String album_id;
-    @SerializedName("album_name")
-    private String album_name;
+    @SerializedName("albumId")
+    private String albumId;
+    @SerializedName("albumName")
+    private String albumName;
     @SerializedName("id")
     private String trackId;
     @SerializedName("name")
@@ -26,9 +26,9 @@ public class ArtistTracks {
     private String audio;
 
 
-    public ArtistTracks(String album_id, String album_name, String trackId, String trackName, int trackDuration, String releaseDate, String album_image, String audio) {
-        this.album_id = album_id;
-        this.album_name = album_name;
+    public ArtistTracks(String albumId, String albumName, String trackId, String trackName, int trackDuration, String releaseDate, String album_image, String audio) {
+        this.albumId = albumId;
+        this.albumName = albumName;
         this.trackId = trackId;
         this.trackName = trackName;
         this.trackDuration = trackDuration;
@@ -37,20 +37,20 @@ public class ArtistTracks {
         this.audio = audio;
     }
 
-    public String getAlbum_id() {
-        return album_id;
+    public String getAlbumId() {
+        return albumId;
     }
 
-    public void setAlbum_id(String album_id) {
-        this.album_id = album_id;
+    public void setAlbumId(String albumId) {
+        this.albumId = albumId;
     }
 
-    public String getAlbum_name() {
-        return album_name;
+    public String getAlbumName() {
+        return albumName;
     }
 
-    public void setAlbum_name(String album_name) {
-        this.album_name = album_name;
+    public void setAlbumName(String albumName) {
+        this.albumName = albumName;
     }
 
     public String getTrackId() {

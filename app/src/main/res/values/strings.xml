@@ -109,6 +109,7 @@
     <string name="playlists_por_nombre">Ordenar por nombre</string>
     <string name="artist_detail_name">Nombre del artista</string>
     <string name="no_website">No website</string>
+    <string name="descargar">Descargar</string>
 
 
     <!-- Strings related to Albums filter-->

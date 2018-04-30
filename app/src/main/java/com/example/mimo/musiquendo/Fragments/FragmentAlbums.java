@@ -111,8 +111,9 @@ public class FragmentAlbums extends Fragment implements AlbumAdapter.OnItemClick
             return;
         }
         Intent albumDetail = new Intent(getContext(), AlbumActivity.class);
-        albumDetail.putExtra("Image", album.getImage());
-        albumDetail.putExtra("Name", album.getName());
+        albumDetail.putExtra("ID", album.getId());
+        albumDetail.putExtra("NAME", album.getName());
+        albumDetail.putExtra("ARTIST", album.getArtist_name());
 
         ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
                 activity,view.findViewById(R.id.album_item_image),getString(R.string.image_transition)

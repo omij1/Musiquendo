@@ -3,7 +3,6 @@
     android:id="@+id/artist_detail"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_shape"
@@ -81,7 +80,7 @@
         android:id="@+id/artist_detail_songs"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.5"
+        android:layout_weight="0.45"
         android:layout_gravity="center"
         app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
 

@@ -10,11 +10,13 @@ import com.example.mimo.musiquendo.Activities.MainActivity;
 import com.example.mimo.musiquendo.Adapters.PlayListAdapter;
 import com.example.mimo.musiquendo.BuildConfig;
 import com.example.mimo.musiquendo.Dialogs.SimpleDialog;
+import com.example.mimo.musiquendo.Fragments.FragmentAlbumDetail;
 import com.example.mimo.musiquendo.Fragments.FragmentAlbums;
 import com.example.mimo.musiquendo.Fragments.FragmentArtistDetail;
 import com.example.mimo.musiquendo.Fragments.FragmentArtists;
 import com.example.mimo.musiquendo.Fragments.FragmentPlayLists;
 import com.example.mimo.musiquendo.Model.Album;
+import com.example.mimo.musiquendo.Model.AlbumTracks;
 import com.example.mimo.musiquendo.Model.Artist;
 import com.example.mimo.musiquendo.Model.ArtistTracks;
 import com.example.mimo.musiquendo.Model.PlayList;
@@ -129,6 +131,35 @@ public class JamendoProvider {
                     errorCallback.crearDialog();
         });
         RequestManager.getInstance().addToRequestQueue(context, order);
+    }
+
+
+    /**
+     * Método que obtiene las canciones de un álbum
+     * @param albumId Identificador del álbum del que se quieren saber las canciones
+     * @param callback Callback que se ejecuta cuando se obtienen y parsean los datos
+     * @param erroCallback Callback que muestra un diálogo informando del error
+     */
+    public void albumDetails(String albumId, FragmentAlbumDetail.AlbumDetailCallback callback, SimpleDialog.DialogListener erroCallback) {
+        String url = BuildConfig.ALBUM_DETAILS+"?client_id="+BuildConfig.JAMENDO_API_KEY+"&imagesize="+
+                IMAGESIZE+"&format=jsonpretty&limit=1&id="+albumId;
+        CustomJSONObject details = new CustomJSONObject(Request.Method.GET, url, null, response -> {
+            try {
+                JSONArray results = response.getJSONArray("results");
+                JSONObject jsonObject = results.getJSONObject(0);
+                String cover = jsonObject.getString("image");
+                JSONArray tracks = jsonObject.getJSONArray("tracks");
+                Type list = new TypeToken<ArrayList<AlbumTracks>>() {}.getType();
+                List<AlbumTracks> albumTracks = gson.fromJson(String.valueOf(tracks), list);
+                callback.onAlbumDetailSuccess(albumTracks, cover);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }, error -> {
+            Log.e("ERROR", "onErrorResponse: "+error);
+            erroCallback.crearDialog();
+        });
+        RequestManager.getInstance().addToRequestQueue(context, details);
     }
 
     ////////////////////////////////////METODOS RELACIONADOS CON LOS ARTISTAS\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\

@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.mimo.musiquendo.Model.ArtistTracks;
+import com.example.mimo.musiquendo.Model.AlbumTracks;
 import com.example.mimo.musiquendo.R;
 
 import java.util.List;
@@ -14,37 +14,38 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class TracksAdapter extends RecyclerView.Adapter<TracksAdapter.ViewHolder> {
+public class AlbumTracksAdapter extends RecyclerView.Adapter<AlbumTracksAdapter.ViewHolder>{
 
     public interface OnItemClickListener {
-        void onTrackClick(View view, ArtistTracks tracks, int playing);
+        void onTrackClick(View view, AlbumTracks tracks, int playing);
     }
 
 
-    private List<ArtistTracks> artistTracks;
+    private List<AlbumTracks> albumTracks;
     private final OnItemClickListener listener;
 
-    public TracksAdapter(List<ArtistTracks> artistTracks, OnItemClickListener listener) {
-        this.artistTracks = artistTracks;
+    public AlbumTracksAdapter(List<AlbumTracks> albumTracks, OnItemClickListener listener) {
+        this.albumTracks = albumTracks;
         this.listener = listener;
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public AlbumTracksAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.track_item, parent, false);
 
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.bind(artistTracks.get(position), listener, position);
+    public void onBindViewHolder(AlbumTracksAdapter.ViewHolder holder, int position) {
+        holder.bind(albumTracks.get(position), listener, position);
     }
 
     @Override
     public int getItemCount() {
-        return artistTracks.size();
+        return albumTracks.size();
     }
+
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -62,7 +63,7 @@ public class TracksAdapter extends RecyclerView.Adapter<TracksAdapter.ViewHolder
             ButterKnife.bind(this, itemView);
         }
 
-        public void bind(ArtistTracks track, OnItemClickListener listener, int position) {
+        public void bind(AlbumTracks track, OnItemClickListener listener, int position) {
             trackNumber.setText(String.valueOf(position+1));
             trackName.setText(track.getTrackName());
             trackDuration.setText(convertToMinutes(track.getTrackDuration()));
