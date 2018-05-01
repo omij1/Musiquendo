@@ -358,6 +358,25 @@ public class JamendoProvider {
     }
 
 
+    
+    public void playlistDetails(String playlistId) {
+        String url = BuildConfig.PLAYLIST_DETAILS;
+        CustomJSONObject details = new CustomJSONObject(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("ERROR", "onErrorResponse: "+error);
+
+            }
+        });
+        RequestManager.getInstance().addToRequestQueue(context, details);
+    }
+
+
     /**
      * Método que obtiene las portadas de las listas de reproducción que se corresponden con la portada de la primera canción
      * @param item Objeto con los datos de la lista de reproducción
@@ -365,7 +384,7 @@ public class JamendoProvider {
      */
     public void getALbumCover(PlayList item, PlayListAdapter.CoverCallback callback) {
 
-        String url = BuildConfig.PLAYLIST_COVER+"?client_id="+BuildConfig.JAMENDO_API_KEY+"&id="+
+        String url = BuildConfig.PLAYLIST_DETAILS+"?client_id="+BuildConfig.JAMENDO_API_KEY+"&id="+
                 item.getId()+"&imagesize="+IMAGESIZE+"&format=jsonpretty";
         CustomJSONObject coverRequest = new CustomJSONObject(Request.Method.GET, url, null,
                 response -> {

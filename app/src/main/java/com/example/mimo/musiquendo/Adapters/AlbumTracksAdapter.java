@@ -16,6 +16,7 @@ import butterknife.ButterKnife;
 
 public class AlbumTracksAdapter extends RecyclerView.Adapter<AlbumTracksAdapter.ViewHolder>{
 
+
     public interface OnItemClickListener {
         void onTrackClick(View view, AlbumTracks tracks, int playing);
     }
@@ -23,10 +24,24 @@ public class AlbumTracksAdapter extends RecyclerView.Adapter<AlbumTracksAdapter.
 
     private List<AlbumTracks> albumTracks;
     private final OnItemClickListener listener;
+    private int itemPlaying = -1;
 
     public AlbumTracksAdapter(List<AlbumTracks> albumTracks, OnItemClickListener listener) {
         this.albumTracks = albumTracks;
         this.listener = listener;
+    }
+
+    /**
+     * Método que permite mostrar un item como seleccionado cuando se pulsa sobre él y que desactiva
+     * los items pulsados previamente
+     * @param playing Item pulsado que representa la cancion que se va a reproducir
+     */
+    public void changeItem(int playing) {
+        if (itemPlaying != -1){
+            notifyItemChanged(itemPlaying);
+        }
+        itemPlaying = playing;
+        notifyItemChanged(itemPlaying);
     }
 
     @Override
@@ -38,6 +53,10 @@ public class AlbumTracksAdapter extends RecyclerView.Adapter<AlbumTracksAdapter.
 
     @Override
     public void onBindViewHolder(AlbumTracksAdapter.ViewHolder holder, int position) {
+        if (position == itemPlaying)
+            holder.playing.setVisibility(View.VISIBLE);
+        else
+            holder.playing.setVisibility(View.INVISIBLE);
         holder.bind(albumTracks.get(position), listener, position);
     }
 

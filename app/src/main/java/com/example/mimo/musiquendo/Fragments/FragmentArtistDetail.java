@@ -116,8 +116,7 @@ public class FragmentArtistDetail extends Fragment implements ArtistsTracksAdapt
 
     @Override
     public void onTrackClick(View view, ArtistTracks tracks, int playing) {
-        view.findViewById(R.id.track_playing).setVisibility(View.VISIBLE);
-
+        adapter.changeItem(playing);
     }
 
     /**

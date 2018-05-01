@@ -108,7 +108,7 @@ public class FragmentAlbumDetail extends Fragment implements AlbumTracksAdapter.
 
     @Override
     public void onTrackClick(View view, AlbumTracks tracks, int playing) {
-
+        adapter.changeItem(playing);
     }
 
     /**
