@@ -5,19 +5,20 @@
         <item name="android:layout_marginStart">50dp</item>
     </style>
 
-    <style name="ArtistDetailName">ArtistDetailName
+    <style name="ArtistDetailName">
         <item name="android:gravity">center</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">@dimen/artist_detail_name</item>
+        <item name="android:layout_alignParentTop">true</item>
     </style>
 
-    <style name="ArtistDetailJoin">ArtistDetailJoin
+    <style name="ArtistDetailJoin">
         <item name="android:gravity">center</item>
         <item name="android:textStyle">normal</item>
         <item name="android:textSize">@dimen/artist_detail_join</item>
     </style>
 
-    <style name="ArtistDetailWebsite">ArtistDetailWebsite
+    <style name="ArtistDetailWebsite">
         <item name="android:gravity">center</item>
         <item name="android:textStyle">italic</item>
         <item name="android:textSize">@dimen/artist_detail_website</item>

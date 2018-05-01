@@ -8,14 +8,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.mimo.musiquendo.Adapters.AlbumTracksAdapter;
-import com.example.mimo.musiquendo.Adapters.ArtistsTracksAdapter;
+import com.example.mimo.musiquendo.Adapters.PlaylistTracksAdapter;
 import com.example.mimo.musiquendo.Dialogs.SimpleDialog;
-import com.example.mimo.musiquendo.Model.AlbumTracks;
+import com.example.mimo.musiquendo.Model.PlayListTracks;
 import com.example.mimo.musiquendo.Provider.JamendoProvider;
 import com.example.mimo.musiquendo.R;
 import com.squareup.picasso.Picasso;
@@ -24,71 +22,66 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 
-/**
- * Fragmento que muestra los detalles de un álbum
- */
+public class FragmentPlaylistDetail extends Fragment implements PlaylistTracksAdapter.OnItemClickListener{
 
-public class FragmentAlbumDetail extends Fragment implements AlbumTracksAdapter.OnItemClickListener {
-
-    @BindView(R.id.album_detail_songs)
+    @BindView(R.id.playlist_detail_image)
+    CircleImageView playlistImage;
+    @BindView(R.id.playlist_detail_name)
+    TextView playlitsName;
+    @BindView(R.id.playlist_detail_songs)
     RecyclerView songs;
-    @BindView(R.id.album_detail_image)
-    ImageView albumImage;
-    @BindView(R.id.album_detail_name)
-    TextView albumName;
-    @BindView(R.id.album_detail_artist)
-    TextView albumArtist;
-    @BindView(R.id.album_songs)
-    TextView albumSongs;
     private static final String ID = "ID";
     private static final String NAME = "NAME";
-    private static final String ARTIST = "ARTIST";
-    private List<AlbumTracks> tracks;
-    private AlbumTracksAdapter adapter;
+    private static final String IMAGE = "IMAGE";
+    private List<PlayListTracks> tracks;
+    private PlaylistTracksAdapter adapter;
     private JamendoProvider jamendo;
 
 
     /**
      * Interfaz que contiene el callback que se ejecuta cuando se reciben los datos de internet
      */
-    public interface AlbumDetailCallback {
-        void onAlbumDetailSuccess(List<AlbumTracks> tracksList, String cover);
+    public interface PlaylistDetailCallback {
+        void onPlaylistDetailSuccess(List<PlayListTracks> tracksList);
     }
 
     /**
-     * Función que crea un nuevo fragmento con el identificador de la categoría a la que pertenece
-     * @param id Identificador del álbum
-     * @param name Nombre del álbum
-     * @param artist Artista al que pertenece el álbum
-     * @return Nuevo fragmento
+     * Método que devuelve un nuevo fragmento correspondiente a los detalles de una lista de reproducción
+     * @param id Identificador de la lista de reproducción
+     * @param name Nombre de la lista de reproducción
+     * @param image Imagen inicial de la lista de reproducción
+     * @return El nuevo fragmento
      */
-    public static FragmentAlbumDetail newInstance(String id, String name, String artist) {
-        FragmentAlbumDetail fragment = new FragmentAlbumDetail();
+    public static FragmentPlaylistDetail newInstance(String id, String name, String image) {
+        FragmentPlaylistDetail fragment = new FragmentPlaylistDetail();
         Bundle bundle = new Bundle();
         bundle.putString(ID, id);
         bundle.putString(NAME, name);
-        bundle.putString(ARTIST, artist);
+        bundle.putString(IMAGE, image);
         fragment.setArguments(bundle);
 
         return fragment;
     }
 
-    public FragmentAlbumDetail() {
+    public FragmentPlaylistDetail() {
     }
-
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         jamendo = new JamendoProvider(getContext());
-        jamendo.albumDetails(getArguments().getString(ID), (tracksList, cover) -> {
-            tracks = tracksList;
-            loadContent();
-            if (!cover.equals(""))
-                Picasso.get().load(cover).into(albumImage);
-            else
-                albumImage.setImageDrawable(getResources().getDrawable(R.drawable.no_image));
+        jamendo.playlistDetails(getArguments().getString(ID), tracksList -> {
+            if (tracksList != null){
+                tracks = tracksList;
+                loadContent();
+            }
+            else {
+                //El artista no tiene ningún dato relacionado a esta categoría
+                String[] dialogContent = getResources().getStringArray(R.array.playlist_without_data);
+                callDialog(R.drawable.ic_sad, dialogContent[0], dialogContent[1]);
+            }
         }, () -> {
             String[] dialogContent = getResources().getStringArray(R.array.lost_connection);
             callDialog(R.drawable.ic_signal_wifi_off, dialogContent[0], dialogContent[1]);
@@ -98,21 +91,20 @@ public class FragmentAlbumDetail extends Fragment implements AlbumTracksAdapter.
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_album_detail, container, false);
+        View view = inflater.inflate(R.layout.fragment_playlist_detail, container, false);
         ButterKnife.bind(this, view);
         songs.addItemDecoration(new PaddingItemDecorator(2));
 
         return view;
     }
 
-
     @Override
-    public void onTrackClick(View view, AlbumTracks tracks, int playing) {
+    public void onTrackClick(View view, PlayListTracks tracks, int playing) {
         adapter.changeItem(playing);
     }
 
     @Override
-    public void onDownloadSongClick(AlbumTracks track) {
+    public void onDownloadSongClick(PlayListTracks track) {
 
     }
 
@@ -120,10 +112,12 @@ public class FragmentAlbumDetail extends Fragment implements AlbumTracksAdapter.
      * Método que se ejecuta cuando volley obtiene los datos del API
      */
     private void loadContent() {
-        albumName.setText(getArguments().getString(NAME));
-        albumArtist.setText(getArguments().getString(ARTIST));
-        albumSongs.setText(tracks.size()+" total");
-        adapter = new AlbumTracksAdapter(tracks, this);
+        if (getArguments().get(IMAGE).equals(""))
+            playlistImage.setImageDrawable(getResources().getDrawable(R.drawable.no_image));
+        else
+            Picasso.get().load(getArguments().get(IMAGE).toString()).into(playlistImage);
+        playlitsName.setText(getArguments().getString(NAME));
+        adapter = new PlaylistTracksAdapter(tracks, this);
         songs.setAdapter(adapter);
     }
 

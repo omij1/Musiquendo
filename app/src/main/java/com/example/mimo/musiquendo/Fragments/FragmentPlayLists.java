@@ -84,7 +84,7 @@ public class FragmentPlayLists extends Fragment implements PlayListAdapter.OnIte
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_playlists, container, false);
         ButterKnife.bind(this, view);
-        playLists.addItemDecoration(new PaddingItemDecorator(3));
+        playLists.addItemDecoration(new PaddingItemDecorator(4));
         refresh.setColorSchemeColors(getResources().getColor(R.color.colorPrimary),
                 getResources().getColor(R.color.colorPrimaryDark), getResources().getColor(R.color.colorAccent));
         refresh.setOnRefreshListener(() -> jamendo.getPlayLists(playListResponse -> {
@@ -102,6 +102,9 @@ public class FragmentPlayLists extends Fragment implements PlayListAdapter.OnIte
             return;
         }
         Intent playlistDetail = new Intent(getContext(), PlayListActivity.class);
+        playlistDetail.putExtra("ID", playList.getId());
+        playlistDetail.putExtra("NAME", playList.getName());
+        playlistDetail.putExtra("IMAGE", playList.getCover());
 
         ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
                 activity,view.findViewById(R.id.playlist_item_image),getString(R.string.image_transition)

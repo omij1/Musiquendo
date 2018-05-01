@@ -74,7 +74,9 @@
     <style name="PlayListItemImage">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">@dimen/playlist_item_image_height</item>
-        <item name="android:layout_weight">0.35</item>
+        <item name="android:layout_weight">0.30</item>
+        <item name="android:scaleType">fitXY</item>
+        <item name="android:padding">@dimen/padding_playlist_item_image</item>
     </style>
 
     <style name="PlayListItemName">
@@ -86,13 +88,42 @@
     </style>
 
     <style name="PlayListItemCreation">
+        <item name="android:layout_centerVertical">true</item>
         <item name="android:textColor">@color/colorAccent</item>
         <item name="android:textSize">@dimen/artist_item_creation</item>
         <item name="android:textStyle">italic</item>
     </style>
 
+    <style name="PlayListItemDownload">
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:background">@color/backgroundColor</item>
+    </style>
+
+    <style name="TrackItemNumber">
+        <item name="android:gravity">center</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/track_number_size</item>
+    </style>
+
+    <style name="TrackItemName">
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textSize">@dimen/track_name_size</item>
+    </style>
+
+    <style name="TrackItemDownload">
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:background">@color/backgroundColor</item>
+    </style>
+
+    <style name="TrackItemDuration">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/track_duration_size</item>
+    </style>
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+
 
 </resources>

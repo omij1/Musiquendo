@@ -146,4 +146,10 @@
         <item>No hay información disponible</item>
         <item>La información relacionada con ese artista no está disponible</item>
     </string-array>
+
+    <!-- Strings related to playlist without data-->
+    <string-array name="playlist_without_data">
+        <item>No hay información disponible</item>
+        <item>La información relacionada con esa lista de reproducción no está disponible</item>
+    </string-array>
 </resources>

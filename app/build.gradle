@@ -57,4 +57,5 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.2'
     implementation 'com.flipboard:bottomsheet-core:1.5.3'
     implementation 'com.flipboard:bottomsheet-commons:1.5.3'
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
 }

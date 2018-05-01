@@ -4,20 +4,20 @@
         <item name="android:scaleType">fitXY</item>
     </style>
 
-    <style name="AlbumDetailName">ArtistDetailName
+    <style name="AlbumDetailName">
         <item name="android:gravity">center</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">@dimen/album_detail_name</item>
     </style>
 
-    <style name="AlbumDetailArtist">ArtistDetailJoin
+    <style name="AlbumDetailArtist">
         <item name="android:gravity">center</item>
         <item name="android:textStyle">italic</item>
         <item name="android:textSize">@dimen/album_detail_artist</item>
         <item name="android:textColor">@color/colorAccent</item>
     </style>
 
-    <style name="AlbumDetailTotal">AlbumDetailDownload
+    <style name="AlbumDetailTotal">
         <item name="android:background">@color/colorPrimary</item>
         <item name="android:gravity">center</item>
         <item name="android:textSize">18sp</item>

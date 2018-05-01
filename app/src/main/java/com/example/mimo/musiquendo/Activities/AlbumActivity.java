@@ -9,7 +9,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.mimo.musiquendo.Fragments.FragmentAlbumDetail;
-import com.example.mimo.musiquendo.Fragments.FragmentAlbums;
 import com.example.mimo.musiquendo.R;
 
 import butterknife.BindView;
@@ -45,7 +44,7 @@ public class AlbumActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_album_detail, menu);
+        getMenuInflater().inflate(R.menu.menu_download, menu);
         return super.onCreateOptionsMenu(menu);
     }
 

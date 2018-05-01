@@ -28,7 +28,7 @@ import butterknife.ButterKnife;
  * Fragmento que muestra los detalles de un artista
  */
 
-public class FragmentArtistDetail extends Fragment implements ArtistsTracksAdapter.OnItemClickListener{
+public class FragmentArtistDetail extends Fragment implements ArtistsTracksAdapter.OnItemClickListener {
 
     @BindView(R.id.artist_detail_songs)
     RecyclerView songs;
@@ -117,6 +117,11 @@ public class FragmentArtistDetail extends Fragment implements ArtistsTracksAdapt
     @Override
     public void onTrackClick(View view, ArtistTracks tracks, int playing) {
         adapter.changeItem(playing);
+    }
+
+    @Override
+    public void onDownloadSongClick(ArtistTracks track) {
+
     }
 
     /**

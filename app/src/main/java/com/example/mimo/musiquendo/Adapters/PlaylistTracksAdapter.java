@@ -5,10 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.mimo.musiquendo.Model.AlbumTracks;
+import com.example.mimo.musiquendo.Model.PlayListTracks;
 import com.example.mimo.musiquendo.R;
 
 import java.util.List;
@@ -17,24 +16,23 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Adaptador de la lista de canciones de la actividad que muestra los detalles de un álbum
+ * Adaptador que rellena la lista de canciones de la actividad que muestra los detalles de una lista de reproducción
  */
 
-public class AlbumTracksAdapter extends RecyclerView.Adapter<AlbumTracksAdapter.ViewHolder>{
-
+public class PlaylistTracksAdapter extends RecyclerView.Adapter<PlaylistTracksAdapter.ViewHolder> {
 
     public interface OnItemClickListener {
-        void onTrackClick(View view, AlbumTracks tracks, int playing);
-        void onDownloadSongClick(AlbumTracks track);
+        void onTrackClick(View view, PlayListTracks tracks, int playing);
+        void onDownloadSongClick(PlayListTracks track);
     }
 
 
-    private List<AlbumTracks> albumTracks;
+    private List<PlayListTracks> playlistTracks;
     private final OnItemClickListener listener;
     private int itemPlaying = -1;
 
-    public AlbumTracksAdapter(List<AlbumTracks> albumTracks, OnItemClickListener listener) {
-        this.albumTracks = albumTracks;
+    public PlaylistTracksAdapter(List<PlayListTracks> albumTracks, OnItemClickListener listener) {
+        this.playlistTracks = albumTracks;
         this.listener = listener;
     }
 
@@ -52,26 +50,25 @@ public class AlbumTracksAdapter extends RecyclerView.Adapter<AlbumTracksAdapter.
     }
 
     @Override
-    public AlbumTracksAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.track_item, parent, false);
 
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(AlbumTracksAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, int position) {
         if (position == itemPlaying)
             holder.playing.setVisibility(View.VISIBLE);
         else
             holder.playing.setVisibility(View.INVISIBLE);
-        holder.bind(albumTracks.get(position), listener, position);
+        holder.bind(playlistTracks.get(position), listener, position);
     }
 
     @Override
     public int getItemCount() {
-        return albumTracks.size();
+        return playlistTracks.size();
     }
-
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -91,7 +88,7 @@ public class AlbumTracksAdapter extends RecyclerView.Adapter<AlbumTracksAdapter.
             ButterKnife.bind(this, itemView);
         }
 
-        public void bind(AlbumTracks track, OnItemClickListener listener, int position) {
+        public void bind(PlayListTracks track, OnItemClickListener listener, int position) {
             trackNumber.setText(String.valueOf(position+1));
             trackName.setText(track.getTrackName());
             trackDuration.setText(convertToMinutes(track.getTrackDuration()));

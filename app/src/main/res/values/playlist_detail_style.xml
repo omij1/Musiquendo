@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="PlaylistDetailName">
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/playlist_detail_name_size</item>
+    </style>
+
+    <style name="PlaylistDetailImage">
+        <item name="android:layout_marginTop">@dimen/detail_image_margin</item>
+    </style>
+
+    <style name="PlaylistDetailSeparator">
+        <item name="android:layout_marginTop">@dimen/margin_separator</item>
+        <item name="android:background">@color/colorAccent</item>
+    </style>
+
+    <style name="PlaylistDetailImageLand">
+        <item name="android:layout_marginStart">@dimen/detail_image_margin</item>
+        <item name="android:layout_marginEnd">@dimen/detail_image_margin</item>
+    </style>
+</resources>

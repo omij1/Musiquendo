@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -75,7 +76,7 @@ public class PlayListAdapter extends RecyclerView.Adapter<PlayListAdapter.ViewHo
         @BindView(R.id.playlist_item_creation)
         TextView playListCreation;
         @BindView(R.id.playlist_download)
-        ImageView downloadPlayList;
+        ImageButton downloadPlayList;
 
         public ViewHolder(View itemView) {
             super(itemView);

@@ -14,6 +14,7 @@ import com.example.mimo.musiquendo.Model.Categories;
 /**
  * Adaptador del TabLayout principal que se encarga de cambiar los fragment según el tab seleccionado
  */
+
 public class CategoriesAdapter extends FragmentStatePagerAdapter {
 
     private Fragment current;

@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.mimo.musiquendo.Model.ArtistTracks;
@@ -14,10 +15,15 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * Adaptador que rellena las canciones de la actividad que muestra los detalles de un artista
+ */
+
 public class ArtistsTracksAdapter extends RecyclerView.Adapter<ArtistsTracksAdapter.ViewHolder> {
 
     public interface OnItemClickListener {
         void onTrackClick(View view, ArtistTracks tracks, int playing);
+        void onDownloadSongClick(ArtistTracks track);
     }
 
 
@@ -70,6 +76,8 @@ public class ArtistsTracksAdapter extends RecyclerView.Adapter<ArtistsTracksAdap
         TextView trackNumber;
         @BindView(R.id.track_name)
         TextView trackName;
+        @BindView(R.id.download_song)
+        ImageButton downloadSong;
         @BindView(R.id.track_duration)
         TextView trackDuration;
         @BindView(R.id.track_playing)
@@ -85,6 +93,7 @@ public class ArtistsTracksAdapter extends RecyclerView.Adapter<ArtistsTracksAdap
             trackName.setText(track.getTrackName());
             trackDuration.setText(convertToMinutes(track.getTrackDuration()));
             itemView.setOnClickListener(v -> listener.onTrackClick(itemView, track, position));
+            downloadSong.setOnClickListener(downloadSong -> listener.onDownloadSongClick(track));
         }
 
         private String convertToMinutes(int trackDuration) {

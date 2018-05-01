@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardElevation="4dp"
+    app:cardElevation="@dimen/toolbar_elevation"
     app:cardBackgroundColor="@color/backgroundColor">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="@dimen/track_item_height"
         android:orientation="horizontal">
 
         <TextView
@@ -18,25 +17,29 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.10"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:textSize="20sp"/>
+            style="@style/TrackItemNumber"/>
 
         <TextView
             android:id="@+id/track_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.75"
-            android:layout_gravity="center"
-            android:textSize="20sp"/>
+            android:layout_weight="0.70"
+            style="@style/TrackItemName"/>
+
+        <ImageButton
+            android:id="@+id/download_song"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.10"
+            android:src="@drawable/ic_file_download"
+            style="@style/TrackItemDownload"/>
         
         <TextView
             android:id="@+id/track_duration"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.15"
-            android:gravity="center"
-            android:textSize="17sp"/>
+            style="@style/TrackItemDuration"/>
 
         <View
             android:id="@+id/track_playing"

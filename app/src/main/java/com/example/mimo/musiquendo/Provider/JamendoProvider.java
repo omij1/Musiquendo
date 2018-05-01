@@ -5,8 +5,6 @@ import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.example.mimo.musiquendo.Activities.MainActivity;
 import com.example.mimo.musiquendo.Adapters.PlayListAdapter;
 import com.example.mimo.musiquendo.BuildConfig;
 import com.example.mimo.musiquendo.Dialogs.SimpleDialog;
@@ -15,11 +13,13 @@ import com.example.mimo.musiquendo.Fragments.FragmentAlbums;
 import com.example.mimo.musiquendo.Fragments.FragmentArtistDetail;
 import com.example.mimo.musiquendo.Fragments.FragmentArtists;
 import com.example.mimo.musiquendo.Fragments.FragmentPlayLists;
+import com.example.mimo.musiquendo.Fragments.FragmentPlaylistDetail;
 import com.example.mimo.musiquendo.Model.Album;
 import com.example.mimo.musiquendo.Model.AlbumTracks;
 import com.example.mimo.musiquendo.Model.Artist;
 import com.example.mimo.musiquendo.Model.ArtistTracks;
 import com.example.mimo.musiquendo.Model.PlayList;
+import com.example.mimo.musiquendo.Model.PlayListTracks;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -31,7 +31,6 @@ import org.json.JSONObject;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Clase que se comunica con el API de Jamendo para obtener los datos
@@ -358,20 +357,36 @@ public class JamendoProvider {
     }
 
 
-    
-    public void playlistDetails(String playlistId) {
-        String url = BuildConfig.PLAYLIST_DETAILS;
+    /**
+     * Método que obtiene el detalle y las canciones pertenecientes a una lista de reproducción
+     * @param playlistId Identificador de la lista
+     * @param callback Callback que se ejecuta cuando se obtienen y parsean los datos
+     * @param errorCallback Callback que muestra un diálogo con el error
+     */
+    public void playlistDetails(String playlistId, FragmentPlaylistDetail.PlaylistDetailCallback callback, SimpleDialog.DialogListener errorCallback) {
+        String url = BuildConfig.PLAYLIST_DETAILS+"?client_id="+BuildConfig.JAMENDO_API_KEY+
+                "&imagesize="+IMAGESIZE+"&format=jsonpretty&limit=all&id="+playlistId;
         CustomJSONObject details = new CustomJSONObject(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
+                try {
+                    JSONArray results = response.getJSONArray("results");
+                    List<PlayListTracks> tracksList = null;
+                    if (results.length() > 0) {
+                        JSONObject jsonObject = results.getJSONObject(0);
+                        JSONArray tracks = jsonObject.getJSONArray("tracks");
+                        Type list = new TypeToken<ArrayList<PlayListTracks>>(){}.getType();
+                        tracksList = gson.fromJson(String.valueOf(tracks), list);
 
+                    }
+                    callback.onPlaylistDetailSuccess(tracksList);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("ERROR", "onErrorResponse: "+error);
-
-            }
+        }, error -> {
+            Log.e("ERROR", "onErrorResponse: "+error);
+            errorCallback.crearDialog();
         });
         RequestManager.getInstance().addToRequestQueue(context, details);
     }
