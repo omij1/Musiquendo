@@ -10,11 +10,18 @@
         <item name="android:textSize">@dimen/album_detail_name</item>
     </style>
 
+    <style name="AlbumDetailNameLand">
+        <item name="android:gravity">center</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/album_detail_name_land</item>
+    </style>
+
     <style name="AlbumDetailArtist">
         <item name="android:gravity">center</item>
         <item name="android:textStyle">italic</item>
         <item name="android:textSize">@dimen/album_detail_artist</item>
         <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:maxLines">2</item>
     </style>
 
     <style name="AlbumDetailTotal">

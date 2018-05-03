@@ -8,12 +8,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.mimo.musiquendo.Adapters.PlaylistTracksAdapter;
 import com.example.mimo.musiquendo.Dialogs.SimpleDialog;
 import com.example.mimo.musiquendo.Model.PlayListTracks;
+import com.example.mimo.musiquendo.Player.TrackPlayer;
 import com.example.mimo.musiquendo.Provider.JamendoProvider;
 import com.example.mimo.musiquendo.R;
 import com.squareup.picasso.Picasso;
@@ -99,8 +99,9 @@ public class FragmentPlaylistDetail extends Fragment implements PlaylistTracksAd
     }
 
     @Override
-    public void onTrackClick(View view, PlayListTracks tracks, int playing) {
+    public void onTrackClick(View view, PlayListTracks track, int playing) {
         adapter.changeItem(playing);
+        TrackPlayer.getInstance().playStreamTrack(track.getAudio());
     }
 
     @Override

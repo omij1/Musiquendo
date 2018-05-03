@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,6 +15,7 @@ import com.example.mimo.musiquendo.Adapters.AlbumTracksAdapter;
 import com.example.mimo.musiquendo.Adapters.ArtistsTracksAdapter;
 import com.example.mimo.musiquendo.Dialogs.SimpleDialog;
 import com.example.mimo.musiquendo.Model.AlbumTracks;
+import com.example.mimo.musiquendo.Player.TrackPlayer;
 import com.example.mimo.musiquendo.Provider.JamendoProvider;
 import com.example.mimo.musiquendo.R;
 import com.squareup.picasso.Picasso;
@@ -107,8 +107,9 @@ public class FragmentAlbumDetail extends Fragment implements AlbumTracksAdapter.
 
 
     @Override
-    public void onTrackClick(View view, AlbumTracks tracks, int playing) {
+    public void onTrackClick(View view, AlbumTracks track, int playing) {
         adapter.changeItem(playing);
+        TrackPlayer.getInstance().playStreamTrack(track.getAudio());
     }
 
     @Override
