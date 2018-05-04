@@ -23,7 +23,7 @@ public class TrackPlayer {
         return trackPlayer;
     }
 
-    public void playStreamTrack(String url) {
+    public void playStreamTrack(String url, int trackDuration) {
         preparePlayer();
         if (player.isPlaying()) {
             resetPlayer();

@@ -101,7 +101,7 @@ public class FragmentPlaylistDetail extends Fragment implements PlaylistTracksAd
     @Override
     public void onTrackClick(View view, PlayListTracks track, int playing) {
         adapter.changeItem(playing);
-        TrackPlayer.getInstance().playStreamTrack(track.getAudio());
+        TrackPlayer.getInstance().playStreamTrack(track.getAudio(), track.getTrackDuration());
     }
 
     @Override

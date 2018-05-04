@@ -15,6 +15,7 @@ import com.example.mimo.musiquendo.Adapters.AlbumTracksAdapter;
 import com.example.mimo.musiquendo.Adapters.ArtistsTracksAdapter;
 import com.example.mimo.musiquendo.Dialogs.SimpleDialog;
 import com.example.mimo.musiquendo.Model.AlbumTracks;
+import com.example.mimo.musiquendo.Player.NotificationBuilder;
 import com.example.mimo.musiquendo.Player.TrackPlayer;
 import com.example.mimo.musiquendo.Provider.JamendoProvider;
 import com.example.mimo.musiquendo.R;
@@ -109,7 +110,9 @@ public class FragmentAlbumDetail extends Fragment implements AlbumTracksAdapter.
     @Override
     public void onTrackClick(View view, AlbumTracks track, int playing) {
         adapter.changeItem(playing);
-        TrackPlayer.getInstance().playStreamTrack(track.getAudio());
+        TrackPlayer.getInstance().playStreamTrack(track.getAudio(), track.getTrackDuration());
+        NotificationBuilder builder = new NotificationBuilder(getContext());
+        builder.showNotification(track.getTrackName(), getArguments().getString(NAME));
     }
 
     @Override

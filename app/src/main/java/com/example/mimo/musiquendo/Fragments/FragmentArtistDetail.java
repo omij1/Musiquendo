@@ -118,7 +118,7 @@ public class FragmentArtistDetail extends Fragment implements ArtistsTracksAdapt
     @Override
     public void onTrackClick(View view, ArtistTracks track, int playing) {
         adapter.changeItem(playing);
-        TrackPlayer.getInstance().playStreamTrack(track.getAudio());
+        TrackPlayer.getInstance().playStreamTrack(track.getAudio(), track.getTrackDuration());
     }
 
     @Override
