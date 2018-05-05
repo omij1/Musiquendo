@@ -11,7 +11,8 @@ import java.io.IOException;
 public class TrackPlayer {
 
     private static TrackPlayer trackPlayer;
-    private MediaPlayer player;
+    private static MediaPlayer player;
+    private int position;
 
     public TrackPlayer() {
     }
@@ -23,14 +24,30 @@ public class TrackPlayer {
         return trackPlayer;
     }
 
+    public static synchronized MediaPlayer getPlayerInstance() {
+        if (player == null) {
+            player = new MediaPlayer();
+        }
+        return player;
+    }
+
+    /**
+     * Método que carga el Mediaplayer
+     * @param url Dirección de la canción
+     * @param trackDuration Duración de la canción
+     */
     public void playStreamTrack(String url, int trackDuration) {
-        preparePlayer();
+        getPlayerInstance();
         if (player.isPlaying()) {
             resetPlayer();
         }
         startPlayer(url);
     }
 
+    /**
+     * Método que inicia la reproducción de la canción
+     * @param url Ruta de donde se hace el streaming
+     */
     private void startPlayer(String url) {
         try {
             player.setDataSource(url);
@@ -43,14 +60,37 @@ public class TrackPlayer {
         }
     }
 
+    /**
+     * Método que pausa la reproducción de la canción
+     */
+    public void pausePlayer() {
+        player.pause();
+        position = player.getCurrentPosition();
+    }
+
+    /**
+     * Método que reanuda la reproducción de la canción
+     */
+    public void resumePlayer() {
+        player.seekTo(position);
+        player.start();
+    }
+
+    /**
+     * Método que resetea el Mediaplayer para cambiar de canción
+     */
     private void resetPlayer() {
         player.stop();
         player.reset();
     }
 
-    private void preparePlayer() {
-        if (player == null) {
-            player = new MediaPlayer();
-        }
+    /**
+     * Método que elimina la instancia del objeto Mediaplayer
+     */
+    public void deletePlayer() {
+        if (player.isPlaying())
+            player.stop();
+        player.release();
+        player = null;
     }
 }

@@ -22,7 +22,7 @@ import butterknife.ButterKnife;
 public class PlaylistTracksAdapter extends RecyclerView.Adapter<PlaylistTracksAdapter.ViewHolder> {
 
     public interface OnItemClickListener {
-        void onTrackClick(View view, PlayListTracks tracks, int playing);
+        void onTrackClick(View view, PlayListTracks tracks, int playing, String minutes);
         void onDownloadSongClick(PlayListTracks track);
     }
 
@@ -89,10 +89,11 @@ public class PlaylistTracksAdapter extends RecyclerView.Adapter<PlaylistTracksAd
         }
 
         public void bind(PlayListTracks track, OnItemClickListener listener, int position) {
+            String minutes = convertToMinutes(track.getTrackDuration());
             trackNumber.setText(String.valueOf(position+1));
             trackName.setText(track.getTrackName());
-            trackDuration.setText(convertToMinutes(track.getTrackDuration()));
-            itemView.setOnClickListener(v -> listener.onTrackClick(itemView, track, position));
+            trackDuration.setText(minutes);
+            itemView.setOnClickListener(v -> listener.onTrackClick(itemView, track, position, minutes));
             downloadSong.setOnClickListener(downloadSong -> listener.onDownloadSongClick(track));
         }
 

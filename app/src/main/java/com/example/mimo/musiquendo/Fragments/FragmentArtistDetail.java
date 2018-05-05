@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.example.mimo.musiquendo.Adapters.ArtistsTracksAdapter;
 import com.example.mimo.musiquendo.Dialogs.SimpleDialog;
 import com.example.mimo.musiquendo.Model.ArtistTracks;
+import com.example.mimo.musiquendo.Player.NotificationBuilder;
 import com.example.mimo.musiquendo.Player.TrackPlayer;
 import com.example.mimo.musiquendo.Provider.JamendoProvider;
 import com.example.mimo.musiquendo.R;
@@ -116,9 +117,11 @@ public class FragmentArtistDetail extends Fragment implements ArtistsTracksAdapt
     }
 
     @Override
-    public void onTrackClick(View view, ArtistTracks track, int playing) {
+    public void onTrackClick(View view, ArtistTracks track, int playing, String minutes) {
         adapter.changeItem(playing);
         TrackPlayer.getInstance().playStreamTrack(track.getAudio(), track.getTrackDuration());
+        NotificationBuilder builder = new NotificationBuilder(getContext());
+        builder.showNotification(track.getTrackName(), getArguments().getString(NAME), minutes);
     }
 
     @Override

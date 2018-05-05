@@ -28,7 +28,8 @@
         <activity android:name=".Activities.LicensesActivity" />
         <activity android:name=".Activities.AlbumActivity" />
         <activity android:name=".Activities.ArtistActivity" />
-        <activity android:name=".Activities.PlayListActivity"></activity>
+        <activity android:name=".Activities.PlayListActivity"/>
+        <receiver android:name=".Player.MyBroadCastReceiver"/>
     </application>
 
 </manifest>

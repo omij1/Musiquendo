@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.mimo.musiquendo.Model.AlbumTracks;
@@ -24,7 +23,7 @@ public class AlbumTracksAdapter extends RecyclerView.Adapter<AlbumTracksAdapter.
 
 
     public interface OnItemClickListener {
-        void onTrackClick(View view, AlbumTracks tracks, int playing);
+        void onTrackClick(View view, AlbumTracks tracks, int playing, String minutes);
         void onDownloadSongClick(AlbumTracks track);
     }
 
@@ -92,10 +91,11 @@ public class AlbumTracksAdapter extends RecyclerView.Adapter<AlbumTracksAdapter.
         }
 
         public void bind(AlbumTracks track, OnItemClickListener listener, int position) {
+            String minutes = convertToMinutes(track.getTrackDuration());
             trackNumber.setText(String.valueOf(position+1));
             trackName.setText(track.getTrackName());
-            trackDuration.setText(convertToMinutes(track.getTrackDuration()));
-            itemView.setOnClickListener(v -> listener.onTrackClick(itemView, track, position));
+            trackDuration.setText(minutes);
+            itemView.setOnClickListener(v -> listener.onTrackClick(itemView, track, position, minutes));
             downloadSong.setOnClickListener(downloadSong -> listener.onDownloadSongClick(track));
         }
 

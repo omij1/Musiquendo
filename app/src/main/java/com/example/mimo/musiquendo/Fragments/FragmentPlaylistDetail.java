@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.example.mimo.musiquendo.Adapters.PlaylistTracksAdapter;
 import com.example.mimo.musiquendo.Dialogs.SimpleDialog;
 import com.example.mimo.musiquendo.Model.PlayListTracks;
+import com.example.mimo.musiquendo.Player.NotificationBuilder;
 import com.example.mimo.musiquendo.Player.TrackPlayer;
 import com.example.mimo.musiquendo.Provider.JamendoProvider;
 import com.example.mimo.musiquendo.R;
@@ -99,9 +100,11 @@ public class FragmentPlaylistDetail extends Fragment implements PlaylistTracksAd
     }
 
     @Override
-    public void onTrackClick(View view, PlayListTracks track, int playing) {
+    public void onTrackClick(View view, PlayListTracks track, int playing, String minutes) {
         adapter.changeItem(playing);
         TrackPlayer.getInstance().playStreamTrack(track.getAudio(), track.getTrackDuration());
+        NotificationBuilder builder = new NotificationBuilder(getContext());
+        builder.showNotification(track.getTrackName(), getArguments().getString(NAME), minutes);
     }
 
     @Override

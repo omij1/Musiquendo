@@ -12,25 +12,33 @@ android {
     }
     buildTypes {
         debug {
-            buildConfigField "String", "JAMENDO_API_KEY", "\"fe762082\""
+            buildConfigField "String", "JAMENDO_API_KEY", "\"bb029cf9\""
             buildConfigField "String", "ALBUM_LIST", "\"https://api.jamendo.com/v3.0/albums/\""
             buildConfigField "String", "ARTIST_LIST", "\"https://api.jamendo.com/v3.0/artists/\""
             buildConfigField "String", "PLAYLIST_LIST", "\"https://api.jamendo.com/v3.0/playlists/\""
             buildConfigField "String", "ARTIST_DETAILS", "\"https://api.jamendo.com/v3.0/artists/tracks/\""
             buildConfigField "String", "ALBUM_DETAILS", "\"https://api.jamendo.com/v3.0/albums/tracks/\""
             buildConfigField "String", "PLAYLIST_DETAILS", "\"https://api.jamendo.com/v3.0/playlists/tracks\""
+            buildConfigField "String", "STARTSTOP", "\"com.example.mimo.musiquendo.STARTSTOP\""
+            buildConfigField "String", "PREVIOUS", "\"com.example.mimo.musiquendo.PREVIOUS\""
+            buildConfigField "String", "NEXT", "\"com.example.mimo.musiquendo.NEXT\""
+            buildConfigField "String", "DELETE", "\"com.example.mimo.musiquendo.DELETE\""
         }
 
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            buildConfigField "String", "JAMENDO_API_KEY", "\"fe762082\""
+            buildConfigField "String", "JAMENDO_API_KEY", "\"bb029cf9\""
             buildConfigField "String", "ALBUM_LIST", "\"https://api.jamendo.com/v3.0/albums/\""
             buildConfigField "String", "ARTIST_LIST", "\"https://api.jamendo.com/v3.0/artists/\""
             buildConfigField "String", "PLAYLIST_LIST", "\"https://api.jamendo.com/v3.0/playlists/\""
             buildConfigField "String", "ARTIST_DETAILS", "\"https://api.jamendo.com/v3.0/artists/tracks/\""
             buildConfigField "String", "ALBUM_DETAILS", "\"https://api.jamendo.com/v3.0/albums/tracks/\""
             buildConfigField "String", "PLAYLIST_DETAILS", "\"https://api.jamendo.com/v3.0/playlists/tracks\""
+            buildConfigField "String", "STARTSTOP", "\"com.example.mimo.musiquendo.STARTSTOP\""
+            buildConfigField "String", "PREVIOUS", "\"com.example.mimo.musiquendo.PREVIOUS\""
+            buildConfigField "String", "NEXT", "\"com.example.mimo.musiquendo.NEXT\""
+            buildConfigField "String", "DELETE", "\"com.example.mimo.musiquendo.DELETE\""
         }
 
     }

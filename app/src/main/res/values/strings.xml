@@ -110,6 +110,10 @@
     <string name="artist_detail_name">Nombre del artista</string>
     <string name="no_website">No website</string>
     <string name="descargar">Descargar</string>
+    <string name="reproduciendo">Reproduciendo</string>
+    <string name="prev">Prev</string>
+    <string name="play_pause">Play/Pause</string>
+    <string name="next">Next</string>
 
 
     <!-- Strings related to Albums filter-->
