@@ -58,7 +58,7 @@ public class JamendoProvider {
 
         //El API no ofrece un mecanismo de paginación y es por ello que uso el parámetro limit=all
         String url = BuildConfig.ALBUM_LIST+"?client_id="+BuildConfig.JAMENDO_API_KEY+"&imagesize="+
-                IMAGESIZE+"&format=jsonpretty&limit=all";
+                IMAGESIZE+"&format=jsonpretty&limit=10";
         CustomJSONObject albumsRequest = new CustomJSONObject(Request.Method.GET, url, null,
                 response -> {
                     try {
@@ -114,7 +114,7 @@ public class JamendoProvider {
     public void filterAlbums(String filter, FragmentAlbums.AlbumsCallback callback, SimpleDialog.DialogListener errorCallback) {
 
         String url = BuildConfig.ALBUM_LIST+"?client_id="+BuildConfig.JAMENDO_API_KEY+"&imagesize="+
-                IMAGESIZE+"&format=jsonpretty&limit=all&order="+filter;
+                IMAGESIZE+"&format=jsonpretty&limit=10&order="+filter;
         CustomJSONObject order = new CustomJSONObject(Request.Method.GET, url, null,
                 response -> {
                     try {
@@ -225,7 +225,7 @@ public class JamendoProvider {
     public void filterArtists(String filter, FragmentArtists.ArtistsCallback callback, SimpleDialog.DialogListener errorCallback) {
 
         String url = BuildConfig.ARTIST_LIST+"?client_id="+BuildConfig.JAMENDO_API_KEY+"&imagesize="+
-                IMAGESIZE+"&format=jsonpretty&limit=all&order="+filter;
+                IMAGESIZE+"&format=jsonpretty&limit=10&order="+filter;
         CustomJSONObject order = new CustomJSONObject(Request.Method.GET, url, null,
                 response -> {
                     try {

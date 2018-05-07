@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <style name="LicenseHeaderText">
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginStart">@dimen/license_margin_start</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/license_header_text_size</item>
+    </style>
+
+    <style name="LicenseHeaderButton">
+        <item name="android:background">@color/backgroundColor</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+</resources>

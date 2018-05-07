@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="license_appbar_size">300dp</dimen>
+    <dimen name="license_image_width">150dp</dimen>
+    <dimen name="license_header_size">60dp</dimen>
+    <dimen name="license_margin_start">10dp</dimen>
+    <dimen name="license_header_text_size">18sp</dimen>
+    <dimen name="license_body_margin_top">5dp</dimen>
+    <dimen name="license_margin_body">20dp</dimen>
+    <dimen name="license_body_text">14sp</dimen>
+    <dimen name="license_border_radius">1dp</dimen>
+    <dimen name="license_border_header_radius">2dp</dimen>
+    <dimen name="license_border_bottom">1dp</dimen>
+    <dimen name="license_border_left">-2dp</dimen>
+    <dimen name="license_border_right">-2dp</dimen>
+    <dimen name="license_border_top">-2dp</dimen>
+    <dimen name="divider_width">2dp</dimen>
+    <dimen name="license_image_margin_start_land">5dp</dimen>
+    <dimen name="license_image_margin_end_land">5dp</dimen>
+</resources>
