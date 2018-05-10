@@ -1,5 +1,6 @@
 package com.example.mimo.musiquendo.Player;
 
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -12,49 +13,60 @@ import com.example.mimo.musiquendo.R;
 
 public class NotificationBuilder {
 
-    private Context context;
     private String CHANNEL = "DEFAULT_CHANNEL";
     public static int ID = 1;
+    private Context context;
+    private String contentTitle;
+    private String contentText;
+    private String contentInfo;
     private PendingIntent startStopIntent;
     private PendingIntent prevIntent;
     private PendingIntent nextIntent;
     private PendingIntent deleteIntent;
 
-    public NotificationBuilder(Context context) {
+    public NotificationBuilder(Context context, String contentTitle, String contentText, String contentInfo) {
         this.context = context;
+        this.contentTitle = contentTitle;
+        this.contentText = contentText;
+        this.contentInfo = contentInfo;
     }
 
-    public void showNotification(String trackName, String artist, String minutes) {
+    public Notification showNotification() {
+        //Según el modo de reproducción debe mostrarse una notificación u otra
+        startIntents(context);
+        return basicNotification();
+    }
 
-        startIntents();
+    private Notification basicNotification() {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL)
-                .setContentTitle(trackName)
-                .setContentText(artist)
-                .setContentInfo(minutes)
+                .setContentTitle(contentTitle)
+                .setContentText(contentText)
+                .setContentInfo(contentInfo)
                 .setTicker(context.getString(R.string.reproduciendo))
                 .setSmallIcon(R.drawable.auriculares)
                 .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.auriculares))
                 .setDeleteIntent(deleteIntent)
-                .addAction(R.drawable.ic_skip_previous_black, context.getResources().getString(R.string.prev), prevIntent)
-                .addAction(R.drawable.ic_reanudar, context.getResources().getString(R.string.play_pause), startStopIntent)
-                .addAction(R.drawable.ic_skip_next_black, context.getResources().getString(R.string.next),nextIntent);
+                .setAutoCancel(true)
+                //.addAction(R.drawable.ic_skip_previous_black, context.getResources().getString(R.string.prev), prevIntent)
+                .addAction(R.drawable.ic_reanudar, context.getResources().getString(R.string.play_pause), startStopIntent);
+        //.addAction(R.drawable.ic_skip_next_black, context.getResources().getString(R.string.next),nextIntent);
 
         NotificationCompat.BigTextStyle bigTextStyle = new NotificationCompat.BigTextStyle();
 
-        bigTextStyle.bigText(artist)
-                .setBigContentTitle(trackName)
-                .setSummaryText(artist);
+        bigTextStyle.bigText(contentText)
+                .setBigContentTitle(contentTitle)
+                .setSummaryText(contentText);
 
         builder.setStyle(bigTextStyle);
 
-        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(ID, builder.build());
+        return builder.build();
     }
 
     /**
      * Método que inicializa los intents y pendingintents relacionados con las acciones de la notificación
+     * @param context Contexto en el que se van a ejecutar
      */
-    private void startIntents() {
+    private void startIntents(Context context) {
         Intent starStop = new Intent(context, MyBroadCastReceiver.class);
         starStop.setAction(BuildConfig.STARTSTOP);
         startStopIntent = PendingIntent.getBroadcast(context, 0, starStop, PendingIntent.FLAG_UPDATE_CURRENT);

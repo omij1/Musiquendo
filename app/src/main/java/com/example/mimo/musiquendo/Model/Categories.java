@@ -1,13 +1,17 @@
 package com.example.mimo.musiquendo.Model;
 
+import android.content.res.Resources;
+
+import com.example.mimo.musiquendo.R;
+
 /**
  * Enumeración que representa las secciones principales de la aplicación
  */
 public enum Categories {
 
-    ALBUMES("albumes"),
-    ARTISTAS("artistas"),
-    LISTAS("listas");
+    ALBUMS("Albums"),
+    ARTISTS("Artists"),
+    PLAYLISTS("Playlists");
 
     public final String key;
 

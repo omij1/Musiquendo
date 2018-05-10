@@ -1,6 +1,13 @@
 package com.example.mimo.musiquendo.Player;
 
+import android.app.Service;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
 import android.media.MediaPlayer;
+import android.os.IBinder;
+import android.support.annotation.Nullable;
+import android.util.Log;
 
 import java.io.IOException;
 
@@ -8,50 +15,88 @@ import java.io.IOException;
  * Singleton que permite reproducir las cancionesw de la aplicación.
  */
 
-public class TrackPlayer {
+public class TrackPlayer extends Service {
 
-    private static TrackPlayer trackPlayer;
-    private static MediaPlayer player;
+    private MediaPlayer player;
     private int position;
+    private NotificationBuilder notif;
 
-    public TrackPlayer() {
+    public TrackPlayer() {}
+
+
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
     }
 
-    public static synchronized TrackPlayer getInstance() {
-        if (trackPlayer == null) {
-            trackPlayer = new TrackPlayer();
-        }
-        return trackPlayer;
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        enableForegroundMode();
     }
 
-    public static synchronized MediaPlayer getPlayerInstance() {
-        if (player == null) {
-            player = new MediaPlayer();
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        disableForegroundMode();
+        if (player!= null) {
+            player.stop();
+            player = null;
         }
-        return player;
+        TrackQueue.SECTION = "";
+        TrackQueue.getInstance().deleteQueue();
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        Thread musicThread = new Thread(() -> {
+            if (player == null)
+                player = new MediaPlayer();
+            showNotification();
+            playStreamTrack();
+        });
+        musicThread.start();
+
+        return super.onStartCommand(intent, flags, startId);
+    }
+
+    private void enableForegroundMode() {
+        showNotification();
+    }
+
+    private void disableForegroundMode() {
+        stopForeground(true);
+    }
+
+    /**
+     * Método que muestra la notificación y actualiza su contenido acorde a la canción que está sonando
+     */
+    private void showNotification() {
+        String trackName = TrackQueue.getTrackQueue().get(0).getTrackName();
+        String artist = TrackQueue.getTrackQueue().get(0).getInfo();
+        String minutes = TrackQueue.getTrackQueue().get(0).getDurationInfo();
+        notif = new NotificationBuilder(getApplicationContext(), trackName, artist, minutes);
+        startForeground(NotificationBuilder.ID, notif.showNotification());
     }
 
     /**
      * Método que carga el Mediaplayer
-     * @param url Dirección de la canción
-     * @param trackDuration Duración de la canción
      */
-    public void playStreamTrack(String url, int trackDuration) {
-        getPlayerInstance();
+    private void playStreamTrack() {
         if (player.isPlaying()) {
             resetPlayer();
         }
-        startPlayer(url);
+        startPlayer();
     }
 
     /**
      * Método que inicia la reproducción de la canción
-     * @param url Ruta de donde se hace el streaming
      */
-    private void startPlayer(String url) {
+    private void startPlayer() {
         try {
-            player.setDataSource(url);
-            player.prepareAsync();// carga la canción de forma asíncrona
+            player.setDataSource(TrackQueue.getTrackQueue().get(0).getStreamUrl());
+            player.prepareAsync();
             player.setOnPreparedListener(mediaPlayer -> {
                 player.start();
             });
@@ -94,3 +139,4 @@ public class TrackPlayer {
         player = null;
     }
 }
+

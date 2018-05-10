@@ -30,6 +30,7 @@
         <activity android:name=".Activities.ArtistActivity" />
         <activity android:name=".Activities.PlayListActivity"/>
         <receiver android:name=".Player.MyBroadCastReceiver"/>
+        <service android:name=".Player.TrackPlayer" />
     </application>
 
 </manifest>

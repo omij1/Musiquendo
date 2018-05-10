@@ -3,6 +3,7 @@ package com.example.mimo.musiquendo.Player;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import com.example.mimo.musiquendo.BuildConfig;
 
@@ -33,12 +34,7 @@ public class MyBroadCastReceiver extends BroadcastReceiver {
     }
 
     private void startStopTrack() {
-        if (TrackPlayer.getPlayerInstance().isPlaying()) {
-            TrackPlayer.getInstance().pausePlayer();
-        }
-        else {
-            TrackPlayer.getInstance().resumePlayer();
-        }
+
     }
 
     private void previousTrack() {
@@ -50,6 +46,6 @@ public class MyBroadCastReceiver extends BroadcastReceiver {
     }
 
     private void deleteTrack() {
-        TrackPlayer.getInstance().deletePlayer();
+        Log.d("BROADCAST", "deleteTrack: ");
     }
 }

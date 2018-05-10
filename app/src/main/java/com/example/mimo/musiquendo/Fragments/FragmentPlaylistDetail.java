@@ -1,5 +1,6 @@
 package com.example.mimo.musiquendo.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,10 +12,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.mimo.musiquendo.Adapters.PlaylistTracksAdapter;
+import com.example.mimo.musiquendo.BuildConfig;
 import com.example.mimo.musiquendo.Dialogs.SimpleDialog;
 import com.example.mimo.musiquendo.Model.PlayListTracks;
+import com.example.mimo.musiquendo.Model.Track;
 import com.example.mimo.musiquendo.Player.NotificationBuilder;
 import com.example.mimo.musiquendo.Player.TrackPlayer;
+import com.example.mimo.musiquendo.Player.TrackQueue;
 import com.example.mimo.musiquendo.Provider.JamendoProvider;
 import com.example.mimo.musiquendo.R;
 import com.squareup.picasso.Picasso;
@@ -102,9 +106,10 @@ public class FragmentPlaylistDetail extends Fragment implements PlaylistTracksAd
     @Override
     public void onTrackClick(View view, PlayListTracks track, int playing, String minutes) {
         adapter.changeItem(playing);
-        TrackPlayer.getInstance().playStreamTrack(track.getAudio(), track.getTrackDuration());
-        NotificationBuilder builder = new NotificationBuilder(getContext());
-        builder.showNotification(track.getTrackName(), getArguments().getString(NAME), minutes);
+        TrackQueue.getInstance().setSection(BuildConfig.PLAYLISTS);
+        TrackQueue.getInstance().addTrack(new Track(track.getAudio(), track.getTrackName(),
+                getArguments().getString(NAME), track.getTrackDuration(), minutes));
+        getActivity().startService(new Intent(getActivity(), TrackPlayer.class));
     }
 
     @Override

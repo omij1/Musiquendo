@@ -11,7 +11,7 @@
 
     <item
         android:id="@+id/filter"
-        android:title="@string/filtrar"
+        android:title="@string/filter"
         android:icon="@drawable/ic_filter_list"
         app:showAsAction="ifRoom"/>
 
