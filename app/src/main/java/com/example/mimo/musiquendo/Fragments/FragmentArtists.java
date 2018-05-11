@@ -130,7 +130,7 @@ public class FragmentArtists extends Fragment implements ArtistAdapter.OnItemCli
     public void showMenu() {
         if (getActivity() != null) {
             String[] filtros = getResources().getStringArray(R.array.artists_filter);
-            MenuSheetView menu = new MenuSheetView(getContext(), MenuSheetView.MenuType.LIST, getResources().getString(R.string.cabecera_bottomsheet), item -> {
+            MenuSheetView menu = new MenuSheetView(getContext(), MenuSheetView.MenuType.LIST, getResources().getString(R.string.header_bottomsheet), item -> {
                 switch (item.getItemId()){
                     case R.id.name_artists:
                         filterArtist(filtros[0]);

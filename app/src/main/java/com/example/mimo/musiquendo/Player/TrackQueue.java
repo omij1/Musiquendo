@@ -14,6 +14,7 @@ public class TrackQueue {
     private static TrackQueue trackQueue;
     private static List<Track> queue;
     public static String SECTION = "";
+    public static int currentTrack;
 
     public TrackQueue() {}
 
@@ -29,13 +30,25 @@ public class TrackQueue {
     }
 
     public void addTrack(Track track) {
+        currentTrack = 0;
         if (queue == null) {
-            queue = new ArrayList<Track>();
+            queue = new ArrayList<>();
         }
         else {
             queue.remove(0);
         }
         queue.add(track);
+    }
+
+    public void addTrackList(List<Track> list, int position) {
+        currentTrack = position;
+        if (queue == null) {
+            queue = new ArrayList<>();
+        }
+        else {
+            queue.clear();
+        }
+        queue = list;
     }
 
     public void setSection(String section) {

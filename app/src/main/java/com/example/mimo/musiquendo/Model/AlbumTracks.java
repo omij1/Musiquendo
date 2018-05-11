@@ -20,14 +20,16 @@ public class AlbumTracks {
     private String audio;
     @SerializedName("audiodownload")
     private String audioDownload;
+    private String minutes;
 
-    public AlbumTracks(String albumId, int position, String trackName, int trackDuration, String audio, String audioDownload) {
+    public AlbumTracks(String albumId, int position, String trackName, int trackDuration, String audio, String audioDownload, String minutes) {
         this.albumId = albumId;
         this.position = position;
         this.trackName = trackName;
         this.trackDuration = trackDuration;
         this.audio = audio;
         this.audioDownload = audioDownload;
+        this.minutes = minutes;
     }
 
     public String getAlbumId() {
@@ -76,5 +78,13 @@ public class AlbumTracks {
 
     public void setAudioDownload(String audioDownload) {
         this.audioDownload = audioDownload;
+    }
+
+    public String getMinutes() {
+        return minutes;
+    }
+
+    public void setMinutes(String minutes) {
+        this.minutes = minutes;
     }
 }

@@ -24,8 +24,9 @@ public class PlayListTracks {
     private String image;
     @SerializedName("artist_name")
     private String artistName;
+    private String minutes;
 
-    public PlayListTracks(String albumId, int position, String trackName, int trackDuration, String audio, String audioDownload, String image, String artistName) {
+    public PlayListTracks(String albumId, int position, String trackName, int trackDuration, String audio, String audioDownload, String image, String artistName, String minutes) {
         this.albumId = albumId;
         this.position = position;
         this.trackName = trackName;
@@ -34,6 +35,7 @@ public class PlayListTracks {
         this.audioDownload = audioDownload;
         this.image = image;
         this.artistName = artistName;
+        this.minutes = minutes;
     }
 
     public String getAlbumId() {
@@ -98,5 +100,13 @@ public class PlayListTracks {
 
     public void setArtistName(String artistName) {
         this.artistName = artistName;
+    }
+
+    public String getMinutes() {
+        return minutes;
+    }
+
+    public void setMinutes(String minutes) {
+        this.minutes = minutes;
     }
 }

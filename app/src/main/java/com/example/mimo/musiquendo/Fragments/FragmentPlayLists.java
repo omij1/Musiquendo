@@ -132,7 +132,7 @@ public class FragmentPlayLists extends Fragment implements PlayListAdapter.OnIte
     public void showMenu() {
         if (getActivity() != null) {
             String[] filtros = getResources().getStringArray(R.array.playlists_filter);
-            MenuSheetView menu = new MenuSheetView(getContext(), MenuSheetView.MenuType.LIST, getString(R.string.cabecera_bottomsheet), item -> {
+            MenuSheetView menu = new MenuSheetView(getContext(), MenuSheetView.MenuType.LIST, getString(R.string.header_bottomsheet), item -> {
                 switch (item.getItemId()){
                     case R.id.name_playlists:
                         filterPlaylist(filtros[0]);

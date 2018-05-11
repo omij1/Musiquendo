@@ -34,22 +34,52 @@ public class NotificationBuilder {
     public Notification showNotification() {
         //Según el modo de reproducción debe mostrarse una notificación u otra
         startIntents(context);
-        return basicNotification();
+        return fullNotification();
     }
 
+    /**
+     * Método que devuelve una notificación básica con un único botón para parar o reanudar la canción
+     * @return La notificación
+     */
     private Notification basicNotification() {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL)
                 .setContentTitle(contentTitle)
                 .setContentText(contentText)
                 .setContentInfo(contentInfo)
-                .setTicker(context.getString(R.string.reproduciendo))
+                .setTicker(context.getString(R.string.playing))
                 .setSmallIcon(R.drawable.auriculares)
                 .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.auriculares))
                 .setDeleteIntent(deleteIntent)
-                .setAutoCancel(true)
-                //.addAction(R.drawable.ic_skip_previous_black, context.getResources().getString(R.string.prev), prevIntent)
                 .addAction(R.drawable.ic_reanudar, context.getResources().getString(R.string.play_pause), startStopIntent);
-        //.addAction(R.drawable.ic_skip_next_black, context.getResources().getString(R.string.next),nextIntent);
+
+        NotificationCompat.BigTextStyle bigTextStyle = new NotificationCompat.BigTextStyle();
+
+        bigTextStyle.bigText(contentText)
+                .setBigContentTitle(contentTitle)
+                .setSummaryText(contentText);
+
+        builder.setStyle(bigTextStyle);
+
+        return builder.build();
+    }
+
+    /**
+     * Método que devuelve una notificación completa con botones para parar o reanudar la canción
+     * e ir a las canciones anterior y siguiente
+     * @return La notificación
+     */
+    private Notification fullNotification() {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL)
+                .setContentTitle(contentTitle)
+                .setContentText(contentText)
+                .setContentInfo(contentInfo)
+                .setTicker(context.getString(R.string.playing))
+                .setSmallIcon(R.drawable.auriculares)
+                .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.auriculares))
+                .setDeleteIntent(deleteIntent)
+                .addAction(R.drawable.ic_skip_previous_black, context.getResources().getString(R.string.prev), prevIntent)
+                .addAction(R.drawable.ic_reanudar, context.getResources().getString(R.string.play_pause), startStopIntent)
+                .addAction(R.drawable.ic_skip_next_black, context.getResources().getString(R.string.next),nextIntent);
 
         NotificationCompat.BigTextStyle bigTextStyle = new NotificationCompat.BigTextStyle();
 

@@ -23,7 +23,7 @@ public class AlbumTracksAdapter extends RecyclerView.Adapter<AlbumTracksAdapter.
 
 
     public interface OnItemClickListener {
-        void onTrackClick(View view, AlbumTracks tracks, int playing, String minutes);
+        void onTrackClick(View view, AlbumTracks tracks, int playing);
         void onDownloadSongClick(AlbumTracks track);
     }
 
@@ -91,11 +91,11 @@ public class AlbumTracksAdapter extends RecyclerView.Adapter<AlbumTracksAdapter.
         }
 
         public void bind(AlbumTracks track, OnItemClickListener listener, int position) {
-            String minutes = convertToMinutes(track.getTrackDuration());
+            track.setMinutes(convertToMinutes(track.getTrackDuration()));
             trackNumber.setText(String.valueOf(position+1));
             trackName.setText(track.getTrackName());
-            trackDuration.setText(minutes);
-            itemView.setOnClickListener(v -> listener.onTrackClick(itemView, track, position, minutes));
+            trackDuration.setText(track.getMinutes());
+            itemView.setOnClickListener(v -> listener.onTrackClick(itemView, track, position));
             downloadSong.setOnClickListener(downloadSong -> listener.onDownloadSongClick(track));
         }
 

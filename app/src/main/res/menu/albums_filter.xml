@@ -9,16 +9,16 @@
 
     <item
         android:id="@+id/popularity_total_albums"
-        android:title="@string/albums_mas_populares"
+        android:title="@string/albums_more_populars"
         app:showAsAction="never"/>
 
     <item
         android:id="@+id/popularity_month_albums"
-        android:title="@string/albums_populares_mes"
+        android:title="@string/albums_populars_month"
         app:showAsAction="never"/>
 
     <item
         android:id="@+id/popularity_week_albums"
-        android:title="@string/albums_populares_semana"
+        android:title="@string/albums_populars_week"
         app:showAsAction="never"/>
 </menu>

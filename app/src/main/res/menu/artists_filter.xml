@@ -4,21 +4,21 @@
 
     <item
         android:id="@+id/name_artists"
-        android:title="@string/artistas_name"
+        android:title="@string/artists_name"
         app:showAsAction="never"/>
 
     <item
         android:id="@+id/popularity_total_artists"
-        android:title="@string/albums_mas_populares"
+        android:title="@string/albums_more_populars"
         app:showAsAction="never"/>
 
     <item
         android:id="@+id/popularity_month_artists"
-        android:title="@string/albums_populares_mes"
+        android:title="@string/albums_populars_month"
         app:showAsAction="never"/>
 
     <item
         android:id="@+id/popularity_week_artists"
-        android:title="@string/albums_populares_semana"
+        android:title="@string/albums_populars_week"
         app:showAsAction="never"/>
 </menu>

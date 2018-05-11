@@ -24,6 +24,7 @@ import com.example.mimo.musiquendo.Provider.JamendoProvider;
 import com.example.mimo.musiquendo.R;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -111,12 +112,26 @@ public class FragmentAlbumDetail extends Fragment implements AlbumTracksAdapter.
 
 
     @Override
-    public void onTrackClick(View view, AlbumTracks track, int playing, String minutes) {
-        adapter.changeItem(playing);
+    public void onTrackClick(View view, AlbumTracks track, int position) {
+        adapter.changeItem(position);
+        //Miramos el modo de reproducción de las canciones
+        Intent playTrack = new Intent(getActivity(), TrackPlayer.class);
+        playTrack.setAction(BuildConfig.PLAY);
         TrackQueue.getInstance().setSection(BuildConfig.ALBUMS);
-        TrackQueue.getInstance().addTrack(new Track(track.getAudio(), track.getTrackName(),
-                getArguments().getString(NAME), track.getTrackDuration(), minutes));
-        getActivity().startService(new Intent(getActivity(), TrackPlayer.class));
+        /*TrackQueue.getInstance().addTrack(new Track(track.getAudio(), track.getTrackName(),
+                getArguments().getString(NAME), track.getTrackDuration(), track.getMinutes()));
+        getActivity().startService(playTrack);*/
+        automaticMode(playTrack, position);
+    }
+
+    private void automaticMode(Intent playTrack, int position) {
+        List<Track> trackList = new ArrayList<>();
+        for (AlbumTracks track : tracks) {
+            trackList.add(new Track(track.getAudio(), track.getTrackName(),
+                    getArguments().getString(NAME), track.getTrackDuration(),track.getMinutes()));
+        }
+        TrackQueue.getInstance().addTrackList(trackList, position);
+        getActivity().startService(playTrack);
     }
 
     @Override

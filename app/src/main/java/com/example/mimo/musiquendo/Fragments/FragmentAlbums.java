@@ -138,7 +138,7 @@ public class FragmentAlbums extends Fragment implements AlbumAdapter.OnItemClick
     public void showMenu() {
         if (getActivity() != null) {
             String[] filtros = getResources().getStringArray(R.array.albums_filter);
-            MenuSheetView menu = new MenuSheetView(getContext(), MenuSheetView.MenuType.LIST, getResources().getString(R.string.cabecera_bottomsheet), item -> {
+            MenuSheetView menu = new MenuSheetView(getContext(), MenuSheetView.MenuType.LIST, getResources().getString(R.string.header_bottomsheet), item -> {
                 switch (item.getItemId()){
                     case R.id.name_albums:
                         filterAlbums(filtros[0]);
