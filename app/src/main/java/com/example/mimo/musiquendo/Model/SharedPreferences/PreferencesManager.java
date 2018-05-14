@@ -3,6 +3,8 @@ package com.example.mimo.musiquendo.Model.SharedPreferences;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.example.mimo.musiquendo.R;
+
 /**
  * Clase que se encarga de la gestión del fichero de preferencias de la aplicación
  */
@@ -13,7 +15,7 @@ public class PreferencesManager {
     private static final String SHARED_PREFS_FILE = "MusiquendoSettings";
     private static final String PLAYLIST_MODE = "playlist_mode";
     private static final String LANGUAGE = "language";
-    
+    private static final String DOWNLOAD = "download_settings";
 
     public PreferencesManager(Context context) {
         this.mContext = context;
@@ -33,13 +35,23 @@ public class PreferencesManager {
         edit.apply();
     }
 
-    public String getLANGUAGE() {
-        return getPreferences().getString(LANGUAGE, "english");
+    public int getLanguage() {
+        return getPreferences().getInt(LANGUAGE, R.id.english);
     }
 
-    public void setLanguage(String language) {
+    public void setLanguage(int language) {
         SharedPreferences.Editor edit = getPreferences().edit();
-        edit.putString(LANGUAGE, language);
+        edit.putInt(LANGUAGE, language);
+        edit.apply();
+    }
+
+    public boolean getDownloadSettings() {
+        return getPreferences().getBoolean(DOWNLOAD, true);
+    }
+
+    public void setDownload(boolean mode) {
+        SharedPreferences.Editor edit = getPreferences().edit();
+        edit.putBoolean(DOWNLOAD, mode);
         edit.apply();
     }
 }

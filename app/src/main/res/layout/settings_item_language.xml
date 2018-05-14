@@ -62,16 +62,16 @@
                     android:orientation="vertical">
 
                     <RadioButton
-                        android:id="@+id/spanish"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:drawableEnd="@drawable/spain_flag" />
-
-                    <RadioButton
                         android:id="@+id/english"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:drawableEnd="@drawable/england_flag" />
+
+                    <RadioButton
+                        android:id="@+id/spanish"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableEnd="@drawable/spain_flag" />
 
                 </RadioGroup>
 

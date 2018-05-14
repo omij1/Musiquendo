@@ -14,6 +14,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import com.example.mimo.musiquendo.Model.SharedPreferences.PreferencesManager;
 import com.example.mimo.musiquendo.R;
 
 import butterknife.BindView;
@@ -29,6 +30,7 @@ public class FragmentSettings extends Fragment {
     RadioGroup languageGroup;
     @BindView(R.id.download_mode)
     ToggleButton downloadMode;
+    private PreferencesManager preferencesManager;
 
     /**
      * Crea una nueva instancia del fragmento
@@ -59,27 +61,15 @@ public class FragmentSettings extends Fragment {
     }
 
     private void initComponents() {
-
+        preferencesManager = new PreferencesManager(getContext());
+        aSwitch.setChecked(preferencesManager.getPlaylistMode());
+        languageGroup.check(preferencesManager.getLanguage());
+        downloadMode.setChecked(preferencesManager.getDownloadSettings());
     }
 
     private void setListeners() {
-        aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                Log.d("SWITCH", "onCheckedChanged: "+b);
-            }
-        });
-        languageGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                Log.d("RADIO", "onCheckedChanged: "+radioGroup.getCheckedRadioButtonId());
-            }
-        });
-        downloadMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                Log.d("TOGGLE", "onCheckedChanged: "+b);
-            }
-        });
+        aSwitch.setOnCheckedChangeListener((compoundButton, b) -> preferencesManager.setPlaylistMode(b));
+        languageGroup.setOnCheckedChangeListener((radioGroup, i) -> preferencesManager.setLanguage(i));
+        downloadMode.setOnCheckedChangeListener((compoundButton, b) -> preferencesManager.setDownload(b));
     }
 }

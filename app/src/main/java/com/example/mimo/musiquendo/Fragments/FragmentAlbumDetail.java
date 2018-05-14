@@ -17,6 +17,7 @@ import com.example.mimo.musiquendo.Adapters.AlbumTracksAdapter;
 import com.example.mimo.musiquendo.BuildConfig;
 import com.example.mimo.musiquendo.Dialogs.SimpleDialog;
 import com.example.mimo.musiquendo.Model.AlbumTracks;
+import com.example.mimo.musiquendo.Model.SharedPreferences.PreferencesManager;
 import com.example.mimo.musiquendo.Model.Track;
 import com.example.mimo.musiquendo.Player.NotificationBuilder;
 import com.example.mimo.musiquendo.Player.TrackPlayer;
@@ -53,6 +54,7 @@ public class FragmentAlbumDetail extends Fragment implements AlbumTracksAdapter.
     private List<AlbumTracks> tracks;
     private AlbumTracksAdapter adapter;
     private JamendoProvider jamendo;
+    private PreferencesManager preferencesManager;
 
 
     /**
@@ -88,6 +90,7 @@ public class FragmentAlbumDetail extends Fragment implements AlbumTracksAdapter.
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         jamendo = new JamendoProvider(getContext());
+        preferencesManager = new PreferencesManager(getContext());
         jamendo.albumDetails(getArguments().getString(ID), (tracksList, cover) -> {
             tracks = tracksList;
             loadContent();
