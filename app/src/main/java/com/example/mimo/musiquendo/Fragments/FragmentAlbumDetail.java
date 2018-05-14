@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +18,6 @@ import com.example.mimo.musiquendo.Dialogs.SimpleDialog;
 import com.example.mimo.musiquendo.Model.AlbumTracks;
 import com.example.mimo.musiquendo.Model.SharedPreferences.PreferencesManager;
 import com.example.mimo.musiquendo.Model.Track;
-import com.example.mimo.musiquendo.Player.NotificationBuilder;
 import com.example.mimo.musiquendo.Player.TrackPlayer;
 import com.example.mimo.musiquendo.Player.TrackQueue;
 import com.example.mimo.musiquendo.Provider.JamendoProvider;
@@ -53,7 +51,6 @@ public class FragmentAlbumDetail extends Fragment implements AlbumTracksAdapter.
     private static final String ARTIST = "ARTIST";
     private List<AlbumTracks> tracks;
     private AlbumTracksAdapter adapter;
-    private JamendoProvider jamendo;
     private PreferencesManager preferencesManager;
 
 
@@ -89,7 +86,7 @@ public class FragmentAlbumDetail extends Fragment implements AlbumTracksAdapter.
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        jamendo = new JamendoProvider(getContext());
+        JamendoProvider jamendo = new JamendoProvider(getContext());
         preferencesManager = new PreferencesManager(getContext());
         jamendo.albumDetails(getArguments().getString(ID), (tracksList, cover) -> {
             tracks = tracksList;

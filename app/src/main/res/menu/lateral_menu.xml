@@ -11,7 +11,7 @@
     </item>
 
     <item
-        android:title="@string/configuracion">
+        android:title="@string/settings">
         <menu>
             <item
                 android:id="@+id/settings_menu"

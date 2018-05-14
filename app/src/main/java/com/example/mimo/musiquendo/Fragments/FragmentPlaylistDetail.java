@@ -44,7 +44,6 @@ public class FragmentPlaylistDetail extends Fragment implements PlaylistTracksAd
     private static final String IMAGE = "IMAGE";
     private List<PlayListTracks> tracks;
     private PlaylistTracksAdapter adapter;
-    private JamendoProvider jamendo;
     private PreferencesManager preferencesManager;
 
 
@@ -79,7 +78,7 @@ public class FragmentPlaylistDetail extends Fragment implements PlaylistTracksAd
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        jamendo = new JamendoProvider(getContext());
+        JamendoProvider jamendo = new JamendoProvider(getContext());
         preferencesManager = new PreferencesManager(getContext());
         jamendo.playlistDetails(getArguments().getString(ID), tracksList -> {
             if (tracksList != null){

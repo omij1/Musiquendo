@@ -1,4 +1,286 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">Musiquendo</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Tablero</string>
+    <string name="title_notifications">Notificaciones</string>
+    <string name="albums">Álbumes</string>
+    <string name="artists">Artistas</string>
+    <string name="lists">Listas</string>
+    <string name="licenses">Licencias</string>
+    <string name="settings">Ajustes</string>
+    <string name="library">Biblioteca</string>
+    <string name="version">Version 1.0</string>
+    <string name="account">Cuenta</string>
+    <string name="main">Principal</string>
+    <string name="search">Buscar</string>
+    <string name="filter">Filtrar</string>
+    <string name="title_activity_album">Álbum</string>
+    <string name="title_activity_artist">Artista</string>
+    <string name="title_activity_playlist">Lista</string>
+    <string name="title_activity_library">Biblioteca</string>
+    <string name="title_activity_settings">Ajustes</string>
+    <string name="title_activity_licenses">Licencias</string>
+    <string name="image_transition" translatable="false">image_transition</string>
 
+    <!-- Strings related to Settings -->
+
+    <!-- Example General settings -->
+    <string name="play_mode">Modo de reproducción</string>
+    <string name="play_mode_on">Cuando una canción finalice automáticamente comenzará la siguiente.
+        También permite la navegación entre canciones.</string>
+    <string name="play_mode_off">Cuando la canción actual deje de reproducirse no se continuará a la siguiente.</string>
+    <string name="application_language">Idioma de la aplicación</string>
+    <string name="language_description">Puedes cambiar el idioma en el que aparecen los texto que muestra la aplicación.</string>
+    <string name="download_settings">Ajustes de descarga</string>
+    <string name="download_description">Permitir descargar canciones y álbumes únicamente mediante conexión WiFi.</string>
+    <string name="pref_header_general">General</string>
+
+    <string name="pref_title_social_recommendations">Activar recomendaciones sociales</string>
+    <string name="pref_description_social_recommendations">Recomendaciones basadas en tu historial de mensajes
+    </string>
+
+    <string name="pref_title_display_name">Nombre a mostrar</string>
+    <string name="pref_default_display_name">John Smith</string>
+
+    <string name="pref_title_add_friends_to_messages">Añadir amensajes a amigos</string>
+    <string-array name="pref_example_list_titles">
+        <item>Siempre</item>
+        <item>Cuando sea posible</item>
+        <item>Nunca</item>
+    </string-array>
+    <string-array name="pref_example_list_values">
+        <item>1</item>
+        <item>0</item>
+        <item>-1</item>
+    </string-array>
+
+    <!-- Example settings for Data & Sync -->
+    <string name="pref_header_data_sync">Sincronización de datos</string>
+
+    <string name="pref_title_sync_frequency">Frecuencia de sincronización</string>
+    <string-array name="pref_sync_frequency_titles">
+        <item>15 minutos</item>
+        <item>30 minutos</item>
+        <item>1 hora</item>
+        <item>3 hora</item>
+        <item>6 hora</item>
+        <item>Nunca</item>
+    </string-array>
+    <string-array name="pref_sync_frequency_values">
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>180</item>
+        <item>360</item>
+        <item>-1</item>
+    </string-array>
+
+    <string-array name="list_preference_entries">
+        <item>Entrada 1</item>
+        <item>Entrada 2</item>
+        <item>Entrada 3</item>
+    </string-array>
+
+    <string-array name="list_preference_entry_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <string-array name="multi_select_list_preference_default_value" />
+
+    <string name="pref_title_system_sync_settings">Ajustes de sincronización del sistema</string>
+
+    <!-- Example settings for Notifications -->
+    <string name="pref_header_notifications">Notificaciones</string>
+
+    <string name="pref_title_new_message_notifications">Notificaciones de nuevos mensajes</string>
+
+    <string name="pref_title_ringtone">Tono de llamada</string>
+    <string name="pref_ringtone_silent">Silencio</string>
+
+    <string name="pref_title_vibrate">Vibrar</string>
+    <string name="albums_name">Álbumes por nombre</string>
+    <string name="albums_more_populars">Más populares</string>
+    <string name="albums_populars_month">Populares este mes</string>
+    <string name="albums_populars_week">Populares esta semana</string>
+    <string name="header_bottomsheet">Elegir una opción</string>
+    <string name="artists_name">Artistas por nombre</string>
+    <string name="playlists_creation_date">Fecha de creación</string>
+    <string name="playlists_by_name">Ordenar por nomrbe</string>
+    <string name="artist_detail_name">Nombre de artista</string>
+    <string name="no_website">Sin web</string>
+    <string name="descargar">Descargar</string>
+    <string name="playing">Reproduciendo</string>
+    <string name="prev">Prev</string>
+    <string name="play_pause">Play/Pause</string>
+    <string name="next">Sig</string>
+
+
+    <!-- Strings related to Albums filter-->
+    <string-array name="albums_filter">
+        <item>name</item>
+        <item>popularity_total</item>
+        <item>popularity_month</item>
+        <item>popularity_week</item>
+    </string-array>
+
+    <!-- Strings related to Artists filter-->
+    <string-array name="artists_filter">
+        <item>name</item>
+        <item>popularity_total</item>
+        <item>popularity_month</item>
+        <item>popularity_week</item>
+    </string-array>
+
+    <!-- Strings related to Playlists filter-->
+    <string-array name="playlists_filter">
+        <item>name</item>
+        <item>creationdate</item>
+    </string-array>
+
+    <!-- Strings related to licenses headers -->
+    <string-array name="licenses_headers">
+        <item>Máster Universitario en Informática Móvil</item>
+        <item>Jamendo API</item>
+        <item>Butterknife</item>
+        <item>Picasso</item>
+        <item>Volley</item>
+        <item>Gson</item>
+        <item>Flipboard bottomsheet</item>
+        <item>CircleImageView</item>
+        <item>PlaceHolderView</item>
+        <item>Iconos8</item>
+        <item>Logo de la aplicación</item>
+    </string-array>
+
+    <!-- String related to licenses body-->
+    <string-array name="licenses_body">
+        <item>Application made by Omar Marcos Julián as a result of the practice of the module
+            of Android of the Master MIMO.</item>
+        <item>All data and information, including the reproduction and download of the songs,
+            come from the Jamendo API under your license and rights.</item>
+        <item>Copyright 2013 Jake Wharton
+            Licensed under the Apache License, Version 2.0 (the "License");
+            you may not use this file except in compliance with the License.
+            You may obtain a copy of the License at"\n"
+
+               "\n"http://www.apache.org/licenses/LICENSE-2.0"\n"
+
+            "\n"Unless required by applicable law or agreed to in writing, software
+            distributed under the License is distributed on an "AS IS" BASIS,
+            WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+            See the License for the specific language governing permissions and
+            limitations under the License.</item>
+        <item>Copyright 2013 Square, Inc.
+            Licensed under the Apache License, Version 2.0 (the "License");
+            you may not use this file except in compliance with the License.
+            You may obtain a copy of the License at"\n"
+
+               "\n"http://www.apache.org/licenses/LICENSE-2.0"\n"
+
+            "\n"Unless required by applicable law or agreed to in writing, software
+            distributed under the License is distributed on an "AS IS" BASIS,
+            WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+            See the License for the specific language governing permissions and
+            limitations under the License.</item>
+        <item>Licensed under the Apache License, Version 2.0 (the "License");
+               you may not use this file except in compliance with the License.
+               You may obtain a copy of the License at"\n"
+
+                   "\n"http://www.apache.org/licenses/LICENSE-2.0"\n"
+
+               "\n"Unless required by applicable law or agreed to in writing, software
+               distributed under the License is distributed on an "AS IS" BASIS,
+               WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+               See the License for the specific language governing permissions and
+               limitations under the License.</item>
+        <item>Copyright 2008-2011 Google Inc.
+
+               Licensed under the Apache License, Version 2.0 (the "License");
+               you may not use this file except in compliance with the License.
+               You may obtain a copy of the License at"\n"
+
+                   "\n"http://www.apache.org/licenses/LICENSE-2.0"\n"
+
+               "\n"Unless required by applicable law or agreed to in writing, software
+               distributed under the License is distributed on an "AS IS" BASIS,
+               WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+               See the License for the specific language governing permissions and
+               limitations under the License.</item>
+        <item>Copyright © 2015, Flipboard
+                All rights reserved."\n"
+
+                Redistribution and use in source and binary forms, with or without modification,
+                are permitted provided that the following conditions are met:"\n"
+
+                "\n"* Redistributions of source code must retain the above copyright notice, this
+                  list of conditions and the following disclaimer.
+
+                "\n"* Redistributions in binary form must reproduce the above copyright notice, this
+                  list of conditions and the following disclaimer in the documentation and/or
+                  other materials provided with the distribution.
+
+                "\n"* Neither the name of Flipboard nor the names of its
+                  contributors may be used to endorse or promote products derived from
+                  this software without specific prior written permission.
+
+                "\n"THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+                ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+                WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+                DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+                ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+                (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+                LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+                ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+                (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+                SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</item>
+        <item>Copyright 2014 - 2018 Henning Dodenhof
+
+                Licensed under the Apache License, Version 2.0 (the "License");
+                you may not use this file except in compliance with the License.
+                You may obtain a copy of the License at"\n"
+
+                    "\n"http://www.apache.org/licenses/LICENSE-2.0"\n"
+
+                "\n"Unless required by applicable law or agreed to in writing, software
+                distributed under the License is distributed on an "AS IS" BASIS,
+                WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+                See the License for the specific language governing permissions and
+                limitations under the License.</item>
+        <item> Copyright © 2016 Janishar Ali Anwar
+
+               Licensed under the Apache License, Version 2.0 (the "License");
+               you may not use this file except in compliance with the License.
+               You may obtain a copy of the License at"\n"
+
+                    "\n"http://www.apache.org/licenses/LICENSE-2.0"\n"
+
+               "\n"Unless required by applicable law or agreed to in writing, software
+               distributed under the License is distributed on an "AS IS" BASIS,
+               WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+               See the License for the specific language governing permissions and
+               limitations under the License</item>
+        <item>IIconos obtenidos de la wen Iconos8 y de las guías del Material Design</item>
+        <item>Logo de la aplicación creado en la página www.designevo.com</item>
+    </string-array>
+
+
+    <!-- Strings related to errors-->
+    <string-array name="lost_connection">
+        <item>Conexión perdida</item>
+        <item>La conexión con el servidor se ha perdido. Por favor compruebe su conexión a internet.</item>
+    </string-array>
+
+    <!-- Strings related to artist without data-->
+    <string-array name="artist_without_data">
+        <item>No hay información disponible</item>
+        <item>La información relacionada con el artista no está disponible</item>
+    </string-array>
+
+    <!-- Strings related to playlist without data-->
+    <string-array name="playlist_without_data">
+        <item>No hay información disponible</item>
+        <item>La información relacionada con la lista no está disponible</item>
+    </string-array>
 </resources>

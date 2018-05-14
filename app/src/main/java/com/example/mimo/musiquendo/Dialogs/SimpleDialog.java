@@ -9,6 +9,10 @@ import android.support.v7.app.AlertDialog;
 
 import com.example.mimo.musiquendo.R;
 
+/**
+ * Clase que crea un diálogo simple con un botón
+ */
+
 public class SimpleDialog extends DialogFragment {
 
     public interface DialogListener {

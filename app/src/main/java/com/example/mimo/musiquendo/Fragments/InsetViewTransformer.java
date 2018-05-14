@@ -6,6 +6,11 @@ import com.example.mimo.musiquendo.R;
 import com.flipboard.bottomsheet.BaseViewTransformer;
 import com.flipboard.bottomsheet.BottomSheetLayout;
 
+/**
+ * Clase que permite establecer el efecto de alejar el contenido cuando se muestra el bottomsheet
+ * con las opciones de filtrado
+ */
+
 public class InsetViewTransformer extends BaseViewTransformer {
     @Override
     public void transformView(float translation, float maxTranslation, float peekedTranslation, BottomSheetLayout parent, View view) {

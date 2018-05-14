@@ -19,7 +19,6 @@ import com.example.mimo.musiquendo.Dialogs.SimpleDialog;
 import com.example.mimo.musiquendo.Model.ArtistTracks;
 import com.example.mimo.musiquendo.Model.SharedPreferences.PreferencesManager;
 import com.example.mimo.musiquendo.Model.Track;
-import com.example.mimo.musiquendo.Player.NotificationBuilder;
 import com.example.mimo.musiquendo.Player.TrackPlayer;
 import com.example.mimo.musiquendo.Player.TrackQueue;
 import com.example.mimo.musiquendo.Provider.JamendoProvider;
@@ -54,7 +53,6 @@ public class FragmentArtistDetail extends Fragment implements ArtistsTracksAdapt
     private static final String WEB = "WEB";
     private List<ArtistTracks> tracks;
     private ArtistsTracksAdapter adapter;
-    private JamendoProvider jamendo;
     private PreferencesManager preferencesManager;
 
 
@@ -93,7 +91,7 @@ public class FragmentArtistDetail extends Fragment implements ArtistsTracksAdapt
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        jamendo = new JamendoProvider(getContext());
+        JamendoProvider jamendo = new JamendoProvider(getContext());
         preferencesManager = new PreferencesManager(getContext());
         jamendo.artistDetails(getArguments().getString(ID), (tracksList, cover) -> {
             if (tracksList != null) {//El artista tiene datos

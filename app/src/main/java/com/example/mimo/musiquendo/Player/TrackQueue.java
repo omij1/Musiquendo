@@ -29,6 +29,10 @@ public class TrackQueue {
         return queue;
     }
 
+    /**
+     * Método que añade la canción que se va a reproducir en el modo normal de los ajustes
+     * @param track Canción que va a reproducirse
+     */
     public void addTrack(Track track) {
         currentTrack = 0;
         if (queue == null) {
@@ -40,6 +44,11 @@ public class TrackQueue {
         queue.add(track);
     }
 
+    /**
+     * Método que añade la lista con las nuevas canciones a la cola cuando se está en el modo automático
+     * @param list Nueva lista de canciones
+     * @param position Posición de la canción que debe reproducirse en primer lugar
+     */
     public void addTrackList(List<Track> list, int position) {
         currentTrack = position;
         if (queue == null) {
@@ -51,6 +60,10 @@ public class TrackQueue {
         queue = list;
     }
 
+    /**
+     * Método que establece el tipo de elementos que se van a reproducir
+     * @param section Álbumes, artistas o listas de reproducción
+     */
     public void setSection(String section) {
         if (!section.equals(SECTION)) {
             if (queue != null)

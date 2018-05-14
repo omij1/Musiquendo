@@ -4,6 +4,10 @@ import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+/**
+ * Decorador de los recyclerview que están en forma de lista
+ */
+
 public class PaddingItemDecorator extends RecyclerView.ItemDecoration{
 
     private final int padding;
@@ -14,7 +18,6 @@ public class PaddingItemDecorator extends RecyclerView.ItemDecoration{
 
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-
         outRect.bottom = padding;
     }
 }
