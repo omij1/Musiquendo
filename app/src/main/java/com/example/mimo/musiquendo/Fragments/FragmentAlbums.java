@@ -14,8 +14,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.mimo.musiquendo.Activities.AlbumActivity;
-import com.example.mimo.musiquendo.Activities.MainActivity;
+import com.example.mimo.musiquendo.Activities.ActivityAlbum;
+import com.example.mimo.musiquendo.Activities.ActivityMain;
 import com.example.mimo.musiquendo.Adapters.AlbumAdapter;
 import com.example.mimo.musiquendo.Dialogs.SimpleDialog;
 import com.example.mimo.musiquendo.Model.Album;
@@ -36,7 +36,7 @@ import butterknife.ButterKnife;
  */
 
 public class FragmentAlbums extends Fragment implements AlbumAdapter.OnItemClickListener,
-        MainActivity.FragmentCommunicator {
+        ActivityMain.FragmentCommunicator {
 
     @BindView(R.id.albums_list)
     RecyclerView albums;
@@ -110,7 +110,7 @@ public class FragmentAlbums extends Fragment implements AlbumAdapter.OnItemClick
         if (activity == null){
             return;
         }
-        Intent albumDetail = new Intent(getContext(), AlbumActivity.class);
+        Intent albumDetail = new Intent(getContext(), ActivityAlbum.class);
         albumDetail.putExtra("ID", album.getId());
         albumDetail.putExtra("NAME", album.getName());
         albumDetail.putExtra("ARTIST", album.getArtist_name());

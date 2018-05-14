@@ -14,8 +14,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.mimo.musiquendo.Activities.ArtistActivity;
-import com.example.mimo.musiquendo.Activities.MainActivity;
+import com.example.mimo.musiquendo.Activities.ActivityArtist;
+import com.example.mimo.musiquendo.Activities.ActivityMain;
 import com.example.mimo.musiquendo.Adapters.ArtistAdapter;
 import com.example.mimo.musiquendo.Dialogs.SimpleDialog;
 import com.example.mimo.musiquendo.Model.Artist;
@@ -35,7 +35,7 @@ import butterknife.ButterKnife;
  */
 
 public class FragmentArtists extends Fragment implements ArtistAdapter.OnItemClickListener,
-        MainActivity.FragmentCommunicator {
+        ActivityMain.FragmentCommunicator {
 
     @BindView(R.id.artists_list)
     RecyclerView artists;
@@ -104,7 +104,7 @@ public class FragmentArtists extends Fragment implements ArtistAdapter.OnItemCli
         if (activity == null){
             return;
         }
-        Intent artistDetail = new Intent(getContext(), ArtistActivity.class);
+        Intent artistDetail = new Intent(getContext(), ActivityArtist.class);
         artistDetail.putExtra("ID", artist.getId());
         artistDetail.putExtra("NAME", artist.getName());
         artistDetail.putExtra("JOIN", artist.getJoindate());

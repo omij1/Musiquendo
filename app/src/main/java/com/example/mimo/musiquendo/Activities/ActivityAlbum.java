@@ -5,38 +5,47 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 
-import com.example.mimo.musiquendo.Fragments.FragmentLicenses;
+import com.example.mimo.musiquendo.Fragments.FragmentAlbumDetail;
 import com.example.mimo.musiquendo.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Actividad que muestra las licencias de la aplicación
+ * Actividad que representa el detalle de un álbum
  */
 
-public class LicensesActivity extends AppCompatActivity {
+public class ActivityAlbum extends AppCompatActivity {
 
-    @BindView(R.id.toolbar_licenses)
+    @BindView(R.id.toolbar_album)
     Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_licenses);
+        setContentView(R.layout.activity_album);
         ButterKnife.bind(this);
-        toolbar.setTitle(R.string.title_activity_licenses);
+        toolbar.setTitle(getString(R.string.title_activity_album));
         setSupportActionBar(toolbar);
         ActionBar actionBar_album = getSupportActionBar();
         if (actionBar_album != null){
             actionBar_album.setHomeAsUpIndicator(R.drawable.ic_arrow_back);
             actionBar_album.setDisplayHomeAsUpEnabled(true);
         }
-        FragmentLicenses licenses = FragmentLicenses.newInstance();
+        Intent intent = getIntent();
+        FragmentAlbumDetail albumDetail = FragmentAlbumDetail.newInstance(intent.getExtras().get("ID").toString(),
+                intent.getExtras().get("NAME").toString(), intent.getExtras().get("ARTIST").toString());
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.licenses, licenses, null).commit();
+                .replace(R.id.album_detail, albumDetail, null).commit();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_download, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override

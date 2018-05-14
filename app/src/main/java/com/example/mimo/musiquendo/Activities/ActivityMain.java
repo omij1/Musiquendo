@@ -26,7 +26,7 @@ import butterknife.ButterKnife;
  * Actividad principal de la aplicación
  */
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class ActivityMain extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -115,29 +115,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     if (fragmentCommunicator != null)
                         fragmentCommunicator.showMenu();
                 return true;
-            case R.id.biblioteca:
+            case R.id.library_menu:
                 drawer.closeDrawers();
-                Intent library = new Intent(this, LibraryActivity.class);
+                Intent library = new Intent(this, ActivityLibrary.class);
                 ActivityCompat.startActivity(this, library, null);
                 return true;
-            case R.id.registro:
+            case R.id.settings_menu:
                 drawer.closeDrawers();
-                Intent sign_in = new Intent(this, SigninActivity.class);
-                ActivityCompat.startActivity(this, sign_in, null);
-                return true;
-            case R.id.login:
-                drawer.closeDrawers();
-                Intent login = new Intent(this, LoginActivity.class);
-                ActivityCompat.startActivity(this, login,null);
-                return true;
-            case R.id.ajustes:
-                drawer.closeDrawers();
-                Intent settings = new Intent(this, SettingsActivity.class);
+                Intent settings = new Intent(this, ActivitySettings.class);
                 ActivityCompat.startActivity(this, settings, null);
                 return true;
-            case R.id.licencias:
+            case R.id.licenses_menu:
                 drawer.closeDrawers();
-                Intent licenses = new Intent(this, LicensesActivity.class);
+                Intent licenses = new Intent(this, ActivityLicenses.class);
                 ActivityCompat.startActivity(this, licenses, null);
                 return true;
         }

@@ -17,7 +17,7 @@ import butterknife.ButterKnife;
  * Actividad que representa el detalle de un artista
  */
 
-public class ArtistActivity extends AppCompatActivity {
+public class ActivityArtist extends AppCompatActivity {
 
     @BindView(R.id.toolbar_artist)
     Toolbar toolbar;

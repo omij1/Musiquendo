@@ -12,25 +12,26 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Actividad que muestra los ajustes de la aplicación
+ * Actividad que muestra la biblioteca del usuario
  */
 
-public class SettingsActivity extends AppCompatActivity {
+public class ActivityLibrary extends AppCompatActivity {
 
-    @BindView(R.id.toolbar_settings)
+    @BindView(R.id.toolbar_library)
     Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings);
+        setContentView(R.layout.activity_library);
         ButterKnife.bind(this);
-        toolbar.setTitle(R.string.title_activity_settings);
+        toolbar.setTitle(R.string.title_activity_library);
         setSupportActionBar(toolbar);
-        ActionBar actionBar_settings = getSupportActionBar();
-        if (actionBar_settings != null){
-            actionBar_settings.setHomeAsUpIndicator(R.drawable.ic_arrow_back);
-            actionBar_settings.setDisplayHomeAsUpEnabled(true);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar_library = getSupportActionBar();
+        if (actionBar_library != null){
+            actionBar_library.setHomeAsUpIndicator(R.drawable.ic_arrow_back);
+            actionBar_library.setDisplayHomeAsUpEnabled(true);
         }
     }
 

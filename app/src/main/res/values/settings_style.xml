@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="SettingsCard">
+        <item name="android:layout_marginStart">@dimen/item_margin</item>
+        <item name="android:layout_marginEnd">@dimen/item_margin</item>
+        <item name="android:layout_marginTop">@dimen/item_margin</item>
+    </style>
+
+    <style name="SettingsTitle">
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textSize">@dimen/item_title</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="SettingsDescription">
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">@color/menu_text</item>
+        <item name="android:textSize">@dimen/item_description</item>
+        <item name="android:textStyle">italic</item>
+    </style>
+
+    <style name="SettingsItemController">
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:layout_alignParentEnd">true</item>
+        <item name="android:layout_marginEnd">@dimen/switch_playmode_marginEnd</item>
+    </style>
+
+    <style name="SettingsItemController.ToggleStyle">
+        <item name="android:backgroundTint">@color/colorPrimary</item>
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
+</resources>

@@ -19,7 +19,6 @@ public class TrackPlayer extends Service implements MediaPlayer.OnCompletionList
 
     private MediaPlayer player;
     private int position;
-    private NotificationBuilder notif;
 
     public TrackPlayer() {}
 
@@ -100,7 +99,7 @@ public class TrackPlayer extends Service implements MediaPlayer.OnCompletionList
         String trackName = TrackQueue.getTrackQueue().get(TrackQueue.currentTrack).getTrackName();
         String artist = TrackQueue.getTrackQueue().get(TrackQueue.currentTrack).getInfo();
         String minutes = TrackQueue.getTrackQueue().get(TrackQueue.currentTrack).getDurationInfo();
-        notif = new NotificationBuilder(getApplicationContext(), trackName, artist, minutes);
+        NotificationBuilder notif = new NotificationBuilder(getApplicationContext(), trackName, artist, minutes);
         startForeground(NotificationBuilder.ID, notif.showNotification());
     }
 

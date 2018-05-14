@@ -3,17 +3,17 @@
     <!-- These settings headers are only used on tablets. -->
 
     <header
-        android:fragment="com.example.mimo.musiquendo.Activities.SettingsActivity$GeneralPreferenceFragment"
+        android:fragment="com.example.mimo.musiquendo.Activities.ActivitySettings$GeneralPreferenceFragment"
         android:icon="@drawable/ic_info_black"
         android:title="@string/pref_header_general" />
 
     <header
-        android:fragment="com.example.mimo.musiquendo.Activities.SettingsActivity$NotificationPreferenceFragment"
+        android:fragment="com.example.mimo.musiquendo.Activities.ActivitySettings$NotificationPreferenceFragment"
         android:icon="@drawable/ic_notifications_black"
         android:title="@string/pref_header_notifications" />
 
     <header
-        android:fragment="com.example.mimo.musiquendo.Activities.SettingsActivity$DataSyncPreferenceFragment"
+        android:fragment="com.example.mimo.musiquendo.Activities.ActivitySettings$DataSyncPreferenceFragment"
         android:icon="@drawable/ic_sync_black"
         android:title="@string/pref_header_data_sync" />
 

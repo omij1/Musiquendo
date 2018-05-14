@@ -25,9 +25,8 @@ public class FragmentLicenses extends Fragment {
     ExpandablePlaceHolderView placeHolderView;
 
     public static FragmentLicenses newInstance() {
-        FragmentLicenses fragment = new FragmentLicenses();
 
-        return fragment;
+        return new FragmentLicenses();
     }
 
     public FragmentLicenses() {

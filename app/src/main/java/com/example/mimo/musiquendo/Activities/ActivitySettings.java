@@ -5,32 +5,34 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 
+import com.example.mimo.musiquendo.Fragments.FragmentSettings;
 import com.example.mimo.musiquendo.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Actividad que permite al usuario crear una nueva cuenta
+ * Actividad que muestra los ajustes de la aplicación
  */
 
-public class SigninActivity extends AppCompatActivity {
+public class ActivitySettings extends AppCompatActivity {
 
-    @BindView(R.id.toolbar_sign_in)
+    @BindView(R.id.toolbar_settings)
     Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_in);
+        setContentView(R.layout.activity_settings);
         ButterKnife.bind(this);
-        toolbar.setTitle(R.string.title_activity_signin);
+        toolbar.setTitle(R.string.title_activity_settings);
         setSupportActionBar(toolbar);
-        ActionBar actionBar_sigin = getSupportActionBar();
-        if (actionBar_sigin != null){
-            actionBar_sigin.setHomeAsUpIndicator(R.drawable.ic_arrow_back);
-            actionBar_sigin.setDisplayHomeAsUpEnabled(true);
+        ActionBar actionBar_settings = getSupportActionBar();
+        if (actionBar_settings != null){
+            actionBar_settings.setHomeAsUpIndicator(R.drawable.ic_arrow_back);
+            actionBar_settings.setDisplayHomeAsUpEnabled(true);
         }
     }
 

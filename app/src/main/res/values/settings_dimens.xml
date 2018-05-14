@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="item_margin">8dp</dimen>
+    <dimen name="item_title">20sp</dimen>
+    <dimen name="divider__settings_width">2dp</dimen>
+    <dimen name="description_margin_start">15dp</dimen>
+    <dimen name="item_description">14sp</dimen>
+    <dimen name="switch_playmode_marginEnd">20dp</dimen>
+    <dimen name="toggle_download_marginEnd">20dp</dimen>
+
+</resources>

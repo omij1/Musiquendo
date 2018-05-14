@@ -6,33 +6,36 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import com.example.mimo.musiquendo.Fragments.FragmentLicenses;
 import com.example.mimo.musiquendo.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Actividad que muestra la biblioteca del usuario
+ * Actividad que muestra las licencias de la aplicación
  */
 
-public class LibraryActivity extends AppCompatActivity {
+public class ActivityLicenses extends AppCompatActivity {
 
-    @BindView(R.id.toolbar_library)
+    @BindView(R.id.toolbar_licenses)
     Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_library);
+        setContentView(R.layout.activity_licenses);
         ButterKnife.bind(this);
-        toolbar.setTitle(R.string.title_activity_library);
+        toolbar.setTitle(R.string.title_activity_licenses);
         setSupportActionBar(toolbar);
-        setSupportActionBar(toolbar);
-        ActionBar actionBar_library = getSupportActionBar();
-        if (actionBar_library != null){
-            actionBar_library.setHomeAsUpIndicator(R.drawable.ic_arrow_back);
-            actionBar_library.setDisplayHomeAsUpEnabled(true);
+        ActionBar actionBar_album = getSupportActionBar();
+        if (actionBar_album != null){
+            actionBar_album.setHomeAsUpIndicator(R.drawable.ic_arrow_back);
+            actionBar_album.setDisplayHomeAsUpEnabled(true);
         }
+        FragmentLicenses licenses = FragmentLicenses.newInstance();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.licenses, licenses, null).commit();
     }
 
     @Override

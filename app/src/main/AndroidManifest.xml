@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Activities.MainActivity"
+            android:name=".Activities.ActivityMain"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,14 +21,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.LibraryActivity" />
-        <activity android:name=".Activities.SigninActivity" />
-        <activity android:name=".Activities.LoginActivity" />
-        <activity android:name=".Activities.SettingsActivity" />
-        <activity android:name=".Activities.LicensesActivity" />
-        <activity android:name=".Activities.AlbumActivity" />
-        <activity android:name=".Activities.ArtistActivity" />
-        <activity android:name=".Activities.PlayListActivity"/>
+        <activity android:name=".Activities.ActivityLibrary" />
+        <activity android:name=".Activities.ActivitySettings" />
+        <activity android:name=".Activities.ActivityLicenses" />
+        <activity android:name=".Activities.ActivityAlbum" />
+        <activity android:name=".Activities.ActivityArtist" />
+        <activity android:name=".Activities.ActivityPlayList"/>
         <receiver android:name=".Player.MyBroadCastReceiver"/>
         <service android:name=".Player.TrackPlayer" />
     </application>

@@ -14,8 +14,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.mimo.musiquendo.Activities.MainActivity;
-import com.example.mimo.musiquendo.Activities.PlayListActivity;
+import com.example.mimo.musiquendo.Activities.ActivityMain;
+import com.example.mimo.musiquendo.Activities.ActivityPlayList;
 import com.example.mimo.musiquendo.Adapters.PlayListAdapter;
 import com.example.mimo.musiquendo.Dialogs.SimpleDialog;
 import com.example.mimo.musiquendo.Model.Categories;
@@ -35,7 +35,7 @@ import butterknife.ButterKnife;
  */
 
 public class FragmentPlayLists extends Fragment implements PlayListAdapter.OnItemClickListener,
-        MainActivity.FragmentCommunicator {
+        ActivityMain.FragmentCommunicator {
 
     @BindView(R.id.playlists_list)
     RecyclerView playLists;
@@ -101,7 +101,7 @@ public class FragmentPlayLists extends Fragment implements PlayListAdapter.OnIte
         if (activity == null){
             return;
         }
-        Intent playlistDetail = new Intent(getContext(), PlayListActivity.class);
+        Intent playlistDetail = new Intent(getContext(), ActivityPlayList.class);
         playlistDetail.putExtra("ID", playList.getId());
         playlistDetail.putExtra("NAME", playList.getName());
         playlistDetail.putExtra("IMAGE", playList.getCover());

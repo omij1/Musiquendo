@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="@color/colorPrimary"
+    app:cardCornerRadius="@dimen/card_corner_radius"
+    app:cardElevation="@dimen/card_elevation"
+    app:cardUseCompatPadding="true"
+    app:layout_constraintBottom_toTopOf="@+id/card_language"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.5"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_chainStyle="spread"
+    style="@style/SettingsCard">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/title_playmode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/play_mode"
+            style="@style/SettingsTitle"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider__settings_width"
+            android:layout_below="@id/title_playmode"
+            android:background="?android:attr/listDivider"
+            android:backgroundTint="@color/colorAccent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@id/title_playmode"
+            android:layout_below="@id/title_playmode"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/playmode_description"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/description_margin_start"
+                android:layout_weight="0.6"
+                android:text="@string/play_mode_on"
+                style="@style/SettingsDescription"/>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.4">
+
+                <Switch
+                    android:id="@+id/playmode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/SettingsItemController"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

@@ -1,7 +1,6 @@
 package com.example.mimo.musiquendo.Player;
 
 import android.app.Notification;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -24,7 +23,7 @@ public class NotificationBuilder {
     private PendingIntent nextIntent;
     private PendingIntent deleteIntent;
 
-    public NotificationBuilder(Context context, String contentTitle, String contentText, String contentInfo) {
+    NotificationBuilder(Context context, String contentTitle, String contentText, String contentInfo) {
         this.context = context;
         this.contentTitle = contentTitle;
         this.contentText = contentText;

@@ -5,21 +5,8 @@
         android:title="@string/main">
         <menu>
             <item
-                android:id="@+id/biblioteca"
+                android:id="@+id/library_menu"
                 android:title="@string/library"/>
-        </menu>
-    </item>
-
-    <item
-        android:title="@string/cuenta">
-        <menu>
-            <item
-                android:id="@+id/registro"
-                android:title="@string/registro"/>
-
-            <item
-                android:id="@+id/login"
-                android:title="@string/login"/>
         </menu>
     </item>
 
@@ -27,11 +14,11 @@
         android:title="@string/configuracion">
         <menu>
             <item
-                android:id="@+id/ajustes"
+                android:id="@+id/settings_menu"
                 android:title="@string/settings"/>
 
             <item
-                android:id="@+id/licencias"
+                android:id="@+id/licenses_menu"
                 android:title="@string/licenses"/>
         </menu>
     </item>
