@@ -122,10 +122,16 @@ public class FragmentAlbumDetail extends Fragment implements AlbumTracksAdapter.
         Intent playTrack = new Intent(getActivity(), TrackPlayer.class);
         playTrack.setAction(BuildConfig.PLAY);
         TrackQueue.getInstance().setSection(BuildConfig.ALBUMS);
-        /*TrackQueue.getInstance().addTrack(new Track(track.getAudio(), track.getTrackName(),
+        if (preferencesManager.getPlaylistMode())
+            automaticMode(playTrack, position);
+        else
+            normalMode(playTrack, track);
+    }
+
+    private void normalMode(Intent playTrack, AlbumTracks track) {
+        TrackQueue.getInstance().addTrack(new Track(track.getAudio(), track.getTrackName(),
                 getArguments().getString(NAME), track.getTrackDuration(), track.getMinutes()));
-        getActivity().startService(playTrack);*/
-        automaticMode(playTrack, position);
+        getActivity().startService(playTrack);
     }
 
     private void automaticMode(Intent playTrack, int position) {

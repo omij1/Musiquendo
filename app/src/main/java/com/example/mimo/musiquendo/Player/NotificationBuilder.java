@@ -1,6 +1,7 @@
 package com.example.mimo.musiquendo.Player;
 
 import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.support.v4.app.NotificationCompat;
 
 import com.example.mimo.musiquendo.BuildConfig;
+import com.example.mimo.musiquendo.Model.SharedPreferences.PreferencesManager;
 import com.example.mimo.musiquendo.R;
 
 public class NotificationBuilder {
@@ -32,8 +34,12 @@ public class NotificationBuilder {
 
     public Notification showNotification() {
         //Según el modo de reproducción debe mostrarse una notificación u otra
+        PreferencesManager preferencesManager = new PreferencesManager(context);
         startIntents(context);
-        return fullNotification();
+        if (preferencesManager.getPlaylistMode())
+            return fullNotification();
+        else
+            return basicNotification();
     }
 
     /**
@@ -110,6 +116,6 @@ public class NotificationBuilder {
 
         Intent delete = new Intent(context, MyBroadCastReceiver.class);
         delete.setAction(BuildConfig.DELETE);
-        deleteIntent = PendingIntent.getBroadcast(context, 0, delete, PendingIntent.FLAG_ONE_SHOT);
+        deleteIntent = PendingIntent.getBroadcast(context, 0, delete, PendingIntent.FLAG_CANCEL_CURRENT);
     }
 }

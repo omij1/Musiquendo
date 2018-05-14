@@ -54,7 +54,9 @@ public class TrackPlayer extends Service implements MediaPlayer.OnCompletionList
         switch (Objects.requireNonNull(intent.getAction())){
             case BuildConfig.PLAY:
                 Thread musicThread = new Thread(() -> {
-                    if (player != null)
+                    if (player == null)
+                        player = new MediaPlayer();
+                    else
                         resetPlayer();
                     showNotification();
                     playStreamTrack();

@@ -35,7 +35,7 @@ public class TrackQueue {
             queue = new ArrayList<>();
         }
         else {
-            queue.remove(0);
+            queue.clear();
         }
         queue.add(track);
     }

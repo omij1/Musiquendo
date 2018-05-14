@@ -15,6 +15,7 @@ import com.example.mimo.musiquendo.Adapters.PlaylistTracksAdapter;
 import com.example.mimo.musiquendo.BuildConfig;
 import com.example.mimo.musiquendo.Dialogs.SimpleDialog;
 import com.example.mimo.musiquendo.Model.PlayListTracks;
+import com.example.mimo.musiquendo.Model.SharedPreferences.PreferencesManager;
 import com.example.mimo.musiquendo.Model.Track;
 import com.example.mimo.musiquendo.Player.NotificationBuilder;
 import com.example.mimo.musiquendo.Player.TrackPlayer;
@@ -44,6 +45,7 @@ public class FragmentPlaylistDetail extends Fragment implements PlaylistTracksAd
     private List<PlayListTracks> tracks;
     private PlaylistTracksAdapter adapter;
     private JamendoProvider jamendo;
+    private PreferencesManager preferencesManager;
 
 
     /**
@@ -78,6 +80,7 @@ public class FragmentPlaylistDetail extends Fragment implements PlaylistTracksAd
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         jamendo = new JamendoProvider(getContext());
+        preferencesManager = new PreferencesManager(getContext());
         jamendo.playlistDetails(getArguments().getString(ID), tracksList -> {
             if (tracksList != null){
                 tracks = tracksList;
@@ -110,10 +113,16 @@ public class FragmentPlaylistDetail extends Fragment implements PlaylistTracksAd
         Intent playTrack = new Intent(getActivity(), TrackPlayer.class);
         playTrack.setAction(BuildConfig.PLAY);
         TrackQueue.getInstance().setSection(BuildConfig.PLAYLISTS);
-        /*TrackQueue.getInstance().addTrack(new Track(track.getAudio(), track.getTrackName(),
+        if (preferencesManager.getPlaylistMode())
+            automaticMode(playTrack, position);
+        else
+            normalMode(playTrack, track);
+    }
+
+    private void normalMode(Intent playTrack, PlayListTracks track) {
+        TrackQueue.getInstance().addTrack(new Track(track.getAudio(), track.getTrackName(),
                 getArguments().getString(NAME), track.getTrackDuration(), track.getMinutes()));
-        getActivity().startService(playTrack);*/
-        automaticMode(playTrack, position);
+        getActivity().startService(playTrack);
     }
 
     private void automaticMode(Intent playTrack, int position) {
