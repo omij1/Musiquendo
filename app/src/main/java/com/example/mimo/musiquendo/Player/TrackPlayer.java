@@ -137,6 +137,7 @@ public class TrackPlayer extends Service implements MediaPlayer.OnCompletionList
     public void pausePlayer() {
         player.pause();
         position = player.getCurrentPosition();
+        stopForeground(false);
     }
 
     /**
@@ -145,6 +146,7 @@ public class TrackPlayer extends Service implements MediaPlayer.OnCompletionList
     public void resumePlayer() {
         player.seekTo(position);
         player.start();
+        showNotification();
     }
 
     /**
