@@ -46,14 +46,15 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="@dimen/description_margin_start"
-                android:layout_weight="0.6"
+                android:layout_weight="0.7"
                 android:text="@string/play_mode_on"
                 style="@style/SettingsDescription"/>
 
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="0.4">
+                android:layout_weight="0.3"
+                android:layout_margin="@dimen/switch_margin">
 
                 <Switch
                     android:id="@+id/playmode"

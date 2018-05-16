@@ -9,5 +9,6 @@
     <dimen name="switch_playmode_marginEnd">20dp</dimen>
     <dimen name="toggle_download_marginEnd">20dp</dimen>
     <dimen name="margin_default_land">24dp</dimen>
+    <dimen name="switch_margin">20dp</dimen>
 
 </resources>

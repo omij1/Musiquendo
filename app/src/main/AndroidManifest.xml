@@ -29,6 +29,9 @@
         <activity android:name=".Activities.ActivityPlayList"/>
         <receiver android:name=".Player.MyBroadCastReceiver"/>
         <service android:name=".Player.TrackPlayer" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

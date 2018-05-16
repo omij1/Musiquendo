@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,13 +61,24 @@ public class FragmentSettings extends Fragment {
     private void initComponents() {
         preferencesManager = new PreferencesManager(getContext());
         aSwitch.setChecked(preferencesManager.getPlaylistMode());
-        languageGroup.check(preferencesManager.getLanguage());
+        languageGroup.check(preferencesManager.getDisplayMode().equals(getString(R.string.grid)) ? R.id.display_grid : R.id.display_list);
         downloadMode.setChecked(preferencesManager.getDownloadSettings());
     }
 
     private void setListeners() {
         aSwitch.setOnCheckedChangeListener((compoundButton, b) -> preferencesManager.setPlaylistMode(b));
-        languageGroup.setOnCheckedChangeListener((radioGroup, i) -> preferencesManager.setLanguage(i));
+        languageGroup.setOnCheckedChangeListener((radioGroup, i) -> {
+            switch (i) {
+                case R.id.display_grid:
+                    languageGroup.check(R.id.display_grid);
+                    preferencesManager.setDisplayMode(getString(R.string.grid));
+                    break;
+                case R.id.display_list:
+                    languageGroup.check(R.id.display_list);
+                    preferencesManager.setDisplayMode(getString(R.string.list));
+                    break;
+            }
+        });
         downloadMode.setOnCheckedChangeListener((compoundButton, b) -> preferencesManager.setDownload(b));
     }
 }

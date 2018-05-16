@@ -28,7 +28,7 @@
 
     <include
         android:id="@+id/card_language"
-        layout="@layout/settings_item_language"
+        layout="@layout/settings_item_display"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="0.5" />

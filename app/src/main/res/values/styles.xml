@@ -45,6 +45,7 @@
         <item name="android:background">@color/colorAccent</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">@dimen/album_item_name</item>
+        <item name="android:maxLines">1</item>
     </style>
 
     <style name="AlbumItemAutor">
@@ -53,6 +54,7 @@
         <item name="android:background">@color/colorAccent</item>
         <item name="android:textStyle">italic</item>
         <item name="android:textSize">@dimen/album_item_autor</item>
+        <item name="android:maxLines">1</item>
     </style>
 
     <style name="ArtistItemImage">
@@ -108,6 +110,7 @@
     <style name="TrackItemName">
         <item name="android:layout_gravity">center</item>
         <item name="android:textSize">@dimen/track_name_size</item>
+        <item name="android:fontFamily">@font/amaranth</item>
     </style>
 
     <style name="TrackItemDownload">

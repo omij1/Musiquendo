@@ -26,11 +26,13 @@
 
     <!-- Example General settings -->
     <string name="play_mode">Playlist mode</string>
-    <string name="play_mode_on">When a song finishes playing automatically the next one begins.
+    <string name="play_mode_on">When a song finishes automatically the next one begins.
         It also allows navigation between songs.</string>
     <string name="play_mode_off">When the current song stops playing it will not continue to the next.</string>
-    <string name="application_language">Application language</string>
-    <string name="language_description">You can change the language in which the texts that appear in the application are displayed.</string>
+    <string name="application_display">Main view display mode</string>
+    <string name="display_description">In this option you can change the view mode of the main view.</string>
+    <string name="grid">Grid</string>
+    <string name="list">List</string>
     <string name="download_settings">Download settings</string>
     <string name="download_description">Allows downloading of both albums and songs only via WiFi connection.</string>
     <string name="pref_header_general">General</string>

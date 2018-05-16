@@ -30,7 +30,7 @@
         También permite la navegación entre canciones.</string>
     <string name="play_mode_off">Cuando la canción actual deje de reproducirse no se continuará a la siguiente.</string>
     <string name="application_language">Idioma de la aplicación</string>
-    <string name="language_description">Puedes cambiar el idioma en el que aparecen los texto que muestra la aplicación.</string>
+    <string name="language_description">Puedes cambiar el idioma en el que aparecen los textos que muestra la aplicación.</string>
     <string name="download_settings">Ajustes de descarga</string>
     <string name="download_description">Permitir descargar canciones y álbumes únicamente mediante conexión WiFi.</string>
     <string name="pref_header_general">General</string>

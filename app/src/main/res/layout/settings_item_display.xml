@@ -23,7 +23,7 @@
             android:id="@+id/title_language"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/application_language"
+            android:text="@string/application_display"
             style="@style/SettingsTitle"/>
 
         <View
@@ -46,7 +46,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="@dimen/description_margin_start"
                 android:layout_weight="0.6"
-                android:text="@string/language_description"
+                android:text="@string/display_description"
                 style="@style/SettingsDescription"/>
 
             <RelativeLayout
@@ -62,16 +62,18 @@
                     android:orientation="vertical">
 
                     <RadioButton
-                        android:id="@+id/english"
+                        android:id="@+id/display_grid"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:drawableEnd="@drawable/england_flag" />
+                        android:text="@string/grid"
+                        style="@style/SettingsItemController.ToggleStyle"/>
 
                     <RadioButton
-                        android:id="@+id/spanish"
+                        android:id="@+id/display_list"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:drawableEnd="@drawable/spain_flag" />
+                        android:text="@string/list"
+                        style="@style/SettingsItemController.ToggleStyle"/>
 
                 </RadioGroup>
 
