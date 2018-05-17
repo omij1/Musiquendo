@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,6 +45,10 @@ public class FragmentPlayLists extends Fragment implements PlayListAdapter.OnIte
     @BindView(R.id.bottom_sheet_playlists)
     BottomSheetLayout bottomSheetLayout;
     private static final String TYPE = "FragmentType";
+    private static final String ID = "ID";
+    private static final String NAME = "NAME";
+    private static final String IMAGE = "IMAGE";
+    private static final int COLUMNS = 2;
     private List<PlayList> playlistsList;
     private PlayListAdapter playListAdapter;
     private JamendoProvider jamendo;
@@ -84,6 +89,8 @@ public class FragmentPlayLists extends Fragment implements PlayListAdapter.OnIte
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_playlists, container, false);
         ButterKnife.bind(this, view);
+        RecyclerView.LayoutManager manager = new GridLayoutManager(getContext(), COLUMNS);
+        playLists.setLayoutManager(manager);
         playLists.addItemDecoration(new PaddingItemDecorator(4));
         refresh.setColorSchemeColors(getResources().getColor(R.color.colorPrimary),
                 getResources().getColor(R.color.colorPrimaryDark), getResources().getColor(R.color.colorAccent));
@@ -102,13 +109,12 @@ public class FragmentPlayLists extends Fragment implements PlayListAdapter.OnIte
             return;
         }
         Intent playlistDetail = new Intent(getContext(), ActivityPlayList.class);
-        playlistDetail.putExtra("ID", playList.getId());
-        playlistDetail.putExtra("NAME", playList.getName());
-        playlistDetail.putExtra("IMAGE", playList.getCover());
+        playlistDetail.putExtra(ID, playList.getId());
+        playlistDetail.putExtra(NAME, playList.getName());
+        playlistDetail.putExtra(IMAGE, playList.getCover());
 
         ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                activity,view.findViewById(R.id.playlist_item_image),getString(R.string.image_transition)
-        );
+                activity,view.findViewById(R.id.grid_item_image),getString(R.string.image_transition));
         ActivityCompat.startActivity(activity, playlistDetail, options.toBundle());
     }
 
@@ -120,7 +126,7 @@ public class FragmentPlayLists extends Fragment implements PlayListAdapter.OnIte
     @Override
     public void startSearch(String search) {
         String formattedSearch = search.replaceAll(" ", "%20");
-        jamendo.searchPlayList(formattedSearch, playListListSearch -> playListAdapter.swapItems(playListListSearch), () -> callDialog());
+        jamendo.searchPlayList(formattedSearch, playListListSearch -> playListAdapter.swapItems(playListListSearch), this::callDialog);
     }
 
     @Override
@@ -156,7 +162,7 @@ public class FragmentPlayLists extends Fragment implements PlayListAdapter.OnIte
      * @param filter Filtro que se va a aplicar
      */
     private void filterPlaylist(String filter){
-        jamendo.filterPlaylists(filter, playlistsFiltered -> playListAdapter.swapItems(playlistsFiltered), () -> callDialog());
+        jamendo.filterPlaylists(filter, playlistsFiltered -> playListAdapter.swapItems(playlistsFiltered), this::callDialog);
     }
 
     /**

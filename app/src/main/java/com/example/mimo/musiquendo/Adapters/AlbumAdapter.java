@@ -45,7 +45,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.album_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_item, parent, false);
 
         return new ViewHolder(view);
     }
@@ -62,11 +62,11 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.album_item_image)
+        @BindView(R.id.grid_item_image)
         ImageView albumImage;
-        @BindView(R.id.album_item_name)
+        @BindView(R.id.grid_item_name)
         TextView name;
-        @BindView(R.id.album_item_autor)
+        @BindView(R.id.grid_item_surname)
         TextView autor;
 
         public ViewHolder(View itemView) {

@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,6 +46,10 @@ public class FragmentAlbums extends Fragment implements AlbumAdapter.OnItemClick
     @BindView(R.id.bottom_sheet_albums)
     BottomSheetLayout bottomSheetLayout;
     private static final String TYPE = "FragmentType";
+    private static final String ID = "ID";
+    private static final String NAME = "NAME";
+    private static final String ARTIST = "ARTIST";
+    private static final int COLUMNS = 2;
     private List<Album> albumList;
     private AlbumAdapter albumAdapter;
     private JamendoProvider jamendo;
@@ -82,9 +87,7 @@ public class FragmentAlbums extends Fragment implements AlbumAdapter.OnItemClick
         jamendo.getAlbumList(albumsResponse -> {
             albumList = albumsResponse;
             loadContent();
-        }, () -> {
-            callDialog();
-        });
+        }, this::callDialog);
     }
 
     @Nullable
@@ -92,6 +95,8 @@ public class FragmentAlbums extends Fragment implements AlbumAdapter.OnItemClick
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_albums, container ,false);
         ButterKnife.bind(this, view);
+        RecyclerView.LayoutManager manager = new GridLayoutManager(getContext(), COLUMNS);
+        albums.setLayoutManager(manager);
         refresh.setColorSchemeColors(getResources().getColor(R.color.colorPrimary),
                 getResources().getColor(R.color.colorPrimaryDark), getResources().getColor(R.color.colorAccent));
         refresh.setOnRefreshListener(() -> jamendo.getAlbumList(albumsResponse -> {
@@ -111,12 +116,12 @@ public class FragmentAlbums extends Fragment implements AlbumAdapter.OnItemClick
             return;
         }
         Intent albumDetail = new Intent(getContext(), ActivityAlbum.class);
-        albumDetail.putExtra("ID", album.getId());
-        albumDetail.putExtra("NAME", album.getName());
-        albumDetail.putExtra("ARTIST", album.getArtist_name());
+        albumDetail.putExtra(ID, album.getId());
+        albumDetail.putExtra(NAME, album.getName());
+        albumDetail.putExtra(ARTIST, album.getArtist_name());
 
         ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                activity,view.findViewById(R.id.album_item_image),getString(R.string.image_transition)
+                activity,view.findViewById(R.id.grid_item_image),getString(R.string.image_transition)
         );
         ActivityCompat.startActivity(activity, albumDetail, options.toBundle());
     }
@@ -126,7 +131,7 @@ public class FragmentAlbums extends Fragment implements AlbumAdapter.OnItemClick
         String formattedSearch = search.replaceAll(" ", "%20");
         jamendo.searchAlbum(formattedSearch, albumsSearch -> {
             albumAdapter.swapItems(albumsSearch);
-        }, () -> callDialog());
+        }, this::callDialog);
     }
 
     @Override
@@ -169,7 +174,7 @@ public class FragmentAlbums extends Fragment implements AlbumAdapter.OnItemClick
      * @param filter Filtro que se va a aplicar
      */
     private void filterAlbums(String filter){
-        jamendo.filterAlbums(filter, albumsFiltered -> albumAdapter.swapItems(albumsFiltered), () -> callDialog());
+        jamendo.filterAlbums(filter, albumsFiltered -> albumAdapter.swapItems(albumsFiltered), this::callDialog);
     }
 
     /**

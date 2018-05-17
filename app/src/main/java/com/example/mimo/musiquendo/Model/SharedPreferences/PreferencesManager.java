@@ -2,13 +2,9 @@ package com.example.mimo.musiquendo.Model.SharedPreferences;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
-import android.content.res.Resources;
-import android.os.Build;
 
 import com.example.mimo.musiquendo.R;
 
-import java.util.Locale;
 
 /**
  * Clase que se encarga de la gestión del fichero de preferencias de la aplicación

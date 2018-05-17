@@ -13,14 +13,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.drawable.DrawerArrowDrawable;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.mimo.musiquendo.Adapters.CategoriesAdapter;
 import com.example.mimo.musiquendo.R;
-
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -110,7 +107,6 @@ public class ActivityMain extends AppCompatActivity implements NavigationView.On
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                Log.d("ABRO", "onOptionsItemSelected: "+Locale.getDefault().getLanguage());
                 drawer.openDrawer(GravityCompat.START);
                 return true;
             case R.id.filter:

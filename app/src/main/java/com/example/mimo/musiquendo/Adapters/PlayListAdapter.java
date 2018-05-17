@@ -4,7 +4,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -52,7 +51,7 @@ public class PlayListAdapter extends RecyclerView.Adapter<PlayListAdapter.ViewHo
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.playlist_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_item, parent, false);
 
         return new ViewHolder(view);
     }
@@ -69,14 +68,12 @@ public class PlayListAdapter extends RecyclerView.Adapter<PlayListAdapter.ViewHo
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.playlist_item_image)
+        @BindView(R.id.grid_item_image)
         ImageView playListImage;
-        @BindView(R.id.playlist_item_name)
+        @BindView(R.id.grid_item_name)
         TextView playListName;
-        @BindView(R.id.playlist_item_creation)
+        @BindView(R.id.grid_item_surname)
         TextView playListCreation;
-        @BindView(R.id.playlist_download)
-        ImageButton downloadPlayList;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -110,7 +107,6 @@ public class PlayListAdapter extends RecyclerView.Adapter<PlayListAdapter.ViewHo
                 }
             });
             itemView.setOnClickListener(view -> listener.onPlayListClick(itemView, playList));
-            downloadPlayList.setOnClickListener(downloadPlayList -> listener.onDownloadItemClick(playList));
         }
     }
 }

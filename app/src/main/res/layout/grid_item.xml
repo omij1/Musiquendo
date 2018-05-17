@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardCornerRadius="@dimen/album_item_radius"
-    app:cardElevation="@dimen/album_item_elevation"
+    app:cardElevation="@dimen/grid_item_elevation"
     app:cardUseCompatPadding="true">
 
     <RelativeLayout
@@ -13,22 +13,21 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/album_item_image"
+            android:id="@+id/grid_item_image"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/AlbumItemImage"/>
+            style="@style/GridItemImage"/>
 
         <TextView
-            android:id="@+id/album_item_name"
+            android:id="@+id/grid_item_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/AlbumItemName"/>
+            style="@style/GridItemName"/>
 
         <TextView
-            android:id="@+id/album_item_autor"
+            android:id="@+id/grid_item_surname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/AlbumItemAutor"/>
+            style="@style/GridItemSurname"/>
 
     </RelativeLayout>
 

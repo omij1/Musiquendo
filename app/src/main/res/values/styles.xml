@@ -35,22 +35,24 @@
         <item name="android:layout_marginRight">@dimen/activity_horizontal_margin</item>
     </style>
 
-    <style name="AlbumItemImage">
+    <style name="GridItemImage">
+        <item name="android:elevation">@dimen/grid_item_elevation</item>
+        <item name="android:layout_height">@dimen/grid_item_image</item>
         <item name="android:scaleType">fitXY</item>
     </style>
 
-    <style name="AlbumItemName">
+    <style name="GridItemName">
         <item name="android:gravity">center</item>
-        <item name="android:layout_below">@id/album_item_image</item>
+        <item name="android:layout_below">@id/grid_item_image</item>
         <item name="android:background">@color/colorAccent</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">@dimen/album_item_name</item>
         <item name="android:maxLines">1</item>
     </style>
 
-    <style name="AlbumItemAutor">
+    <style name="GridItemSurname">
         <item name="android:gravity">center</item>
-        <item name="android:layout_below">@id/album_item_name</item>
+        <item name="android:layout_below">@id/grid_item_name</item>
         <item name="android:background">@color/colorAccent</item>
         <item name="android:textStyle">italic</item>
         <item name="android:textSize">@dimen/album_item_autor</item>
@@ -58,8 +60,6 @@
     </style>
 
     <style name="ArtistItemImage">
-        <item name="android:elevation">@dimen/album_item_elevation</item>
-        <item name="android:layout_height">@dimen/artist_item_image</item>
         <item name="android:scaleType">fitXY</item>
     </style>
 

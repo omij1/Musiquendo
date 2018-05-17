@@ -45,7 +45,7 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ViewHolder
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.artist_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_item, parent, false);
 
         return new ViewHolder(view);
     }
@@ -62,10 +62,12 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ViewHolder
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.artist_item_image)
+        @BindView(R.id.grid_item_image)
         ImageView artistImage;
-        @BindView(R.id.artist_item_name)
+        @BindView(R.id.grid_item_name)
         TextView name;
+        @BindView(R.id.grid_item_surname)
+        TextView joindate;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -75,6 +77,7 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ViewHolder
 
         public void bind(final Artist artist, final OnItemClickListener listener) {
             name.setText(artist.getName());
+            joindate.setText(artist.getJoindate());
             if (!artist.getImage().equals("")) {
                 Picasso.get().load(artist.getImage()).into(artistImage);
             } else {

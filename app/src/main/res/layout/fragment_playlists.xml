@@ -22,8 +22,7 @@
                 android:id="@+id/playlists_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
-                app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
+                android:layout_gravity="center"/>
 
         </com.flipboard.bottomsheet.BottomSheetLayout>
 

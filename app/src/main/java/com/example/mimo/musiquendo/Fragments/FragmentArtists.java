@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +25,8 @@ import com.example.mimo.musiquendo.Provider.JamendoProvider;
 import com.example.mimo.musiquendo.R;
 import com.flipboard.bottomsheet.BottomSheetLayout;
 import com.flipboard.bottomsheet.commons.MenuSheetView;
+
+import org.json.JSONArray;
 
 import java.util.List;
 
@@ -44,6 +47,11 @@ public class FragmentArtists extends Fragment implements ArtistAdapter.OnItemCli
     @BindView(R.id.bottom_sheet_artists)
     BottomSheetLayout bottomSheetLayout;
     private static final String TYPE = "FragmentType";
+    private static final String ID = "ID";
+    private static final String NAME = "NAME";
+    private static final String JOIN = "JOIN";
+    private static final String WEB = "WEB";
+    private static final int COLUMNS = 2;
     private List<Artist> artistList;
     private ArtistAdapter artistAdapter;
     private JamendoProvider jamendo;
@@ -88,6 +96,8 @@ public class FragmentArtists extends Fragment implements ArtistAdapter.OnItemCli
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_artists, container, false);
         ButterKnife.bind(this, view);
+        RecyclerView.LayoutManager manager = new GridLayoutManager(getContext(), COLUMNS);
+        artists.setLayoutManager(manager);
         refresh.setColorSchemeColors(getResources().getColor(R.color.colorPrimary),
                 getResources().getColor(R.color.colorPrimaryDark), getResources().getColor(R.color.colorAccent));
         refresh.setOnRefreshListener(() -> jamendo.getArtistList(artistsResponse -> {
@@ -105,20 +115,20 @@ public class FragmentArtists extends Fragment implements ArtistAdapter.OnItemCli
             return;
         }
         Intent artistDetail = new Intent(getContext(), ActivityArtist.class);
-        artistDetail.putExtra("ID", artist.getId());
-        artistDetail.putExtra("NAME", artist.getName());
-        artistDetail.putExtra("JOIN", artist.getJoindate());
-        artistDetail.putExtra("WEB", artist.getWebsite());
+        artistDetail.putExtra(ID, artist.getId());
+        artistDetail.putExtra(NAME, artist.getName());
+        artistDetail.putExtra(JOIN, artist.getJoindate());
+        artistDetail.putExtra(WEB, artist.getWebsite());
 
         ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                activity,view.findViewById(R.id.artist_item_image),getString(R.string.image_transition));
+                activity,view.findViewById(R.id.grid_item_image),getString(R.string.image_transition));
         ActivityCompat.startActivity(activity, artistDetail, options.toBundle());
     }
 
     @Override
     public void startSearch(String search) {
         String formattedSearch = search.replaceAll(" ", "%20");
-        jamendo.searchArtist(formattedSearch, artistsSearch -> artistAdapter.swapItems(artistsSearch), () -> callDialog());
+        jamendo.searchArtist(formattedSearch, artistsSearch -> artistAdapter.swapItems(artistsSearch), this::callDialog);
     }
 
     @Override
@@ -160,7 +170,7 @@ public class FragmentArtists extends Fragment implements ArtistAdapter.OnItemCli
      * @param filter Filtro que se va a aplicar
      */
     private void filterArtist(String filter){
-        jamendo.filterArtists(filter, artistsFiltered -> artistAdapter.swapItems(artistsFiltered), () -> callDialog());
+        jamendo.filterArtists(filter, artistsFiltered -> artistAdapter.swapItems(artistsFiltered), this::callDialog);
     }
 
     /**
