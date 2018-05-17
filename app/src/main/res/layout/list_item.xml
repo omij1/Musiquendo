@@ -12,26 +12,26 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/playlist_item_image"
-            style="@style/PlayListItemImage"/>
+            android:id="@+id/item_image"
+            style="@style/ListItemImage"/>
 
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.60">
+            android:layout_weight="0.65">
 
             <TextView
-                android:id="@+id/playlist_item_name"
+                android:id="@+id/item_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/PlayListItemName"/>
+                style="@style/ListItemName"/>
 
             <TextView
-                android:id="@+id/playlist_item_creation"
+                android:id="@+id/item_surname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/playlist_item_name"
-                style="@style/PlayListItemCreation"/>
+                android:layout_below="@id/item_name"
+                style="@style/ListItemCreation"/>
 
         </RelativeLayout>
 
@@ -39,9 +39,9 @@
             android:id="@+id/playlist_download"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.10"
+            android:layout_weight="0.05"
             android:src="@drawable/ic_file_download"
-            style="@style/PlayListItemDownload"/>
+            style="@style/ListItemDownload"/>
 
     </LinearLayout>
 

@@ -43,60 +43,46 @@
 
     <style name="GridItemName">
         <item name="android:gravity">center</item>
-        <item name="android:layout_below">@id/grid_item_image</item>
+        <item name="android:layout_below">@id/item_image</item>
         <item name="android:background">@color/colorAccent</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textSize">@dimen/album_item_name</item>
+        <item name="android:textSize">@dimen/grid_item_name</item>
         <item name="android:maxLines">1</item>
     </style>
 
     <style name="GridItemSurname">
         <item name="android:gravity">center</item>
-        <item name="android:layout_below">@id/grid_item_name</item>
+        <item name="android:layout_below">@id/item_name</item>
         <item name="android:background">@color/colorAccent</item>
         <item name="android:textStyle">italic</item>
-        <item name="android:textSize">@dimen/album_item_autor</item>
+        <item name="android:textSize">@dimen/grid_item_surname</item>
         <item name="android:maxLines">1</item>
     </style>
 
-    <style name="ArtistItemImage">
-        <item name="android:scaleType">fitXY</item>
-    </style>
-
-    <style name="ArtistItemName">
-        <item name="android:gravity">center</item>
-        <item name="android:layout_gravity">bottom</item>
-        <item name="android:textSize">@dimen/artist_item_name</item>
-        <item name="android:maxLines">1</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:alpha">0.8</item>
-        <item name="android:background">@color/colorAccent</item>
-    </style>
-
-    <style name="PlayListItemImage">
+    <style name="ListItemImage">
         <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">@dimen/playlist_item_image_height</item>
+        <item name="android:layout_height">@dimen/list_item_image_height</item>
         <item name="android:layout_weight">0.30</item>
         <item name="android:scaleType">fitXY</item>
-        <item name="android:padding">@dimen/padding_playlist_item_image</item>
+        <item name="android:padding">@dimen/padding_list_item_image</item>
     </style>
 
-    <style name="PlayListItemName">
+    <style name="ListItemName">
         <item name="android:layout_centerVertical">true</item>
         <item name="android:ellipsize">end</item>
         <item name="android:maxLines">1</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textSize">@dimen/playlist_item_name</item>
+        <item name="android:textSize">@dimen/list_item_name</item>
     </style>
 
-    <style name="PlayListItemCreation">
+    <style name="ListItemCreation">
         <item name="android:layout_centerVertical">true</item>
         <item name="android:textColor">@color/colorAccent</item>
-        <item name="android:textSize">@dimen/artist_item_creation</item>
+        <item name="android:textSize">@dimen/list_item_creation</item>
         <item name="android:textStyle">italic</item>
     </style>
 
-    <style name="PlayListItemDownload">
+    <style name="ListItemDownload">
         <item name="android:layout_gravity">center_vertical</item>
         <item name="android:background">@color/backgroundColor</item>
     </style>

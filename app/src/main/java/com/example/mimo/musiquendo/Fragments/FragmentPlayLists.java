@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,7 @@ import com.example.mimo.musiquendo.Adapters.PlayListAdapter;
 import com.example.mimo.musiquendo.Dialogs.SimpleDialog;
 import com.example.mimo.musiquendo.Model.Categories;
 import com.example.mimo.musiquendo.Model.PlayList;
+import com.example.mimo.musiquendo.Model.SharedPreferences.PreferencesManager;
 import com.example.mimo.musiquendo.Provider.JamendoProvider;
 import com.example.mimo.musiquendo.R;
 import com.flipboard.bottomsheet.BottomSheetLayout;
@@ -53,9 +55,11 @@ public class FragmentPlayLists extends Fragment implements PlayListAdapter.OnIte
     private PlayListAdapter playListAdapter;
     private JamendoProvider jamendo;
 
+
     public interface PlaylistsCallback {
         void onPlaylistsSuccess(List<PlayList> playListList);
     }
+
 
     /**
      * Función que crea un nuevo fragmento con el identificador de la categoría a la que pertenece
@@ -70,7 +74,18 @@ public class FragmentPlayLists extends Fragment implements PlayListAdapter.OnIte
         return fragment;
     }
 
+
     public FragmentPlayLists() {}
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        checkDisplayMode();
+        if (playlistsList != null)
+            loadContent();
+    }
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -84,13 +99,13 @@ public class FragmentPlayLists extends Fragment implements PlayListAdapter.OnIte
         });
     }
 
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_playlists, container, false);
         ButterKnife.bind(this, view);
-        RecyclerView.LayoutManager manager = new GridLayoutManager(getContext(), COLUMNS);
-        playLists.setLayoutManager(manager);
+        checkDisplayMode();
         playLists.addItemDecoration(new PaddingItemDecorator(4));
         refresh.setColorSchemeColors(getResources().getColor(R.color.colorPrimary),
                 getResources().getColor(R.color.colorPrimaryDark), getResources().getColor(R.color.colorAccent));
@@ -101,6 +116,19 @@ public class FragmentPlayLists extends Fragment implements PlayListAdapter.OnIte
 
         return view;
     }
+
+
+    /**
+     * Método que cambia el layoutmanager del recycler en función del tipo de vista elegido en los ajustes
+     */
+    private void checkDisplayMode() {
+        RecyclerView.LayoutManager manager;
+        PreferencesManager preferences = new PreferencesManager(getContext());
+        manager = preferences.getDisplayMode().equals(getString(R.string.grid)) ?
+                new GridLayoutManager(getContext(), COLUMNS) : new LinearLayoutManager(getContext());
+        playLists.setLayoutManager(manager);
+    }
+
 
     @Override
     public void onPlayListClick(View view, PlayList playList) {
@@ -114,14 +142,16 @@ public class FragmentPlayLists extends Fragment implements PlayListAdapter.OnIte
         playlistDetail.putExtra(IMAGE, playList.getCover());
 
         ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                activity,view.findViewById(R.id.grid_item_image),getString(R.string.image_transition));
+                activity,view.findViewById(R.id.item_image),getString(R.string.image_transition));
         ActivityCompat.startActivity(activity, playlistDetail, options.toBundle());
     }
+
 
     @Override
     public void onDownloadItemClick(PlayList playList) {
 
     }
+
 
     @Override
     public void startSearch(String search) {
@@ -129,10 +159,12 @@ public class FragmentPlayLists extends Fragment implements PlayListAdapter.OnIte
         jamendo.searchPlayList(formattedSearch, playListListSearch -> playListAdapter.swapItems(playListListSearch), this::callDialog);
     }
 
+
     @Override
     public void finishSearch() {
         playListAdapter.swapItems(playlistsList);
     }
+
 
     @Override
     public void showMenu() {
@@ -157,6 +189,7 @@ public class FragmentPlayLists extends Fragment implements PlayListAdapter.OnIte
         }
     }
 
+
     /**
      * Método que llama a la clase correspondiente para obtener las listas de reproducción filtradas
      * @param filter Filtro que se va a aplicar
@@ -165,13 +198,15 @@ public class FragmentPlayLists extends Fragment implements PlayListAdapter.OnIte
         jamendo.filterPlaylists(filter, playlistsFiltered -> playListAdapter.swapItems(playlistsFiltered), this::callDialog);
     }
 
+
     /**
      * Método que se ejecuta cuando volley obtiene los datos del API
      */
     private void loadContent() {
-        playListAdapter = new PlayListAdapter(playlistsList, this);
+        playListAdapter = new PlayListAdapter(playlistsList, this, getContext());
         playLists.setAdapter(playListAdapter);
     }
+
 
     /**
      * Método que crea un nuevo diálogo

@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,12 +22,11 @@ import com.example.mimo.musiquendo.Adapters.ArtistAdapter;
 import com.example.mimo.musiquendo.Dialogs.SimpleDialog;
 import com.example.mimo.musiquendo.Model.Artist;
 import com.example.mimo.musiquendo.Model.Categories;
+import com.example.mimo.musiquendo.Model.SharedPreferences.PreferencesManager;
 import com.example.mimo.musiquendo.Provider.JamendoProvider;
 import com.example.mimo.musiquendo.R;
 import com.flipboard.bottomsheet.BottomSheetLayout;
 import com.flipboard.bottomsheet.commons.MenuSheetView;
-
-import org.json.JSONArray;
 
 import java.util.List;
 
@@ -63,6 +63,7 @@ public class FragmentArtists extends Fragment implements ArtistAdapter.OnItemCli
         void onArtistSuccess(List<Artist> artists);
     }
 
+
     /**
      * Función que crea un nuevo fragmento con el identificador de la categoría a la que pertenece
      * @param category Categoría a la que pertenece el fragmento
@@ -76,7 +77,18 @@ public class FragmentArtists extends Fragment implements ArtistAdapter.OnItemCli
         return fragment;
     }
 
+
     public FragmentArtists() {}
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        checkDisplayMode();
+        if (artistList != null)
+            loadContent();
+    }
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -96,8 +108,8 @@ public class FragmentArtists extends Fragment implements ArtistAdapter.OnItemCli
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_artists, container, false);
         ButterKnife.bind(this, view);
-        RecyclerView.LayoutManager manager = new GridLayoutManager(getContext(), COLUMNS);
-        artists.setLayoutManager(manager);
+        checkDisplayMode();
+        artists.addItemDecoration(new PaddingItemDecorator(4));
         refresh.setColorSchemeColors(getResources().getColor(R.color.colorPrimary),
                 getResources().getColor(R.color.colorPrimaryDark), getResources().getColor(R.color.colorAccent));
         refresh.setOnRefreshListener(() -> jamendo.getArtistList(artistsResponse -> {
@@ -107,6 +119,19 @@ public class FragmentArtists extends Fragment implements ArtistAdapter.OnItemCli
 
         return view;
     }
+
+
+    /**
+     * Método que cambia el layoutmanager del recycler en función del tipo de vista elegido en los ajustes
+     */
+    private void checkDisplayMode() {
+        RecyclerView.LayoutManager manager;
+        PreferencesManager preferences = new PreferencesManager(getContext());
+        manager = preferences.getDisplayMode().equals(getString(R.string.grid)) ?
+                new GridLayoutManager(getContext(), COLUMNS) : new LinearLayoutManager(getContext());
+        artists.setLayoutManager(manager);
+    }
+
 
     @Override
     public void onArtistClick(View view, Artist artist) {
@@ -121,9 +146,10 @@ public class FragmentArtists extends Fragment implements ArtistAdapter.OnItemCli
         artistDetail.putExtra(WEB, artist.getWebsite());
 
         ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                activity,view.findViewById(R.id.grid_item_image),getString(R.string.image_transition));
+                activity,view.findViewById(R.id.item_image),getString(R.string.image_transition));
         ActivityCompat.startActivity(activity, artistDetail, options.toBundle());
     }
+
 
     @Override
     public void startSearch(String search) {
@@ -131,10 +157,12 @@ public class FragmentArtists extends Fragment implements ArtistAdapter.OnItemCli
         jamendo.searchArtist(formattedSearch, artistsSearch -> artistAdapter.swapItems(artistsSearch), this::callDialog);
     }
 
+
     @Override
     public void finishSearch() {
         artistAdapter.swapItems(artistList);
     }
+
 
     @Override
     public void showMenu() {
@@ -165,6 +193,7 @@ public class FragmentArtists extends Fragment implements ArtistAdapter.OnItemCli
         }
     }
 
+
     /**
      * Método que llama a la clase correspondiente para obtener los artistas filtrados
      * @param filter Filtro que se va a aplicar
@@ -173,13 +202,15 @@ public class FragmentArtists extends Fragment implements ArtistAdapter.OnItemCli
         jamendo.filterArtists(filter, artistsFiltered -> artistAdapter.swapItems(artistsFiltered), this::callDialog);
     }
 
+
     /**
      * Método que se ejecuta cuando volley obtiene los datos del API
      */
     private void loadContent() {
-        artistAdapter = new ArtistAdapter(artistList, this);
+        artistAdapter = new ArtistAdapter(artistList, this, getContext());
         artists.setAdapter(artistAdapter);
     }
+
 
     /**
      * Método que crea un nuevo diálogo

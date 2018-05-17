@@ -1,5 +1,6 @@
 package com.example.mimo.musiquendo.Adapters;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.mimo.musiquendo.Model.PlayList;
+import com.example.mimo.musiquendo.Model.SharedPreferences.PreferencesManager;
 import com.example.mimo.musiquendo.Provider.JamendoProvider;
 import com.example.mimo.musiquendo.R;
 import com.squareup.picasso.Picasso;
@@ -34,10 +36,12 @@ public class PlayListAdapter extends RecyclerView.Adapter<PlayListAdapter.ViewHo
 
     private List<PlayList> playLists;
     private final OnItemClickListener listener;
+    private Context mContext;
 
-    public PlayListAdapter(List<PlayList> playLists, OnItemClickListener listener) {
+    public PlayListAdapter(List<PlayList> playLists, OnItemClickListener listener, Context context) {
         this.playLists = playLists;
         this.listener = listener;
+        this.mContext = context;
     }
 
     /**
@@ -51,7 +55,14 @@ public class PlayListAdapter extends RecyclerView.Adapter<PlayListAdapter.ViewHo
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_item, parent, false);
+        View view;
+        PreferencesManager manager = new PreferencesManager(mContext);
+
+        //Miramos el layout que hay que inflar dependiendo del modo de vista elegido
+
+        view = manager.getDisplayMode().equals(mContext.getString(R.string.grid)) ?
+                LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_item, parent, false)
+                : LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
 
         return new ViewHolder(view);
     }
@@ -68,11 +79,11 @@ public class PlayListAdapter extends RecyclerView.Adapter<PlayListAdapter.ViewHo
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.grid_item_image)
+        @BindView(R.id.item_image)
         ImageView playListImage;
-        @BindView(R.id.grid_item_name)
+        @BindView(R.id.item_name)
         TextView playListName;
-        @BindView(R.id.grid_item_surname)
+        @BindView(R.id.item_surname)
         TextView playListCreation;
 
         public ViewHolder(View itemView) {

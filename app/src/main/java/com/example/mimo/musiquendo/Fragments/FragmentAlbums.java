@@ -10,7 +10,9 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +24,7 @@ import com.example.mimo.musiquendo.Dialogs.SimpleDialog;
 import com.example.mimo.musiquendo.Model.Album;
 import com.example.mimo.musiquendo.Model.Categories;
 
+import com.example.mimo.musiquendo.Model.SharedPreferences.PreferencesManager;
 import com.example.mimo.musiquendo.Provider.JamendoProvider;
 import com.example.mimo.musiquendo.R;
 import com.flipboard.bottomsheet.BottomSheetLayout;
@@ -79,6 +82,15 @@ public class FragmentAlbums extends Fragment implements AlbumAdapter.OnItemClick
 
 
     @Override
+    public void onResume() {
+        super.onResume();
+        checkDisplayMode();
+        if (albumList != null)
+            loadContent();
+    }
+
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         String key = getArguments() != null ? getArguments().getString(TYPE) : "";
@@ -90,13 +102,14 @@ public class FragmentAlbums extends Fragment implements AlbumAdapter.OnItemClick
         }, this::callDialog);
     }
 
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_albums, container ,false);
         ButterKnife.bind(this, view);
-        RecyclerView.LayoutManager manager = new GridLayoutManager(getContext(), COLUMNS);
-        albums.setLayoutManager(manager);
+        checkDisplayMode();
+        albums.addItemDecoration(new PaddingItemDecorator(4));
         refresh.setColorSchemeColors(getResources().getColor(R.color.colorPrimary),
                 getResources().getColor(R.color.colorPrimaryDark), getResources().getColor(R.color.colorAccent));
         refresh.setOnRefreshListener(() -> jamendo.getAlbumList(albumsResponse -> {
@@ -108,6 +121,19 @@ public class FragmentAlbums extends Fragment implements AlbumAdapter.OnItemClick
         }));
         return view;
     }
+
+
+    /**
+     * Método que cambia el layoutmanager del recycler en función del tipo de vista elegido en los ajustes
+     */
+    private void checkDisplayMode() {
+        RecyclerView.LayoutManager manager;
+        PreferencesManager preferences = new PreferencesManager(getContext());
+        manager = preferences.getDisplayMode().equals(getString(R.string.grid)) ?
+                new GridLayoutManager(getContext(), COLUMNS) : new LinearLayoutManager(getContext());
+        albums.setLayoutManager(manager);
+    }
+
 
     @Override
     public void onAlbumClick(View view, Album album) {
@@ -121,10 +147,11 @@ public class FragmentAlbums extends Fragment implements AlbumAdapter.OnItemClick
         albumDetail.putExtra(ARTIST, album.getArtist_name());
 
         ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                activity,view.findViewById(R.id.grid_item_image),getString(R.string.image_transition)
+                activity,view.findViewById(R.id.item_image),getString(R.string.image_transition)
         );
         ActivityCompat.startActivity(activity, albumDetail, options.toBundle());
     }
+
 
     @Override
     public void startSearch(String search) {
@@ -134,10 +161,12 @@ public class FragmentAlbums extends Fragment implements AlbumAdapter.OnItemClick
         }, this::callDialog);
     }
 
+
     @Override
     public void finishSearch() {
         albumAdapter.swapItems(albumList);
     }
+
 
     @Override
     public void showMenu() {
@@ -177,13 +206,15 @@ public class FragmentAlbums extends Fragment implements AlbumAdapter.OnItemClick
         jamendo.filterAlbums(filter, albumsFiltered -> albumAdapter.swapItems(albumsFiltered), this::callDialog);
     }
 
+
     /**
      * Método que se ejecuta cuando volley obtiene los datos del API
      */
     private void loadContent() {
-        albumAdapter = new AlbumAdapter(albumList, this);
+        albumAdapter = new AlbumAdapter(albumList, this, getContext());
         albums.setAdapter(albumAdapter);
     }
+
 
     /**
      * Método que crea un nuevo diálogo

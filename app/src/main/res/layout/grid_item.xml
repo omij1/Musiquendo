@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="@dimen/album_item_radius"
+    app:cardCornerRadius="@dimen/grid_item_radius"
     app:cardElevation="@dimen/grid_item_elevation"
     app:cardUseCompatPadding="true">
 
@@ -13,18 +13,18 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/grid_item_image"
+            android:id="@+id/item_image"
             android:layout_width="match_parent"
             style="@style/GridItemImage"/>
 
         <TextView
-            android:id="@+id/grid_item_name"
+            android:id="@+id/item_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/GridItemName"/>
 
         <TextView
-            android:id="@+id/grid_item_surname"
+            android:id="@+id/item_surname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/GridItemSurname"/>

@@ -1,5 +1,6 @@
 package com.example.mimo.musiquendo.Adapters;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.mimo.musiquendo.Model.Artist;
+import com.example.mimo.musiquendo.Model.SharedPreferences.PreferencesManager;
 import com.example.mimo.musiquendo.R;
 import com.squareup.picasso.Picasso;
 
@@ -28,10 +30,12 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ViewHolder
 
     private List<Artist> artists;
     private final OnItemClickListener listener;
+    private Context mContext;
 
-    public ArtistAdapter(List<Artist> artists, OnItemClickListener listener) {
+    public ArtistAdapter(List<Artist> artists, OnItemClickListener listener, Context context) {
         this.artists = artists;
         this.listener = listener;
+        this.mContext = context;
     }
 
     /**
@@ -45,7 +49,14 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ViewHolder
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_item, parent, false);
+        View view;
+        PreferencesManager manager = new PreferencesManager(mContext);
+
+        //Miramos el layout que hay que inflar dependiendo del modo de vista elegido
+
+        view = manager.getDisplayMode().equals(mContext.getString(R.string.grid)) ?
+                LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_item, parent, false)
+                : LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
 
         return new ViewHolder(view);
     }
@@ -62,11 +73,11 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ViewHolder
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.grid_item_image)
+        @BindView(R.id.item_image)
         ImageView artistImage;
-        @BindView(R.id.grid_item_name)
+        @BindView(R.id.item_name)
         TextView name;
-        @BindView(R.id.grid_item_surname)
+        @BindView(R.id.item_surname)
         TextView joindate;
 
         public ViewHolder(View itemView) {
