@@ -161,7 +161,6 @@ public class FragmentAlbumDetail extends Fragment implements AlbumTracksAdapter.
      * Método que crea un nuevo diálogo
      */
     private void callDialog(int icon, String title, String content) {
-
         SimpleDialog dialog = SimpleDialog.newInstance(icon, title, content);
         FragmentManager fm = getFragmentManager();
         dialog.show(fm, ID);

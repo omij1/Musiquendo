@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 /**
- * Singleton que permite reproducir las cancionesw de la aplicación.
+ * Singleton que permite reproducir las canciones de la aplicación.
  */
 
 public class TrackPlayer extends Service implements MediaPlayer.OnCompletionListener{
@@ -167,6 +167,8 @@ public class TrackPlayer extends Service implements MediaPlayer.OnCompletionList
             showNotification();
             playStreamTrack();
         }
+        else
+            stopForeground(false);
     }
 
     /**

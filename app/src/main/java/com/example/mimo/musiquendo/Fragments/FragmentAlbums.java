@@ -12,7 +12,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,6 +62,7 @@ public class FragmentAlbums extends Fragment implements AlbumAdapter.OnItemClick
     public interface AlbumsCallback {
         void onAlbumsSuccess(List<Album> albums);
     }
+
 
     /**
      * Función que crea un nuevo fragmento con el identificador de la categoría a la que pertenece

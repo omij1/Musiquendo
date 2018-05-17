@@ -72,6 +72,9 @@ public class TrackQueue {
         }
     }
 
+    /**
+     * Borra la cola de canciones actual
+     */
     public void deleteQueue() {
         queue.clear();
         queue = null;
