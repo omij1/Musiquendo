@@ -6,9 +6,7 @@
     <dimen name="divider__settings_width">2dp</dimen>
     <dimen name="description_margin_start">15dp</dimen>
     <dimen name="item_description">14sp</dimen>
-    <dimen name="switch_playmode_marginEnd">20dp</dimen>
-    <dimen name="toggle_download_marginEnd">20dp</dimen>
+    <dimen name="item_controller_marginEnd">20dp</dimen>
     <dimen name="margin_default_land">24dp</dimen>
-    <dimen name="switch_margin">20dp</dimen>
 
 </resources>

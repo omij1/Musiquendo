@@ -24,7 +24,7 @@
     <style name="SettingsItemController">
         <item name="android:layout_centerInParent">true</item>
         <item name="android:layout_alignParentEnd">true</item>
-        <item name="android:layout_marginEnd">@dimen/switch_playmode_marginEnd</item>
+        <item name="android:layout_marginEnd">@dimen/item_controller_marginEnd</item>
     </style>
 
     <style name="SettingsItemController.ToggleStyle">

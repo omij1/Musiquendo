@@ -58,8 +58,9 @@
                     android:id="@+id/language_group"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:orientation="vertical">
+                    android:layout_alignParentEnd="true"
+                    android:orientation="vertical"
+                    style="@style/SettingsItemController">
 
                     <RadioButton
                         android:id="@+id/display_grid"

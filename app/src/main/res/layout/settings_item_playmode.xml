@@ -54,7 +54,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.3"
-                android:layout_margin="@dimen/switch_margin">
+                android:layout_margin="@dimen/item_controller_marginEnd">
 
                 <Switch
                     android:id="@+id/playmode"
