@@ -18,7 +18,7 @@
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.65">
+            android:layout_weight="0.7">
 
             <TextView
                 android:id="@+id/item_name"
@@ -34,14 +34,6 @@
                 style="@style/ListItemCreation"/>
 
         </RelativeLayout>
-
-        <ImageButton
-            android:id="@+id/playlist_download"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.05"
-            android:src="@drawable/ic_file_download"
-            style="@style/ListItemDownload"/>
 
     </LinearLayout>
 

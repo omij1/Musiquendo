@@ -78,6 +78,6 @@ public class FragmentSettings extends Fragment {
                     break;
             }
         });
-        downloadMode.setOnCheckedChangeListener((compoundButton, b) -> preferencesManager.setDownload(b));
+        downloadMode.setOnCheckedChangeListener((compoundButton, b) -> preferencesManager.setDownloadSettings(b));
     }
 }

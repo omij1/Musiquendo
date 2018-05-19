@@ -34,7 +34,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * fragmento que muestra la colección de artistas en la pantalla principal
+ * Fragmento que muestra la colección de artistas en la pantalla principal
  */
 
 public class FragmentArtists extends Fragment implements ArtistAdapter.OnItemClickListener,

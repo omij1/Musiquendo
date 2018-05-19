@@ -4,8 +4,10 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.mimo.musiquendo.Fragments.FragmentLibrary;
 import com.example.mimo.musiquendo.R;
 
 import butterknife.BindView;
@@ -33,6 +35,9 @@ public class ActivityLibrary extends AppCompatActivity {
             actionBar_library.setHomeAsUpIndicator(R.drawable.ic_arrow_back);
             actionBar_library.setDisplayHomeAsUpEnabled(true);
         }
+        FragmentLibrary library = FragmentLibrary.newInstance();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.library_detail, library, null).commit();
     }
 
     @Override
@@ -40,8 +45,22 @@ public class ActivityLibrary extends AppCompatActivity {
         switch (item.getItemId()){
             case android.R.id.home:
                 this.finish();
-                return true;
+                    return true;
+                case R.id.library_albums:
+                    return true;
+                case R.id.library_artists:
+                    return true;
+                case R.id.library_playlists:
+                    return true;
+                case R.id.library_songs:
+                    return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.library_filter, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 }

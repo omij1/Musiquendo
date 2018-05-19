@@ -50,7 +50,7 @@ public class PreferencesManager {
         return getPreferences().getBoolean(DOWNLOAD, true);
     }
 
-    public void setDownload(boolean mode) {
+    public void setDownloadSettings(boolean mode) {
         SharedPreferences.Editor edit = getPreferences().edit();
         edit.putBoolean(DOWNLOAD, mode);
         edit.apply();

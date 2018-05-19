@@ -1,6 +1,8 @@
 package com.example.mimo.musiquendo.Fragments;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mimo.musiquendo.Adapters.AlbumTracksAdapter;
 import com.example.mimo.musiquendo.BuildConfig;
@@ -143,7 +146,9 @@ public class FragmentAlbumDetail extends Fragment implements AlbumTracksAdapter.
 
     @Override
     public void onDownloadSongClick(AlbumTracks track) {
-
+        WifiManager wifi = (WifiManager) getContext().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        if (preferencesManager.getDownloadSettings() && wifi.isWifiEnabled())
+            Toast.makeText(getContext(), "wifi activado", Toast.LENGTH_SHORT).show();
     }
 
     /**
