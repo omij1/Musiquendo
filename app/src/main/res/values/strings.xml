@@ -119,6 +119,8 @@
     <string name="prev">Prev</string>
     <string name="play_pause">Play/Pause</string>
     <string name="next">Next</string>
+    <string name="unavailable_download">Unable to download the song. Review the settings screen.</string>
+    <string name="downloading_song">Downloading song</string>
 
 
     <!-- Strings related to Albums filter-->

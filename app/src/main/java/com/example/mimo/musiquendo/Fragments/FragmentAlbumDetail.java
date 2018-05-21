@@ -1,13 +1,22 @@
 package com.example.mimo.musiquendo.Fragments;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +27,7 @@ import android.widget.Toast;
 import com.example.mimo.musiquendo.Adapters.AlbumTracksAdapter;
 import com.example.mimo.musiquendo.BuildConfig;
 import com.example.mimo.musiquendo.Dialogs.SimpleDialog;
+import com.example.mimo.musiquendo.DownloadManager.Downloader;
 import com.example.mimo.musiquendo.Model.AlbumTracks;
 import com.example.mimo.musiquendo.Model.SharedPreferences.PreferencesManager;
 import com.example.mimo.musiquendo.Model.Track;
@@ -52,9 +62,12 @@ public class FragmentAlbumDetail extends Fragment implements AlbumTracksAdapter.
     private static final String ID = "ID";
     private static final String NAME = "NAME";
     private static final String ARTIST = "ARTIST";
+    private static final int REQUEST_CODE = 1;
     private List<AlbumTracks> tracks;
     private AlbumTracksAdapter adapter;
     private PreferencesManager preferencesManager;
+    private Downloader downloader;
+    private AlbumTracks trackSelected;
 
 
     /**
@@ -63,6 +76,7 @@ public class FragmentAlbumDetail extends Fragment implements AlbumTracksAdapter.
     public interface AlbumDetailCallback {
         void onAlbumDetailSuccess(List<AlbumTracks> tracksList, String cover);
     }
+
 
     /**
      * Función que crea un nuevo fragmento con el identificador de la categoría a la que pertenece
@@ -82,8 +96,8 @@ public class FragmentAlbumDetail extends Fragment implements AlbumTracksAdapter.
         return fragment;
     }
 
-    public FragmentAlbumDetail() {
-    }
+
+    public FragmentAlbumDetail() {}
 
 
     @Override
@@ -104,6 +118,7 @@ public class FragmentAlbumDetail extends Fragment implements AlbumTracksAdapter.
         });
     }
 
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -118,6 +133,14 @@ public class FragmentAlbumDetail extends Fragment implements AlbumTracksAdapter.
     @Override
     public void onTrackClick(View view, AlbumTracks track, int position) {
         adapter.changeItem(position);
+
+        //Comprobamos la conexión a internet
+        if (isOnline()){
+            String[] dialogContent = getResources().getStringArray(R.array.lost_connection);
+            callDialog(R.drawable.ic_signal_wifi_off, dialogContent[0], dialogContent[1]);
+            return;
+        }
+
         //Miramos el modo de reproducción de las canciones
         Intent playTrack = new Intent(getActivity(), TrackPlayer.class);
         playTrack.setAction(BuildConfig.PLAY);
@@ -128,11 +151,13 @@ public class FragmentAlbumDetail extends Fragment implements AlbumTracksAdapter.
             normalMode(playTrack, track);
     }
 
+
     private void normalMode(Intent playTrack, AlbumTracks track) {
         TrackQueue.getInstance().addTrack(new Track(track.getAudio(), track.getTrackName(),
                 getArguments().getString(NAME), track.getTrackDuration(), track.getMinutes()));
         getActivity().startService(playTrack);
     }
+
 
     private void automaticMode(Intent playTrack, int position) {
         List<Track> trackList = new ArrayList<>();
@@ -144,12 +169,51 @@ public class FragmentAlbumDetail extends Fragment implements AlbumTracksAdapter.
         getActivity().startService(playTrack);
     }
 
+
     @Override
     public void onDownloadSongClick(AlbumTracks track) {
-        WifiManager wifi = (WifiManager) getContext().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-        if (preferencesManager.getDownloadSettings() && wifi.isWifiEnabled())
-            Toast.makeText(getContext(), "wifi activado", Toast.LENGTH_SHORT).show();
+        trackSelected = track;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
+                downloadTrack();
+            else
+                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE);
+        }
+        else
+            downloadTrack();
     }
+
+
+    private void downloadTrack() {
+        WifiManager wifi = (WifiManager) getContext().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        //Comprobamos la conexión a internet
+        if (isOnline()){
+            String[] dialogContent = getResources().getStringArray(R.array.lost_connection);
+            callDialog(R.drawable.ic_signal_wifi_off, dialogContent[0], dialogContent[1]);
+            return;
+        }
+        if (!preferencesManager.getDownloadSettings() || wifi != null && wifi.isWifiEnabled()) {
+            downloader = new Downloader(getContext());
+            downloader.execute(trackSelected.getAudioDownload(), trackSelected.getTrackName());
+        }
+        else
+            Toast.makeText(getContext(), R.string.unavailable_download, Toast.LENGTH_SHORT).show();
+    }
+
+
+    /**
+     * Método que comprueba si el dispositivo tiene conexión a internet
+     * @return Si tiene internet o no
+     */
+    private boolean isOnline() {
+        ConnectivityManager cm = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = null;
+        if (cm != null) {
+            netInfo = cm.getActiveNetworkInfo();
+        }
+        return netInfo == null || !netInfo.isConnectedOrConnecting();
+    }
+
 
     /**
      * Método que se ejecuta cuando volley obtiene los datos del API
@@ -162,6 +226,7 @@ public class FragmentAlbumDetail extends Fragment implements AlbumTracksAdapter.
         songs.setAdapter(adapter);
     }
 
+
     /**
      * Método que crea un nuevo diálogo
      */
@@ -169,5 +234,21 @@ public class FragmentAlbumDetail extends Fragment implements AlbumTracksAdapter.
         SimpleDialog dialog = SimpleDialog.newInstance(icon, title, content);
         FragmentManager fm = getFragmentManager();
         dialog.show(fm, ID);
+    }
+
+
+    @Override
+    public void onStop() {
+        if (downloader != null)
+            downloader.cancel(true);
+        super.onStop();
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_CODE && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+            downloadTrack();
     }
 }

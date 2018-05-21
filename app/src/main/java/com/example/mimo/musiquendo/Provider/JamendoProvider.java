@@ -42,10 +42,12 @@ public class JamendoProvider {
     private Context context;
     private static final Integer IMAGESIZE = 400;
 
+
     public JamendoProvider(Context context) {
         this.gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();//El formato de fecha es para que no falle el parsing
         this.context = context;
     }
+
 
     ////////////////////////////////////METODOS RELACIONADOS CON LOS ALBUMES\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
@@ -160,6 +162,7 @@ public class JamendoProvider {
         });
         RequestManager.getInstance().addToRequestQueue(context, details);
     }
+
 
     ////////////////////////////////////METODOS RELACIONADOS CON LOS ARTISTAS\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
@@ -276,6 +279,7 @@ public class JamendoProvider {
         });
         RequestManager.getInstance().addToRequestQueue(context, details);
     }
+
 
     ////////////////////////////////////METODOS RELACIONADOS CON LAS LISTAS DE REPRODUCCION\\\\\\\\\\\\\\\\\\\\\\\\\\\
 

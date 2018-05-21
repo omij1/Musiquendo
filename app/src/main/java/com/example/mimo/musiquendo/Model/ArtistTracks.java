@@ -24,10 +24,15 @@ public class ArtistTracks {
     private String album_image;
     @SerializedName("audio")
     private String audio;
+    @SerializedName("audiodownload")
+    private String audioDownload;
     private String minutes;
 
 
-    public ArtistTracks(String albumId, String albumName, String trackId, String trackName, int trackDuration, String releaseDate, String album_image, String audio, String minutes) {
+    public ArtistTracks(String albumId, String albumName, String trackId, String trackName,
+                        int trackDuration, String releaseDate, String album_image, String audio,
+                        String audioDownload, String minutes) {
+
         this.albumId = albumId;
         this.albumName = albumName;
         this.trackId = trackId;
@@ -36,6 +41,7 @@ public class ArtistTracks {
         this.releaseDate = releaseDate;
         this.album_image = album_image;
         this.audio = audio;
+        this.audioDownload = audioDownload;
         this.minutes = minutes;
     }
 
@@ -101,6 +107,14 @@ public class ArtistTracks {
 
     public void setAudio(String audio) {
         this.audio = audio;
+    }
+
+    public String getAudioDownload() {
+        return audioDownload;
+    }
+
+    public void setAudioDownload(String audioDownload) {
+        this.audioDownload = audioDownload;
     }
 
     public String getMinutes() {

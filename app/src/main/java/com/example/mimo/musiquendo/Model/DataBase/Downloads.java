@@ -24,8 +24,6 @@ public class Downloads {
     @ColumnInfo(name = "cover")
     private String cover;
 
-    @ColumnInfo(name = "type")
-    private String type;
 
     public int getId() {
         return id;
@@ -57,13 +55,5 @@ public class Downloads {
 
     public void setCover(String cover) {
         this.cover = cover;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 }

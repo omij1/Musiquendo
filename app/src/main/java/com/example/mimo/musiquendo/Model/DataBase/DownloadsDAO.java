@@ -15,8 +15,8 @@ import java.util.List;
 @Dao
 public interface DownloadsDAO {
 
-    @Query("SELECT * FROM downloads WHERE type LIKE :searchType")
-    List<Downloads> getAll(String searchType);
+    @Query("SELECT * FROM downloads")
+    List<Downloads> getAll();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     public void insertDownload(Downloads download);
