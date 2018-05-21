@@ -16,7 +16,7 @@ public class TrackQueue {
     public static String SECTION = "";
     public static int currentTrack;
 
-    public TrackQueue() {}
+    private TrackQueue() {}
 
     public static synchronized TrackQueue getInstance() {
         if (trackQueue == null) {

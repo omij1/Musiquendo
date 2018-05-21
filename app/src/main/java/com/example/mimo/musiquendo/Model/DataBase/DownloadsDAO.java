@@ -15,12 +15,15 @@ import java.util.List;
 @Dao
 public interface DownloadsDAO {
 
-    @Query("SELECT * FROM downloads")
-    List<Downloads> getAll();
+    @Query("SELECT * FROM DownloadItem")
+    List<DownloadItem> getAll();
+
+    @Query("SELECT * FROM DownloadItem WHERE name LIKE :trackName")
+    List<DownloadItem> getTrack(String trackName);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    public void insertDownload(Downloads download);
+    public void insertDownload(DownloadItem download);
 
     @Delete
-    public void deleteDownload(Downloads download);
+    public void deleteDownload(DownloadItem download);
 }

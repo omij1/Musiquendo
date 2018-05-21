@@ -6,13 +6,13 @@ import android.arch.persistence.room.PrimaryKey;
 import android.arch.persistence.room.TypeConverters;
 
 /**
- * Clase que representa la tabla Downloads de la base de datos
+ * Clase que representa la tabla DownloadItem de la base de datos
  */
 
 @Entity
-public class Downloads {
+public class DownloadItem {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int id;
 
     @ColumnInfo(name = "path")
@@ -24,6 +24,12 @@ public class Downloads {
     @ColumnInfo(name = "cover")
     private String cover;
 
+
+    public DownloadItem(String path, String name, String cover) {
+        this.path = path;
+        this.name = name;
+        this.cover = cover;
+    }
 
     public int getId() {
         return id;

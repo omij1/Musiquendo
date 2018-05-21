@@ -65,6 +65,7 @@ public class FragmentAlbumDetail extends Fragment implements AlbumTracksAdapter.
     private static final int REQUEST_CODE = 1;
     private List<AlbumTracks> tracks;
     private AlbumTracksAdapter adapter;
+    private String albumCover;
     private PreferencesManager preferencesManager;
     private Downloader downloader;
     private AlbumTracks trackSelected;
@@ -107,9 +108,10 @@ public class FragmentAlbumDetail extends Fragment implements AlbumTracksAdapter.
         preferencesManager = new PreferencesManager(getContext());
         jamendo.albumDetails(getArguments().getString(ID), (tracksList, cover) -> {
             tracks = tracksList;
+            albumCover = cover;
             loadContent();
-            if (!cover.equals(""))
-                Picasso.get().load(cover).into(albumImage);
+            if (!albumCover.equals(""))
+                Picasso.get().load(albumCover).into(albumImage);
             else
                 albumImage.setImageDrawable(getResources().getDrawable(R.drawable.no_image));
         }, () -> {
@@ -194,7 +196,7 @@ public class FragmentAlbumDetail extends Fragment implements AlbumTracksAdapter.
         }
         if (!preferencesManager.getDownloadSettings() || wifi != null && wifi.isWifiEnabled()) {
             downloader = new Downloader(getContext());
-            downloader.execute(trackSelected.getAudioDownload(), trackSelected.getTrackName());
+            downloader.execute(trackSelected.getAudioDownload(), trackSelected.getTrackName(), albumCover);
         }
         else
             Toast.makeText(getContext(), R.string.unavailable_download, Toast.LENGTH_SHORT).show();

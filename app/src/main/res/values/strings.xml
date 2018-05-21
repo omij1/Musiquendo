@@ -121,6 +121,7 @@
     <string name="next">Next</string>
     <string name="unavailable_download">Unable to download the song. Review the settings screen.</string>
     <string name="downloading_song">Downloading song</string>
+    <string name="track_already_downloaded">Track alredy exists in the downloads directory</string>
 
 
     <!-- Strings related to Albums filter-->
