@@ -59,6 +59,7 @@ public class Downloader extends AsyncTask<String, Void, Boolean> {
         request.setVisibleInDownloadsUi(true);
         request.setTitle(trackName);
         request.setDescription(mContext.getString(R.string.downloading_song));
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
         request.setDestinationInExternalFilesDir(mContext, Environment.DIRECTORY_DOWNLOADS, trackName);
         if (downloadManager != null) refId = downloadManager.enqueue(request);
         database.downloadsDAO().insertDownload(new DownloadItem(Environment.DIRECTORY_DOWNLOADS+"/"+trackName,

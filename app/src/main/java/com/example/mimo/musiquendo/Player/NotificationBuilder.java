@@ -57,6 +57,7 @@ public class NotificationBuilder {
                 .setSmallIcon(R.drawable.auriculares)
                 .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.auriculares))
                 .setDeleteIntent(deleteIntent)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .addAction(R.drawable.ic_reanudar, context.getResources().getString(R.string.play_pause), startStopIntent);
 
 
@@ -92,6 +93,7 @@ public class NotificationBuilder {
                 .setSmallIcon(R.drawable.auriculares)
                 .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.auriculares))
                 .setDeleteIntent(deleteIntent)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .addAction(R.drawable.ic_skip_previous_black, context.getResources().getString(R.string.prev), prevIntent)
                 .addAction(R.drawable.ic_reanudar, context.getResources().getString(R.string.play_pause), startStopIntent)
                 .addAction(R.drawable.ic_skip_next_black, context.getResources().getString(R.string.next),nextIntent);

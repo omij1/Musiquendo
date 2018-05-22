@@ -27,6 +27,7 @@ android {
             buildConfigField "String", "ALBUMS", "\"com.example.mimo.musiquendo.ALBUMS\""
             buildConfigField "String", "ARTISTS", "\"com.example.mimo.musiquendo.ARTISTS\""
             buildConfigField "String", "PLAYLISTS", "\"com.example.mimo.musiquendo.PLAYLISTS\""
+            buildConfigField "String", "DOWNLOADS", "\"com.example.mimo.musiquendo.DOWNLOADS\""
         }
 
         release {
@@ -47,6 +48,7 @@ android {
             buildConfigField "String", "ALBUMS", "\"com.example.mimo.musiquendo.ALBUMS\""
             buildConfigField "String", "ARTISTS", "\"com.example.mimo.musiquendo.ARTISTS\""
             buildConfigField "String", "PLAYLISTS", "\"com.example.mimo.musiquendo.PLAYLISTS\""
+            buildConfigField "String", "DOWNLOADS", "\"com.example.mimo.musiquendo.DOWNLOADS\""
         }
 
     }

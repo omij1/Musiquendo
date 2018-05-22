@@ -146,13 +146,6 @@ public class FragmentPlaylistDetail extends Fragment implements PlaylistTracksAd
     }
 
 
-    private void normalMode(Intent playTrack, PlayListTracks track) {
-        TrackQueue.getInstance().addTrack(new Track(track.getAudio(), track.getTrackName(),
-                getArguments().getString(NAME), track.getTrackDuration(), track.getMinutes()));
-        getActivity().startService(playTrack);
-    }
-
-
     private void automaticMode(Intent playTrack, int position) {
         List<Track> trackList = new ArrayList<>();
         for (PlayListTracks track : tracks) {
@@ -160,6 +153,13 @@ public class FragmentPlaylistDetail extends Fragment implements PlaylistTracksAd
                     getArguments().getString(NAME), track.getTrackDuration(),track.getMinutes()));
         }
         TrackQueue.getInstance().addTrackList(trackList, position);
+        getActivity().startService(playTrack);
+    }
+
+
+    private void normalMode(Intent playTrack, PlayListTracks track) {
+        TrackQueue.getInstance().addTrack(new Track(track.getAudio(), track.getTrackName(),
+                getArguments().getString(NAME), track.getTrackDuration(), track.getMinutes()));
         getActivity().startService(playTrack);
     }
 

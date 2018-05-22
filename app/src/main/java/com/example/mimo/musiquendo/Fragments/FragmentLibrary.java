@@ -1,5 +1,6 @@
 package com.example.mimo.musiquendo.Fragments;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,10 +12,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.mimo.musiquendo.Adapters.LibraryAdapter;
+import com.example.mimo.musiquendo.BuildConfig;
 import com.example.mimo.musiquendo.Model.DataBase.AppDatabase;
 import com.example.mimo.musiquendo.Model.DataBase.DownloadItem;
+import com.example.mimo.musiquendo.Model.SharedPreferences.PreferencesManager;
+import com.example.mimo.musiquendo.Model.Track;
+import com.example.mimo.musiquendo.Player.TrackPlayer;
+import com.example.mimo.musiquendo.Player.TrackQueue;
 import com.example.mimo.musiquendo.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -30,6 +37,8 @@ public class FragmentLibrary extends Fragment implements LibraryAdapter.OnItemCl
     RecyclerView downloadList;
     private static AppDatabase database;
     private static LibraryAdapter adapter;
+    private static List<DownloadItem> downloadItemList;
+    private PreferencesManager preferencesManager;
     private GetDownloadedTracks downloadedTracks;
 
 
@@ -61,9 +70,35 @@ public class FragmentLibrary extends Fragment implements LibraryAdapter.OnItemCl
         return view;
     }
 
-    @Override
-    public void onDownloadItemClick(View view, DownloadItem album) {
 
+    @Override
+    public void onDownloadItemClick(View view, DownloadItem item) {
+        //Se reproduce la canción correspondiente
+        Intent playTrack = new Intent(getActivity(), TrackPlayer.class);
+        playTrack.setAction(BuildConfig.PLAY);
+        TrackQueue.getInstance().setSection(BuildConfig.DOWNLOADS);
+        if (preferencesManager.getPlaylistMode())
+            automaticMode(playTrack);
+        else
+            normalMode(playTrack, item);
+    }
+
+
+    private void automaticMode(Intent playTrack) {
+        /*List<Track> trackList = new ArrayList<>();
+        for (AlbumTracks track : tracks) {
+            trackList.add(new Track(track.getAudio(), track.getTrackName(),
+                    getArguments().getString(NAME), track.getTrackDuration(),track.getMinutes()));
+        }
+        TrackQueue.getInstance().addTrackList(trackList, position);
+        getActivity().startService(playTrack);*/
+    }
+
+
+    private void normalMode(Intent playTrack, DownloadItem item) {
+        /*TrackQueue.getInstance().addTrack(new Track(item.getPath(), item.getName(),
+                getArguments().getString(NAME), track.getTrackDuration(), track.getMinutes()));*/
+        getActivity().startService(playTrack);
     }
 
 
@@ -86,6 +121,7 @@ public class FragmentLibrary extends Fragment implements LibraryAdapter.OnItemCl
         @Override
         protected void onPostExecute(List<DownloadItem> downloadItems) {
             super.onPostExecute(downloadItems);
+            downloadItemList = downloadItems;
             adapter.setData(downloadItems);
             adapter.notifyDataSetChanged();
         }

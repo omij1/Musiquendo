@@ -155,13 +155,6 @@ public class FragmentAlbumDetail extends Fragment implements AlbumTracksAdapter.
     }
 
 
-    private void normalMode(Intent playTrack, AlbumTracks track) {
-        TrackQueue.getInstance().addTrack(new Track(track.getAudio(), track.getTrackName(),
-                getArguments().getString(NAME), track.getTrackDuration(), track.getMinutes()));
-        getActivity().startService(playTrack);
-    }
-
-
     private void automaticMode(Intent playTrack, int position) {
         List<Track> trackList = new ArrayList<>();
         for (AlbumTracks track : tracks) {
@@ -169,6 +162,13 @@ public class FragmentAlbumDetail extends Fragment implements AlbumTracksAdapter.
                     getArguments().getString(NAME), track.getTrackDuration(),track.getMinutes()));
         }
         TrackQueue.getInstance().addTrackList(trackList, position);
+        getActivity().startService(playTrack);
+    }
+
+
+    private void normalMode(Intent playTrack, AlbumTracks track) {
+        TrackQueue.getInstance().addTrack(new Track(track.getAudio(), track.getTrackName(),
+                getArguments().getString(NAME), track.getTrackDuration(), track.getMinutes()));
         getActivity().startService(playTrack);
     }
 
