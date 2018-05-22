@@ -62,9 +62,11 @@ public class FragmentArtistDetail extends Fragment implements ArtistsTracksAdapt
     private static final String NAME = "NAME";
     private static final String JOIN = "JOIN";
     private static final String WEB = "WEB";
+    private static final int PADDING = 2;
     private static final int REQUEST_CODE = 1;
     private List<ArtistTracks> tracks;
     private ArtistsTracksAdapter adapter;
+    private String artistCover;
     private PreferencesManager preferencesManager;
     private Downloader downloader;
     private ArtistTracks trackSelected;
@@ -111,9 +113,10 @@ public class FragmentArtistDetail extends Fragment implements ArtistsTracksAdapt
         jamendo.artistDetails(getArguments().getString(ID), (tracksList, cover) -> {
             if (tracksList != null) {//El artista tiene datos
                 tracks = tracksList;
+                artistCover = cover;
                 loadContent();
-                if (!cover.equals(""))
-                    Picasso.get().load(cover).into(artistImage);
+                if (!artistCover.equals(""))
+                    Picasso.get().load(artistCover).into(artistImage);
                 else
                     artistImage.setImageDrawable(getResources().getDrawable(R.drawable.no_image));
             } else {
@@ -133,7 +136,7 @@ public class FragmentArtistDetail extends Fragment implements ArtistsTracksAdapt
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_artist_detail, container, false);
         ButterKnife.bind(this, view);
-        songs.addItemDecoration(new PaddingItemDecorator(2));
+        songs.addItemDecoration(new PaddingItemDecorator(PADDING));
 
         return view;
     }
@@ -202,7 +205,7 @@ public class FragmentArtistDetail extends Fragment implements ArtistsTracksAdapt
         }
         if (!preferencesManager.getDownloadSettings() || wifi != null && wifi.isWifiEnabled()) {
             downloader = new Downloader(getContext());
-            downloader.execute(trackSelected.getAudioDownload(), trackSelected.getTrackName());
+            downloader.execute(trackSelected.getAudioDownload(), trackSelected.getTrackName(), artistCover);
         }
         else
             Toast.makeText(getContext(), R.string.unavailable_download, Toast.LENGTH_SHORT).show();

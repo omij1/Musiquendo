@@ -51,6 +51,7 @@ public class FragmentAlbums extends Fragment implements AlbumAdapter.OnItemClick
     private static final String ID = "ID";
     private static final String NAME = "NAME";
     private static final String ARTIST = "ARTIST";
+    private static final int PADDING = 4;
     private static final int COLUMNS = 2;
     private List<Album> albumList;
     private AlbumAdapter albumAdapter;
@@ -109,7 +110,7 @@ public class FragmentAlbums extends Fragment implements AlbumAdapter.OnItemClick
         View view = inflater.inflate(R.layout.fragment_albums, container ,false);
         ButterKnife.bind(this, view);
         checkDisplayMode();
-        albums.addItemDecoration(new PaddingItemDecorator(4));
+        albums.addItemDecoration(new PaddingItemDecorator(PADDING));
         refresh.setColorSchemeColors(getResources().getColor(R.color.colorPrimary),
                 getResources().getColor(R.color.colorPrimaryDark), getResources().getColor(R.color.colorAccent));
         refresh.setOnRefreshListener(() -> jamendo.getAlbumList(albumsResponse -> {

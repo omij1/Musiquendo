@@ -50,6 +50,7 @@ public class FragmentPlayLists extends Fragment implements PlayListAdapter.OnIte
     private static final String ID = "ID";
     private static final String NAME = "NAME";
     private static final String IMAGE = "IMAGE";
+    private static final int PADDING = 4;
     private static final int COLUMNS = 2;
     private List<PlayList> playlistsList;
     private PlayListAdapter playListAdapter;
@@ -106,7 +107,7 @@ public class FragmentPlayLists extends Fragment implements PlayListAdapter.OnIte
         View view = inflater.inflate(R.layout.fragment_playlists, container, false);
         ButterKnife.bind(this, view);
         checkDisplayMode();
-        playLists.addItemDecoration(new PaddingItemDecorator(4));
+        playLists.addItemDecoration(new PaddingItemDecorator(PADDING));
         refresh.setColorSchemeColors(getResources().getColor(R.color.colorPrimary),
                 getResources().getColor(R.color.colorPrimaryDark), getResources().getColor(R.color.colorAccent));
         refresh.setOnRefreshListener(() -> jamendo.getPlayLists(playListResponse -> {

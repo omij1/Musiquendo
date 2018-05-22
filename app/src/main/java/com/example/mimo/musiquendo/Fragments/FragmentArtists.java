@@ -51,6 +51,7 @@ public class FragmentArtists extends Fragment implements ArtistAdapter.OnItemCli
     private static final String NAME = "NAME";
     private static final String JOIN = "JOIN";
     private static final String WEB = "WEB";
+    private static final int PADDING = 4;
     private static final int COLUMNS = 2;
     private List<Artist> artistList;
     private ArtistAdapter artistAdapter;
@@ -109,7 +110,7 @@ public class FragmentArtists extends Fragment implements ArtistAdapter.OnItemCli
         View view = inflater.inflate(R.layout.fragment_artists, container, false);
         ButterKnife.bind(this, view);
         checkDisplayMode();
-        artists.addItemDecoration(new PaddingItemDecorator(4));
+        artists.addItemDecoration(new PaddingItemDecorator(PADDING));
         refresh.setColorSchemeColors(getResources().getColor(R.color.colorPrimary),
                 getResources().getColor(R.color.colorPrimaryDark), getResources().getColor(R.color.colorAccent));
         refresh.setOnRefreshListener(() -> jamendo.getArtistList(artistsResponse -> {

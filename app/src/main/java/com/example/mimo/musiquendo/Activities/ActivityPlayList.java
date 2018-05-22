@@ -42,11 +42,6 @@ public class ActivityPlayList extends AppCompatActivity {
                 .replace(R.id.playlist_detail, playlistDetail, null).commit();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_download, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

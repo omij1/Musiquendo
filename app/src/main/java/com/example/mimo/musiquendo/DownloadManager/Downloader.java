@@ -22,7 +22,7 @@ public class Downloader extends AsyncTask<String, Void, Boolean> {
     private Context mContext;
     private AppDatabase database;
 
-    
+
     public Downloader(Context context) {
         this.mContext = context;
     }
@@ -74,7 +74,7 @@ public class Downloader extends AsyncTask<String, Void, Boolean> {
 
     @Override
     protected void onPostExecute(Boolean state) {
-        if (!state)
+        if (!state)//Si el estado es falso la canción ya existía
             Toast.makeText(mContext, R.string.track_already_downloaded, Toast.LENGTH_SHORT).show();
         super.onPostExecute(state);
     }

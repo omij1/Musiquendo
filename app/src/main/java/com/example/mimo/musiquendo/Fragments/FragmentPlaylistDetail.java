@@ -53,6 +53,7 @@ public class FragmentPlaylistDetail extends Fragment implements PlaylistTracksAd
     private static final String ID = "ID";
     private static final String NAME = "NAME";
     private static final String IMAGE = "IMAGE";
+    private static final int PADDING = 2;
     private static final int REQUEST_CODE = 1;
     private List<PlayListTracks> tracks;
     private PlaylistTracksAdapter adapter;
@@ -118,7 +119,7 @@ public class FragmentPlaylistDetail extends Fragment implements PlaylistTracksAd
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_playlist_detail, container, false);
         ButterKnife.bind(this, view);
-        songs.addItemDecoration(new PaddingItemDecorator(2));
+        songs.addItemDecoration(new PaddingItemDecorator(PADDING));
 
         return view;
     }
@@ -187,7 +188,7 @@ public class FragmentPlaylistDetail extends Fragment implements PlaylistTracksAd
         }
         if (!preferencesManager.getDownloadSettings() || wifi != null && wifi.isWifiEnabled()) {
             downloader = new Downloader(getContext());
-            downloader.execute(trackSelected.getAudioDownload(), trackSelected.getTrackName());
+            downloader.execute(trackSelected.getAudioDownload(), trackSelected.getTrackName(), getArguments().get(IMAGE).toString());
         }
         else
             Toast.makeText(getContext(), R.string.unavailable_download, Toast.LENGTH_SHORT).show();

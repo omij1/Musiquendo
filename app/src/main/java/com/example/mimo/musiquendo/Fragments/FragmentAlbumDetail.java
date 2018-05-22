@@ -62,6 +62,7 @@ public class FragmentAlbumDetail extends Fragment implements AlbumTracksAdapter.
     private static final String ID = "ID";
     private static final String NAME = "NAME";
     private static final String ARTIST = "ARTIST";
+    private static final int PADDING = 2;
     private static final int REQUEST_CODE = 1;
     private List<AlbumTracks> tracks;
     private AlbumTracksAdapter adapter;
@@ -126,7 +127,7 @@ public class FragmentAlbumDetail extends Fragment implements AlbumTracksAdapter.
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_album_detail, container, false);
         ButterKnife.bind(this, view);
-        songs.addItemDecoration(new PaddingItemDecorator(2));
+        songs.addItemDecoration(new PaddingItemDecorator(PADDING));
 
         return view;
     }
