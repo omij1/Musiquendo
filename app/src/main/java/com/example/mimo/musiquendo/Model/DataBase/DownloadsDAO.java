@@ -18,7 +18,7 @@ public interface DownloadsDAO {
     @Query("SELECT * FROM DownloadItem")
     List<DownloadItem> getAll();
 
-    @Query("SELECT * FROM DownloadItem WHERE name LIKE :trackName")
+    @Query("SELECT * FROM DownloadItem WHERE trackName LIKE :trackName")
     List<DownloadItem> getTrack(String trackName);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

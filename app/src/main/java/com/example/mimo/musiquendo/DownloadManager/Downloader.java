@@ -30,13 +30,9 @@ public class Downloader extends AsyncTask<String, Void, Boolean> {
 
     @Override
     protected Boolean doInBackground(String... strings) {
-        String downloadUrl = strings[0];
-        String trackName = strings[1];
-        String cover = strings[2];
-
         database = AppDatabase.getInstance(mContext);
-        if (!trackAlreadyDownloaded(trackName)){
-            downloadTrack(downloadUrl, trackName, cover);
+        if (!trackAlreadyDownloaded(strings[1])){
+            downloadTrack(strings);
             return true;
         }
         else
@@ -49,8 +45,15 @@ public class Downloader extends AsyncTask<String, Void, Boolean> {
     }
 
 
-    private void downloadTrack(String downloadUrl, String trackName, String cover) {
+    private void downloadTrack(String[] strings) {
         long refId;
+        String downloadUrl = strings[0];
+        String trackName = strings[1];
+        String parentName = strings[2];
+        int trackDuration = Integer.parseInt(strings[3]);
+        String minutes = strings[4];
+        String cover = strings[5];
+
         DownloadManager downloadManager = (DownloadManager) mContext.getSystemService(Context.DOWNLOAD_SERVICE);
         Uri downloadUri= Uri.parse(downloadUrl);
         DownloadManager.Request request = new DownloadManager.Request(downloadUri);
@@ -60,10 +63,11 @@ public class Downloader extends AsyncTask<String, Void, Boolean> {
         request.setTitle(trackName);
         request.setDescription(mContext.getString(R.string.downloading_song));
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-        request.setDestinationInExternalFilesDir(mContext, Environment.DIRECTORY_DOWNLOADS, trackName);
+        request.allowScanningByMediaScanner();
+        request.setDestinationInExternalFilesDir(mContext, Environment.DIRECTORY_DOWNLOADS, trackName.concat(".mp3"));
+        String trackPath = mContext.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getPath().concat("/").concat(trackName).concat(".mp3");
         if (downloadManager != null) refId = downloadManager.enqueue(request);
-        database.downloadsDAO().insertDownload(new DownloadItem(Environment.DIRECTORY_DOWNLOADS+"/"+trackName,
-                trackName, cover));
+        database.downloadsDAO().insertDownload(new DownloadItem(trackPath, trackName, parentName, trackDuration, minutes, cover));
     }
 
 

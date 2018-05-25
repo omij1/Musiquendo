@@ -18,16 +18,27 @@ public class DownloadItem {
     @ColumnInfo(name = "path")
     private String path;
 
-    @ColumnInfo(name="name")
-    private String name;
+    @ColumnInfo(name="trackName")
+    private String trackName;
+
+    @ColumnInfo(name = "parentName")
+    private String parentName;
+
+    @ColumnInfo(name = "duration")
+    private int duration;
+
+    @ColumnInfo(name = "minutes")
+    private String minutes;
 
     @ColumnInfo(name = "cover")
     private String cover;
 
-
-    public DownloadItem(String path, String name, String cover) {
+    public DownloadItem(String path, String trackName, String parentName, int duration, String minutes, String cover) {
         this.path = path;
-        this.name = name;
+        this.trackName = trackName;
+        this.parentName = parentName;
+        this.duration = duration;
+        this.minutes = minutes;
         this.cover = cover;
     }
 
@@ -47,12 +58,36 @@ public class DownloadItem {
         this.path = path;
     }
 
-    public String getName() {
-        return name;
+    public String getTrackName() {
+        return trackName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTrackName(String trackName) {
+        this.trackName = trackName;
+    }
+
+    public String getParentName() {
+        return parentName;
+    }
+
+    public void setParentName(String parentName) {
+        this.parentName = parentName;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
+
+    public String getMinutes() {
+        return minutes;
+    }
+
+    public void setMinutes(String minutes) {
+        this.minutes = minutes;
     }
 
     public String getCover() {

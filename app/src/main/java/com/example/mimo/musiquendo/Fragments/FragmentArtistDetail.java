@@ -205,7 +205,9 @@ public class FragmentArtistDetail extends Fragment implements ArtistsTracksAdapt
         }
         if (!preferencesManager.getDownloadSettings() || wifi != null && wifi.isWifiEnabled()) {
             downloader = new Downloader(getContext());
-            downloader.execute(trackSelected.getAudioDownload(), trackSelected.getTrackName(), artistCover);
+            downloader.execute(trackSelected.getAudioDownload(), trackSelected.getTrackName(),
+                    getArguments().getString(NAME), String.valueOf(trackSelected.getTrackDuration()),
+                    trackSelected.getMinutes(), artistCover);
         }
         else
             Toast.makeText(getContext(), R.string.unavailable_download, Toast.LENGTH_SHORT).show();

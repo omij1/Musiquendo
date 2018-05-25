@@ -1,6 +1,8 @@
 package com.example.mimo.musiquendo.Adapters;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,10 +22,11 @@ import butterknife.ButterKnife;
  * Adaptador que sirve para mostrar las canciones descargadas por el usuario
  */
 
-public class LibraryAdapter extends RecyclerView.Adapter<LibraryAdapter.ViewHolder>{
+public class LibraryAdapter extends RecyclerView.Adapter<LibraryAdapter.ViewHolder> {
 
     public interface OnItemClickListener {
-        void onDownloadItemClick(View view, DownloadItem album);
+        void onDownloadItemClick(View view, DownloadItem track, int position);
+        boolean onLongItemClick(View view, DownloadItem track, int position);
     }
 
     private List<DownloadItem> itemList;
@@ -44,7 +47,7 @@ public class LibraryAdapter extends RecyclerView.Adapter<LibraryAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(LibraryAdapter.ViewHolder holder, int position) {
-        holder.bind(itemList.get(position), listener);
+        holder.bind(itemList.get(position), listener, position);
     }
 
 
@@ -75,14 +78,15 @@ public class LibraryAdapter extends RecyclerView.Adapter<LibraryAdapter.ViewHold
             ButterKnife.bind(this, itemView);
         }
 
-        public void bind(DownloadItem downloadItem, OnItemClickListener listener) {
-            name.setText(downloadItem.getName());
+        public void bind(DownloadItem downloadItem, OnItemClickListener listener, int position) {
+            name.setText(downloadItem.getTrackName());
             if (!downloadItem.getCover().equals("")) {
                 Picasso.get().load(downloadItem.getCover()).into(cover);
             } else {
                 cover.setImageDrawable(itemView.getResources().getDrawable(R.drawable.no_image));
             }
-            itemView.setOnClickListener(v -> listener.onDownloadItemClick(itemView, downloadItem));
+            itemView.setOnClickListener(v -> listener.onDownloadItemClick(itemView, downloadItem, position));
+            itemView.setOnLongClickListener(v -> listener.onLongItemClick(itemView, downloadItem, position));
         }
     }
 }

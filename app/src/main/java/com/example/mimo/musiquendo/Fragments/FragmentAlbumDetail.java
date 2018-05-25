@@ -197,7 +197,9 @@ public class FragmentAlbumDetail extends Fragment implements AlbumTracksAdapter.
         }
         if (!preferencesManager.getDownloadSettings() || wifi != null && wifi.isWifiEnabled()) {
             downloader = new Downloader(getContext());
-            downloader.execute(trackSelected.getAudioDownload(), trackSelected.getTrackName(), albumCover);
+            downloader.execute(trackSelected.getAudioDownload(), trackSelected.getTrackName(),
+                    getArguments().getString(NAME), String.valueOf(trackSelected.getTrackDuration()),
+                    trackSelected.getMinutes(), albumCover);
         }
         else
             Toast.makeText(getContext(), R.string.unavailable_download, Toast.LENGTH_SHORT).show();

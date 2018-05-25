@@ -46,21 +46,7 @@ public class ActivityLibrary extends AppCompatActivity {
             case android.R.id.home:
                 this.finish();
                     return true;
-                case R.id.library_albums:
-                    return true;
-                case R.id.library_artists:
-                    return true;
-                case R.id.library_playlists:
-                    return true;
-                case R.id.library_songs:
-                    return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.library_filter, menu);
-        return super.onCreateOptionsMenu(menu);
     }
 }

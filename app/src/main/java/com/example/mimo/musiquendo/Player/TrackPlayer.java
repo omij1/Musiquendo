@@ -3,8 +3,10 @@ package com.example.mimo.musiquendo.Player;
 import android.app.Service;
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import com.example.mimo.musiquendo.BuildConfig;
 
@@ -20,6 +22,7 @@ public class TrackPlayer extends Service implements MediaPlayer.OnCompletionList
     private MediaPlayer player;
     private int position;
 
+
     public TrackPlayer() {}
 
 
@@ -29,6 +32,7 @@ public class TrackPlayer extends Service implements MediaPlayer.OnCompletionList
         return null;
     }
 
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -36,6 +40,7 @@ public class TrackPlayer extends Service implements MediaPlayer.OnCompletionList
             player = new MediaPlayer();
         enableForegroundMode();
     }
+
 
     @Override
     public void onDestroy() {
@@ -48,6 +53,7 @@ public class TrackPlayer extends Service implements MediaPlayer.OnCompletionList
         TrackQueue.SECTION = "";
         TrackQueue.getInstance().deleteQueue();
     }
+
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -82,9 +88,11 @@ public class TrackPlayer extends Service implements MediaPlayer.OnCompletionList
         return super.onStartCommand(intent, flags, startId);
     }
 
+
     private void enableForegroundMode() {
         showNotification();
     }
+
 
     private void disableForegroundMode() {
         if (player != null) {
@@ -93,6 +101,7 @@ public class TrackPlayer extends Service implements MediaPlayer.OnCompletionList
         }
         stopForeground(true);
     }
+
 
     /**
      * Método que muestra la notificación y actualiza su contenido acorde a la canción que está sonando
@@ -105,6 +114,7 @@ public class TrackPlayer extends Service implements MediaPlayer.OnCompletionList
         startForeground(NotificationBuilder.ID, notif.showNotification());
     }
 
+
     /**
      * Método que carga el Mediaplayer
      */
@@ -114,6 +124,7 @@ public class TrackPlayer extends Service implements MediaPlayer.OnCompletionList
         }
         startPlayer();
     }
+
 
     /**
      * Método que inicia la reproducción de la canción
@@ -131,6 +142,7 @@ public class TrackPlayer extends Service implements MediaPlayer.OnCompletionList
         }
     }
 
+
     /**
      * Método que pausa la reproducción de la canción
      */
@@ -139,6 +151,7 @@ public class TrackPlayer extends Service implements MediaPlayer.OnCompletionList
         position = player.getCurrentPosition();
         stopForeground(false);
     }
+
 
     /**
      * Método que reanuda la reproducción de la canción
@@ -149,6 +162,7 @@ public class TrackPlayer extends Service implements MediaPlayer.OnCompletionList
         showNotification();
     }
 
+
     /**
      * Método que resetea el Mediaplayer para cambiar de canción
      */
@@ -156,6 +170,7 @@ public class TrackPlayer extends Service implements MediaPlayer.OnCompletionList
         player.stop();
         player.reset();
     }
+
 
     /**
      * Método que reproduce la siguiente canción
@@ -171,6 +186,7 @@ public class TrackPlayer extends Service implements MediaPlayer.OnCompletionList
             stopForeground(false);
     }
 
+
     /**
      * Método que reproduce la canción anterior
      */
@@ -182,6 +198,7 @@ public class TrackPlayer extends Service implements MediaPlayer.OnCompletionList
             playStreamTrack();
         }
     }
+
 
     @Override
     public void onCompletion(MediaPlayer mediaPlayer) {

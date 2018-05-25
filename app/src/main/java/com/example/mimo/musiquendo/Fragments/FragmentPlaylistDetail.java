@@ -188,7 +188,9 @@ public class FragmentPlaylistDetail extends Fragment implements PlaylistTracksAd
         }
         if (!preferencesManager.getDownloadSettings() || wifi != null && wifi.isWifiEnabled()) {
             downloader = new Downloader(getContext());
-            downloader.execute(trackSelected.getAudioDownload(), trackSelected.getTrackName(), getArguments().get(IMAGE).toString());
+            downloader.execute(trackSelected.getAudioDownload(), trackSelected.getTrackName(),
+                    getArguments().getString(NAME), String.valueOf(trackSelected.getTrackDuration()),
+                    trackSelected.getMinutes(), getArguments().get(IMAGE).toString());
         }
         else
             Toast.makeText(getContext(), R.string.unavailable_download, Toast.LENGTH_SHORT).show();

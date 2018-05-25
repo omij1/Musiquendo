@@ -85,10 +85,12 @@ public class AlbumTracksAdapter extends RecyclerView.Adapter<AlbumTracksAdapter.
         @BindView(R.id.track_playing)
         View playing;
 
+
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
+
 
         public void bind(AlbumTracks track, OnItemClickListener listener, int position) {
             track.setMinutes(convertToMinutes(track.getTrackDuration()));
@@ -98,6 +100,7 @@ public class AlbumTracksAdapter extends RecyclerView.Adapter<AlbumTracksAdapter.
             itemView.setOnClickListener(v -> listener.onTrackClick(itemView, track, position));
             downloadSong.setOnClickListener(downloadSong -> listener.onDownloadSongClick(track));
         }
+
 
         private String convertToMinutes(int trackDuration) {
             int minutes, seconds;

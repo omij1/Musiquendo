@@ -5,8 +5,12 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v7.view.menu.MenuBuilder;
+import android.support.v7.view.menu.MenuPopupHelper;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
+import android.view.ContextMenu;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +35,7 @@ import butterknife.ButterKnife;
  * Fragmento que muestra las descargas del usuario
  */
 
-public class FragmentLibrary extends Fragment implements LibraryAdapter.OnItemClickListener{
+public class FragmentLibrary extends Fragment implements LibraryAdapter.OnItemClickListener {
 
     @BindView(R.id.download_list)
     RecyclerView downloadList;
@@ -53,6 +57,8 @@ public class FragmentLibrary extends Fragment implements LibraryAdapter.OnItemCl
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        preferencesManager = new PreferencesManager(getContext());
+        downloadItemList = new ArrayList<>();
     }
 
 
@@ -62,6 +68,7 @@ public class FragmentLibrary extends Fragment implements LibraryAdapter.OnItemCl
         View view = inflater.inflate(R.layout.fragment_library, container, false);
         ButterKnife.bind(this, view);
         adapter = new LibraryAdapter(this);
+        registerForContextMenu(downloadList);
         downloadList.setAdapter(adapter);
         database = AppDatabase.getInstance(getContext());
         downloadedTracks = new GetDownloadedTracks();
@@ -72,32 +79,62 @@ public class FragmentLibrary extends Fragment implements LibraryAdapter.OnItemCl
 
 
     @Override
-    public void onDownloadItemClick(View view, DownloadItem item) {
-        //Se reproduce la canción correspondiente
-        Intent playTrack = new Intent(getActivity(), TrackPlayer.class);
-        playTrack.setAction(BuildConfig.PLAY);
-        TrackQueue.getInstance().setSection(BuildConfig.DOWNLOADS);
-        if (preferencesManager.getPlaylistMode())
-            automaticMode(playTrack);
-        else
-            normalMode(playTrack, item);
+    public void onDownloadItemClick(View view, DownloadItem track, int position) {
+        checkPlayMode(track, position);
     }
 
 
-    private void automaticMode(Intent playTrack) {
-        /*List<Track> trackList = new ArrayList<>();
-        for (AlbumTracks track : tracks) {
-            trackList.add(new Track(track.getAudio(), track.getTrackName(),
-                    getArguments().getString(NAME), track.getTrackDuration(),track.getMinutes()));
+    @Override
+    public boolean onLongItemClick(View view, DownloadItem track, int position) {
+        PopupMenu popupMenu = new PopupMenu(getContext(), view, Gravity.CENTER, 0, R.style.PopUpMenu);
+        popupMenu.setOnMenuItemClickListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.play_track:
+                    checkPlayMode(track, position);
+                    return true;
+                case R.id.delete_track:
+
+                    return true;
+            }
+            return false;
+        });
+        popupMenu.inflate(R.menu.library_item_options);
+        popupMenu.show();
+        return true;
+    }
+
+
+    /**
+     * Método que comprueba el modo de reproducción actual y redirige a los métodos correspondientes
+     * @param track Canción que debe reproducirse
+     * @param position Posición de la canción seleccionada
+     */
+    private void checkPlayMode(DownloadItem track, int position) {
+        //Se reproduce la canción correspondiente
+        Intent playTrack = new Intent(getActivity(), TrackPlayer.class);
+        playTrack.setAction(BuildConfig.PLAY);
+        TrackQueue.getInstance().setSection(BuildConfig.DOWNLOADED_TRACKS);
+        if (preferencesManager.getPlaylistMode())
+            automaticMode(playTrack, position);
+        else
+            normalMode(playTrack, track);
+    }
+
+
+    private void automaticMode(Intent playTrack, int position) {
+        List<Track> trackList = new ArrayList<>();
+        for (DownloadItem item : downloadItemList) {
+            trackList.add(new Track(item.getPath(), item.getTrackName(),
+                    item.getParentName(), item.getDuration(),item.getMinutes()));
         }
         TrackQueue.getInstance().addTrackList(trackList, position);
-        getActivity().startService(playTrack);*/
+        getActivity().startService(playTrack);
     }
 
 
     private void normalMode(Intent playTrack, DownloadItem item) {
-        /*TrackQueue.getInstance().addTrack(new Track(item.getPath(), item.getName(),
-                getArguments().getString(NAME), track.getTrackDuration(), track.getMinutes()));*/
+        TrackQueue.getInstance().addTrack(new Track(item.getPath(), item.getTrackName(),
+                item.getParentName(), item.getDuration(), item.getMinutes()));
         getActivity().startService(playTrack);
     }
 
@@ -122,7 +159,7 @@ public class FragmentLibrary extends Fragment implements LibraryAdapter.OnItemCl
         protected void onPostExecute(List<DownloadItem> downloadItems) {
             super.onPostExecute(downloadItems);
             downloadItemList = downloadItems;
-            adapter.setData(downloadItems);
+            adapter.setData(downloadItemList);
             adapter.notifyDataSetChanged();
         }
     }

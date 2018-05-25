@@ -46,20 +46,12 @@ public class ActivityAlbum extends AppCompatActivity {
                 .replace(R.id.album_detail, albumDetail, null).commit();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_download, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case android.R.id.home:
                 this.finish();
-                return true;
-            case R.id.action_settings:
-                Log.d("RUTA", "onPostExecute: "+ Arrays.toString(this.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).list()));
                 return true;
         }
         return super.onOptionsItemSelected(item);

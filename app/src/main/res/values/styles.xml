@@ -21,6 +21,10 @@
         <item name="android:colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="PopUpMenu" parent="Widget.AppCompat.PopupMenu">
+        <item name="android:popupBackground">@color/colorPrimary</item>
+    </style>
+
     <style name="DrawerHeaderMainText">
         <item name="android:textColor">@color/menu_text</item>
         <item name="android:textSize">@dimen/header_text_size</item>
