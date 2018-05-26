@@ -22,8 +22,8 @@ public interface DownloadsDAO {
     List<DownloadItem> getTrack(String trackName);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    public void insertDownload(DownloadItem download);
+    void insertDownload(DownloadItem download);
 
     @Delete
-    public void deleteDownload(DownloadItem download);
+    void deleteDownload(DownloadItem download);
 }

@@ -45,7 +45,9 @@ public class ActivityMain extends AppCompatActivity implements NavigationView.On
         void showMenu();
     }
 
+
     public FragmentCommunicator fragmentCommunicator;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,12 +69,14 @@ public class ActivityMain extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_items, menu);
         searchData(menu);
         return super.onCreateOptionsMenu(menu);
     }
+
 
     /**
      * Método que contiene la lógica necesaria para poder hacer búsquedas
@@ -102,6 +106,7 @@ public class ActivityMain extends AppCompatActivity implements NavigationView.On
             return false;
         });
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -133,8 +138,12 @@ public class ActivityMain extends AppCompatActivity implements NavigationView.On
         return super.onOptionsItemSelected(item);
     }
 
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         return onOptionsItemSelected(item);
     }
+
+
+
 }

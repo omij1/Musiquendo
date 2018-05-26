@@ -1,19 +1,22 @@
 package com.example.mimo.musiquendo.Fragments;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.view.menu.MenuBuilder;
-import android.support.v7.view.menu.MenuPopupHelper;
+import android.support.v4.os.EnvironmentCompat;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
-import android.view.ContextMenu;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.mimo.musiquendo.Adapters.LibraryAdapter;
 import com.example.mimo.musiquendo.BuildConfig;
@@ -25,7 +28,9 @@ import com.example.mimo.musiquendo.Player.TrackPlayer;
 import com.example.mimo.musiquendo.Player.TrackQueue;
 import com.example.mimo.musiquendo.R;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -93,10 +98,18 @@ public class FragmentLibrary extends Fragment implements LibraryAdapter.OnItemCl
                     checkPlayMode(track, position);
                     return true;
                 case R.id.delete_track:
-
-                    return true;
+                    File file = new File(track.getPath());
+                    Uri uri = MediaStore.Audio.Media.getContentUriForPath(track.getPath());
+                    Log.d("LONG", "onLongItemClick: "+ track.getPath());
+                    if (file.delete()) {
+                        DeleteDownloadedItem deleteItem = new DeleteDownloadedItem(position);
+                        deleteItem.execute(track);
+                    }
+                    else
+                        Toast.makeText(getContext(), R.string.error_deleting_track, Toast.LENGTH_SHORT).show();
+                    Log.d("LONG", "onLongItemClick: "+ Arrays.toString(getContext().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).list()));
             }
-            return false;
+            return true;
         });
         popupMenu.inflate(R.menu.library_item_options);
         popupMenu.show();
@@ -159,6 +172,30 @@ public class FragmentLibrary extends Fragment implements LibraryAdapter.OnItemCl
         protected void onPostExecute(List<DownloadItem> downloadItems) {
             super.onPostExecute(downloadItems);
             downloadItemList = downloadItems;
+            adapter.setData(downloadItemList);
+            adapter.notifyDataSetChanged();
+        }
+    }
+
+    private static class DeleteDownloadedItem extends AsyncTask<DownloadItem,Void,Void> {
+
+        private int itemPosition;
+
+        DeleteDownloadedItem(int position) {
+            this.itemPosition = position;
+        }
+
+        @Override
+        protected Void doInBackground(DownloadItem... downloadItems) {
+            database.downloadsDAO().deleteDownload(downloadItems[0]);
+            return null;
+        }
+
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            downloadItemList.remove(itemPosition);
             adapter.setData(downloadItemList);
             adapter.notifyDataSetChanged();
         }

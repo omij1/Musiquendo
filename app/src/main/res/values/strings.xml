@@ -124,6 +124,7 @@
     <string name="track_already_downloaded">Track alredy exists in the downloads directory</string>
     <string name="play_track">Play track</string>
     <string name="delete_track">Delete track</string>
+    <string name="error_deleting_track">An error has occurred deleting the track</string>
 
 
     <!-- Strings related to Albums filter-->
