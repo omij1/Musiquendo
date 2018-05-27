@@ -21,6 +21,7 @@ public class ActivityLicenses extends AppCompatActivity {
     @BindView(R.id.toolbar_licenses)
     Toolbar toolbar;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +38,7 @@ public class ActivityLicenses extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.licenses, licenses, null).commit();
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

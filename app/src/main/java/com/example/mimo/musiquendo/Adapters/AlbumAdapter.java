@@ -28,6 +28,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
         void onAlbumClick(View view, Album album);
     }
 
+
     private List<Album> albums;
     private final OnItemClickListener listener;
     private Context mContext;
@@ -38,6 +39,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
         this.mContext = context;
     }
 
+
     /**
      * Método que permite actualizar el contenido del recycler view
      * @param items Nuevos elementos que deben mostrarse
@@ -46,6 +48,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
         this.albums = items;
         notifyDataSetChanged();
     }
+
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -61,15 +64,18 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
         return new ViewHolder(view);
     }
 
+
     @Override
     public void onBindViewHolder(AlbumAdapter.ViewHolder holder, int position) {
         holder.bind(albums.get(position), listener);
     }
 
+
     @Override
     public int getItemCount() {
         return albums.size();
     }
+
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -80,10 +86,12 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
         @BindView(R.id.item_surname)
         TextView autor;
 
+
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
+
 
         void bind(final Album album, final OnItemClickListener listener) {
             name.setText(album.getName());

@@ -31,6 +31,7 @@ public class PlaylistTracksAdapter extends RecyclerView.Adapter<PlaylistTracksAd
     private final OnItemClickListener listener;
     private int itemPlaying = -1;
 
+
     public PlaylistTracksAdapter(List<PlayListTracks> albumTracks, OnItemClickListener listener) {
         this.playlistTracks = albumTracks;
         this.listener = listener;
@@ -49,12 +50,14 @@ public class PlaylistTracksAdapter extends RecyclerView.Adapter<PlaylistTracksAd
         notifyItemChanged(itemPlaying);
     }
 
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.track_item, parent, false);
 
         return new ViewHolder(view);
     }
+
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
@@ -65,10 +68,12 @@ public class PlaylistTracksAdapter extends RecyclerView.Adapter<PlaylistTracksAd
         holder.bind(playlistTracks.get(position), listener, position);
     }
 
+
     @Override
     public int getItemCount() {
         return playlistTracks.size();
     }
+
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 

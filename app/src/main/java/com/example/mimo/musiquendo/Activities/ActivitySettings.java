@@ -20,6 +20,7 @@ public class ActivitySettings extends AppCompatActivity {
     @BindView(R.id.toolbar_settings)
     Toolbar toolbar;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +34,7 @@ public class ActivitySettings extends AppCompatActivity {
             actionBar_settings.setDisplayHomeAsUpEnabled(true);
         }
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

@@ -16,6 +16,7 @@ public class MyBroadCastReceiver extends BroadcastReceiver {
 
     private Context mContext;
 
+
     @Override
     public void onReceive(Context context, Intent intent) {
         mContext = context;
@@ -35,11 +36,13 @@ public class MyBroadCastReceiver extends BroadcastReceiver {
         }
     }
 
+
     private void startStopTrack() {
         Intent startStop = new Intent(mContext, TrackPlayer.class);
         startStop.setAction(BuildConfig.STARTSTOP);
         mContext.startService(startStop);
     }
+
 
     private void previousTrack() {
         Intent prev = new Intent(mContext, TrackPlayer.class);
@@ -47,11 +50,13 @@ public class MyBroadCastReceiver extends BroadcastReceiver {
         mContext.startService(prev);
     }
 
+
     private void nextTrack() {
         Intent next = new Intent(mContext, TrackPlayer.class);
         next.setAction(BuildConfig.NEXT);
         mContext.startService(next);
     }
+
 
     private void deleteTrack() {
         Intent delete = new Intent(mContext, TrackPlayer.class);

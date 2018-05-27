@@ -24,18 +24,20 @@ public class FragmentLicenses extends Fragment {
     @BindView(R.id.licenses_list)
     ExpandablePlaceHolderView placeHolderView;
 
-    public static FragmentLicenses newInstance() {
 
+    public static FragmentLicenses newInstance() {
         return new FragmentLicenses();
     }
 
-    public FragmentLicenses() {
-    }
+
+    public FragmentLicenses() {}
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
+
 
     @Nullable
     @Override
@@ -48,6 +50,7 @@ public class FragmentLicenses extends Fragment {
         return view;
     }
 
+
     /**
      * Método que establece las cabeceras de las licencias
      */
@@ -57,6 +60,7 @@ public class FragmentLicenses extends Fragment {
             placeHolderView.addView(new LicenseHeader(getContext(), header));
         }
     }
+
 
     /**
      * Método que establece el contenido de las licencias

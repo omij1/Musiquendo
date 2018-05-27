@@ -19,13 +19,16 @@ public class SimpleDialog extends DialogFragment {
         void crearDialog();
     }
 
+
     private static final String ICON = "Icon";
     private static final String TITLE = "Title";
     private static final String TEXT = "Text";
 
+
     public SimpleDialog() {
         super();
     }
+
 
     public static SimpleDialog newInstance(int icon, String title, String text){
         SimpleDialog dialog = new SimpleDialog();
@@ -36,6 +39,7 @@ public class SimpleDialog extends DialogFragment {
         dialog.setArguments(bundle);
         return dialog;
     }
+
 
     @NonNull
     @Override

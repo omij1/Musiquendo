@@ -12,9 +12,10 @@ public class PaddingItemDecorator extends RecyclerView.ItemDecoration{
 
     private final int padding;
 
-    public PaddingItemDecorator(int padding) {
+    PaddingItemDecorator(int padding) {
         this.padding = padding;
     }
+
 
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {

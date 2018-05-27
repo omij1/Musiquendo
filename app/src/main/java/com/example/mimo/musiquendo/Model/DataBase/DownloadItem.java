@@ -3,7 +3,6 @@ package com.example.mimo.musiquendo.Model.DataBase;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
-import android.arch.persistence.room.TypeConverters;
 
 /**
  * Clase que representa la tabla DownloadItem de la base de datos

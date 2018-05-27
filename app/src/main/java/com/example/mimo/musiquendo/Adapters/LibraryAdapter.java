@@ -27,8 +27,10 @@ public class LibraryAdapter extends RecyclerView.Adapter<LibraryAdapter.ViewHold
         boolean onLongItemClick(View view, DownloadItem track, int position);
     }
 
+
     private List<DownloadItem> itemList;
     private final OnItemClickListener listener;
+
 
     public LibraryAdapter(OnItemClickListener clickListener) {
         this.listener = clickListener;
@@ -71,10 +73,12 @@ public class LibraryAdapter extends RecyclerView.Adapter<LibraryAdapter.ViewHold
         @BindView(R.id.library_item_name)
         TextView name;
 
+
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
+
 
         public void bind(DownloadItem downloadItem, OnItemClickListener listener, int position) {
             name.setText(downloadItem.getTrackName());

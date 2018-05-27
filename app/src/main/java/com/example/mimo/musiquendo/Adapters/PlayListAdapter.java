@@ -30,19 +30,23 @@ public class PlayListAdapter extends RecyclerView.Adapter<PlayListAdapter.ViewHo
         void onDownloadItemClick(PlayList playList);
     }
 
+
     public interface CoverCallback {
         void onCoversSuccess(PlayList playlistWithCover);
     }
 
+
     private List<PlayList> playLists;
     private final OnItemClickListener listener;
     private Context mContext;
+
 
     public PlayListAdapter(List<PlayList> playLists, OnItemClickListener listener, Context context) {
         this.playLists = playLists;
         this.listener = listener;
         this.mContext = context;
     }
+
 
     /**
      * Método que permite actualizar el contenido del recycler view
@@ -52,6 +56,7 @@ public class PlayListAdapter extends RecyclerView.Adapter<PlayListAdapter.ViewHo
         this.playLists = items;
         notifyDataSetChanged();
     }
+
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -67,15 +72,18 @@ public class PlayListAdapter extends RecyclerView.Adapter<PlayListAdapter.ViewHo
         return new ViewHolder(view);
     }
 
+
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.bind(playLists.get(position), listener);
     }
 
+
     @Override
     public int getItemCount() {
         return playLists.size();
     }
+
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -86,10 +94,12 @@ public class PlayListAdapter extends RecyclerView.Adapter<PlayListAdapter.ViewHo
         @BindView(R.id.item_surname)
         TextView playListCreation;
 
+
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
+
 
         public void bind(PlayList playList, OnItemClickListener listener) {
 

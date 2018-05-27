@@ -10,7 +10,6 @@ import com.example.mimo.musiquendo.Fragments.FragmentArtists;
 import com.example.mimo.musiquendo.Fragments.FragmentPlayLists;
 import com.example.mimo.musiquendo.Model.Categories;
 
-
 /**
  * Adaptador del TabLayout principal que se encarga de cambiar los fragment según el tab seleccionado
  */
@@ -19,9 +18,11 @@ public class CategoriesAdapter extends FragmentStatePagerAdapter {
 
     private Fragment current;
 
+
     public CategoriesAdapter(FragmentManager fm) {
         super(fm);
     }
+
 
     @Override
     public Fragment getItem(int position) {
@@ -36,6 +37,7 @@ public class CategoriesAdapter extends FragmentStatePagerAdapter {
         return null;
     }
 
+
     @Override
     public void setPrimaryItem(ViewGroup container, int position, Object object) {
         if (current != object){
@@ -44,19 +46,23 @@ public class CategoriesAdapter extends FragmentStatePagerAdapter {
         super.setPrimaryItem(container, position, object);
     }
 
+
     public Fragment getCurrent() {
         return current;
     }
+
 
     @Override
     public int getCount() {
         return Categories.values().length;
     }
 
+
     @Override
     public CharSequence getPageTitle(int position) {
         return getDataType(position).key;
     }
+
 
     private Categories getDataType(int position) {
         return Categories.values()[position];

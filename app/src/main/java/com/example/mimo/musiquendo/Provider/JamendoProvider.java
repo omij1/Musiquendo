@@ -61,6 +61,7 @@ public class JamendoProvider {
         //El API no ofrece un mecanismo de paginación y es por ello que uso el parámetro limit=all
         String url = BuildConfig.ALBUM_LIST+"?client_id="+BuildConfig.JAMENDO_API_KEY+"&imagesize="+
                 IMAGESIZE+"&format=jsonpretty&limit=10";//TODO poner limit=all
+
         CustomJSONObject albumsRequest = new CustomJSONObject(Request.Method.GET, url, null,
                 response -> {
                     try {
@@ -89,6 +90,7 @@ public class JamendoProvider {
 
         String url = BuildConfig.ALBUM_LIST+"?client_id="+BuildConfig.JAMENDO_API_KEY+"&imagesize="+
                 IMAGESIZE+"&format=jsonpretty&namesearch="+query;
+
         CustomJSONObject search = new CustomJSONObject(Request.Method.GET, url, null,
                 response -> {
                     try {
@@ -117,6 +119,7 @@ public class JamendoProvider {
 
         String url = BuildConfig.ALBUM_LIST+"?client_id="+BuildConfig.JAMENDO_API_KEY+"&imagesize="+
                 IMAGESIZE+"&format=jsonpretty&limit=10&order="+filter;
+
         CustomJSONObject order = new CustomJSONObject(Request.Method.GET, url, null,
                 response -> {
                     try {
@@ -144,6 +147,7 @@ public class JamendoProvider {
     public void albumDetails(String albumId, FragmentAlbumDetail.AlbumDetailCallback callback, SimpleDialog.DialogListener erroCallback) {
         String url = BuildConfig.ALBUM_DETAILS+"?client_id="+BuildConfig.JAMENDO_API_KEY+"&imagesize="+
                 IMAGESIZE+"&format=jsonpretty&limit=1&id="+albumId;
+
         CustomJSONObject details = new CustomJSONObject(Request.Method.GET, url, null, response -> {
             try {
                 JSONArray results = response.getJSONArray("results");
@@ -174,6 +178,7 @@ public class JamendoProvider {
 
         String url = BuildConfig.ARTIST_LIST+"?client_id="+BuildConfig.JAMENDO_API_KEY+"&imagesize="+
                 IMAGESIZE+"&format=jsonpretty&limit=all";
+
         CustomJSONObject artistsRequest = new CustomJSONObject(Request.Method.GET, url, null,
                 response -> {
                     try {
@@ -201,6 +206,7 @@ public class JamendoProvider {
 
         String url = BuildConfig.ARTIST_LIST+"?client_id="+BuildConfig.JAMENDO_API_KEY+"&imagesize="+
                 IMAGESIZE+"&format=jsonpretty&namesearch="+query;
+
         CustomJSONObject search = new CustomJSONObject(Request.Method.GET, url, null,
                 response -> {
                     try {
@@ -229,6 +235,7 @@ public class JamendoProvider {
 
         String url = BuildConfig.ARTIST_LIST+"?client_id="+BuildConfig.JAMENDO_API_KEY+"&imagesize="+
                 IMAGESIZE+"&format=jsonpretty&limit=10&order="+filter;
+
         CustomJSONObject order = new CustomJSONObject(Request.Method.GET, url, null,
                 response -> {
                     try {
@@ -257,6 +264,7 @@ public class JamendoProvider {
 
         String url = BuildConfig.ARTIST_DETAILS+"?client_id="+BuildConfig.JAMENDO_API_KEY+"&imagesize="+
                 IMAGESIZE+"&format=jsonpretty&limit=all&id="+artistId;
+
         CustomJSONObject details = new CustomJSONObject(Request.Method.GET, url, null, response -> {
             try {
                 JSONArray results = response.getJSONArray("results");
@@ -292,6 +300,7 @@ public class JamendoProvider {
         //El API no ofrece imágenes de las playlist, debido a esto la foto de la playlist será la de la primera canción
         String url = BuildConfig.PLAYLIST_LIST+"?client_id="+BuildConfig.JAMENDO_API_KEY+
                 "&format=jsonpretty&limit=all";
+
         CustomJSONObject playlistsRequest = new CustomJSONObject(Request.Method.GET, url, null,
                 response -> {
                     try {
@@ -318,6 +327,7 @@ public class JamendoProvider {
     public void searchPlayList(String query, FragmentPlayLists.PlaylistsCallback callback, SimpleDialog.DialogListener errorCallback) {
         String url = BuildConfig.PLAYLIST_LIST+"?client_id="+BuildConfig.JAMENDO_API_KEY+
                 "&format=jsonpretty&namesearch="+query;
+
         CustomJSONObject search = new CustomJSONObject(Request.Method.GET, url, null, response -> {
             try {
                 JSONArray results = response.getJSONArray("results");
@@ -344,6 +354,7 @@ public class JamendoProvider {
     public void filterPlaylists(String filter, FragmentPlayLists.PlaylistsCallback callback, SimpleDialog.DialogListener errorCallback) {
         String url = BuildConfig.PLAYLIST_LIST+"?client_id="+BuildConfig.JAMENDO_API_KEY+
                 "&format=jsonpretty&limit=all&order="+filter;
+
         CustomJSONObject order = new CustomJSONObject(Request.Method.GET, url, null, response -> {
             try {
                 JSONArray results = response.getJSONArray("results");
@@ -370,6 +381,7 @@ public class JamendoProvider {
     public void playlistDetails(String playlistId, FragmentPlaylistDetail.PlaylistDetailCallback callback, SimpleDialog.DialogListener errorCallback) {
         String url = BuildConfig.PLAYLIST_DETAILS+"?client_id="+BuildConfig.JAMENDO_API_KEY+
                 "&imagesize="+IMAGESIZE+"&format=jsonpretty&limit=all&id="+playlistId;
+
         CustomJSONObject details = new CustomJSONObject(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -405,6 +417,7 @@ public class JamendoProvider {
 
         String url = BuildConfig.PLAYLIST_DETAILS+"?client_id="+BuildConfig.JAMENDO_API_KEY+"&id="+
                 item.getId()+"&imagesize="+IMAGESIZE+"&format=jsonpretty";
+
         CustomJSONObject coverRequest = new CustomJSONObject(Request.Method.GET, url, null,
                 response -> {
                     try {

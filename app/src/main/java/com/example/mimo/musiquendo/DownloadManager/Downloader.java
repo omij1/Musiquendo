@@ -13,7 +13,7 @@ import com.example.mimo.musiquendo.Model.DataBase.DownloadItem;
 import com.example.mimo.musiquendo.R;
 
 /**
- *Clase que se encarga de descargar las canciones
+ * Clase que se encarga de descargar las canciones
  */
 
 public class Downloader extends AsyncTask<String, Void, Boolean> {
@@ -66,6 +66,7 @@ public class Downloader extends AsyncTask<String, Void, Boolean> {
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
         request.allowScanningByMediaScanner();
         request.setDestinationInExternalFilesDir(mContext, Environment.DIRECTORY_DOWNLOADS, trackName.concat(".mp3"));
+
         if (downloadManager != null) refId = downloadManager.enqueue(request);
         database.downloadsDAO().insertDownload(new DownloadItem(trackPath, trackName, parentName, trackDuration, minutes, cover));
     }

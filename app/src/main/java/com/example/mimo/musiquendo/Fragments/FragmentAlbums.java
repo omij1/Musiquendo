@@ -79,6 +79,7 @@ public class FragmentAlbums extends Fragment implements AlbumAdapter.OnItemClick
         return fragment;
     }
 
+
     public FragmentAlbums() {}
 
 

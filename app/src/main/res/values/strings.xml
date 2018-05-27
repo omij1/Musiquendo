@@ -125,6 +125,7 @@
     <string name="play_track">Play track</string>
     <string name="delete_track">Delete track</string>
     <string name="error_deleting_track">An error has occurred deleting the track</string>
+    <string name="delete_track_warning">Can not erase a song while playing downloaded songs</string>
 
 
     <!-- Strings related to Albums filter-->

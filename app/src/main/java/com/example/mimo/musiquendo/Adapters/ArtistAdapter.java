@@ -28,15 +28,18 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ViewHolder
         void onArtistClick(View view, Artist artist);
     }
 
+
     private List<Artist> artists;
     private final OnItemClickListener listener;
     private Context mContext;
+
 
     public ArtistAdapter(List<Artist> artists, OnItemClickListener listener, Context context) {
         this.artists = artists;
         this.listener = listener;
         this.mContext = context;
     }
+
 
     /**
      * Método que permite actualizar el contenido del recycler view
@@ -46,6 +49,7 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ViewHolder
         this.artists = items;
         notifyDataSetChanged();
     }
+
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -61,15 +65,18 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ViewHolder
         return new ViewHolder(view);
     }
 
+
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.bind(artists.get(position), listener);
     }
 
+
     @Override
     public int getItemCount() {
         return artists.size();
     }
+
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -79,6 +86,7 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ViewHolder
         TextView name;
         @BindView(R.id.item_surname)
         TextView joindate;
+
 
         public ViewHolder(View itemView) {
             super(itemView);

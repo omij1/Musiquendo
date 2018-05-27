@@ -38,8 +38,9 @@ public class FragmentSettings extends Fragment {
         return new FragmentSettings();
     }
 
-    public FragmentSettings() {
-    }
+
+    public FragmentSettings() {}
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,12 +58,14 @@ public class FragmentSettings extends Fragment {
         return view;
     }
 
+
     private void initComponents() {
         preferencesManager = new PreferencesManager(getContext());
         aSwitch.setChecked(preferencesManager.getPlaylistMode());
         languageGroup.check(preferencesManager.getDisplayMode().equals(getString(R.string.grid)) ? R.id.display_grid : R.id.display_list);
         downloadMode.setChecked(preferencesManager.getDownloadSettings());
     }
+
 
     private void setListeners() {
         aSwitch.setOnCheckedChangeListener((compoundButton, b) -> preferencesManager.setPlaylistMode(b));

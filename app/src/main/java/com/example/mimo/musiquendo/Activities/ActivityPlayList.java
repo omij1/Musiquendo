@@ -23,6 +23,7 @@ public class ActivityPlayList extends AppCompatActivity {
     @BindView(R.id.toolbar_playlist)
     Toolbar toolbar;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

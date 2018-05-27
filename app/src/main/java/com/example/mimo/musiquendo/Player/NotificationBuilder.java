@@ -27,12 +27,14 @@ public class NotificationBuilder {
     private PendingIntent nextIntent;
     private PendingIntent deleteIntent;
 
+
     NotificationBuilder(Context context, String contentTitle, String contentText, String contentInfo) {
         this.context = context;
         this.contentTitle = contentTitle;
         this.contentText = contentText;
         this.contentInfo = contentInfo;
     }
+
 
     public Notification showNotification() {
         //Según el modo de reproducción debe mostrarse una notificación u otra
@@ -43,6 +45,7 @@ public class NotificationBuilder {
         else
             return basicNotification();
     }
+
 
     /**
      * Método que devuelve una notificación básica con un único botón para parar o reanudar la canción
@@ -78,6 +81,7 @@ public class NotificationBuilder {
 
         return builder.build();
     }
+
 
     /**
      * Método que devuelve una notificación completa con botones para parar o reanudar la canción
@@ -115,6 +119,7 @@ public class NotificationBuilder {
 
         return builder.build();
     }
+
 
     /**
      * Método que inicializa los intents y pendingintents relacionados con las acciones de la notificación

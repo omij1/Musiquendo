@@ -12,6 +12,7 @@ import com.flipboard.bottomsheet.BottomSheetLayout;
  */
 
 public class InsetViewTransformer extends BaseViewTransformer {
+
     @Override
     public void transformView(float translation, float maxTranslation, float peekedTranslation, BottomSheetLayout parent, View view) {
         float progress = Math.min(translation / peekedTranslation, 1);
@@ -30,6 +31,7 @@ public class InsetViewTransformer extends BaseViewTransformer {
         float translationToTop = -(view.getHeight() * (1 - scale)) / 2;
         view.setTranslationY(translationToTop + progress * 20 * view.getContext().getResources().getDisplayMetrics().density);
     }
+
 
     private void ensureLayer(View view, int layerType) {
         if (view.getLayerType() != layerType) {

@@ -28,7 +28,6 @@ import com.example.mimo.musiquendo.DownloadManager.Downloader;
 import com.example.mimo.musiquendo.Model.PlayListTracks;
 import com.example.mimo.musiquendo.Model.SharedPreferences.PreferencesManager;
 import com.example.mimo.musiquendo.Model.Track;
-import com.example.mimo.musiquendo.Player.NotificationBuilder;
 import com.example.mimo.musiquendo.Player.TrackPlayer;
 import com.example.mimo.musiquendo.Player.TrackQueue;
 import com.example.mimo.musiquendo.Provider.JamendoProvider;

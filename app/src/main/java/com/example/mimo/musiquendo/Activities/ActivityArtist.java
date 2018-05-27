@@ -22,6 +22,7 @@ public class ActivityArtist extends AppCompatActivity {
     @BindView(R.id.toolbar_artist)
     Toolbar toolbar;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +42,7 @@ public class ActivityArtist extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.artist_detail, artistDetail, null).commit();
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

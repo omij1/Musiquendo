@@ -1,19 +1,14 @@
 package com.example.mimo.musiquendo.Activities;
 
 import android.content.Intent;
-import android.os.Environment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.mimo.musiquendo.Fragments.FragmentAlbumDetail;
 import com.example.mimo.musiquendo.R;
-
-import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,6 +21,7 @@ public class ActivityAlbum extends AppCompatActivity {
 
     @BindView(R.id.toolbar_album)
     Toolbar toolbar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

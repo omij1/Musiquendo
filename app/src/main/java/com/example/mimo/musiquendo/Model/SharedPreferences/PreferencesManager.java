@@ -18,17 +18,21 @@ public class PreferencesManager {
     private static final String DISPLAY = "display_mode";
     private static final String DOWNLOAD = "download_settings";
 
+
     public PreferencesManager(Context context) {
         this.mContext = context;
     }
+
 
     private SharedPreferences getPreferences() {
         return mContext.getSharedPreferences(SHARED_PREFS_FILE, Context.MODE_PRIVATE);
     }
 
+
     public boolean getPlaylistMode() {
         return getPreferences().getBoolean(PLAYLIST_MODE, true);
     }
+
 
     public void setPlaylistMode(boolean mode) {
         SharedPreferences.Editor edit = getPreferences().edit();
@@ -36,9 +40,11 @@ public class PreferencesManager {
         edit.apply();
     }
 
+
     public String getDisplayMode() {
         return getPreferences().getString(DISPLAY, mContext.getString(R.string.grid));
     }
+
 
     public void setDisplayMode(String display) {
         SharedPreferences.Editor edit = getPreferences().edit();
@@ -46,9 +52,11 @@ public class PreferencesManager {
         edit.apply();
     }
 
+
     public boolean getDownloadSettings() {
         return getPreferences().getBoolean(DOWNLOAD, true);
     }
+
 
     public void setDownloadSettings(boolean mode) {
         SharedPreferences.Editor edit = getPreferences().edit();

@@ -1,12 +1,11 @@
 package com.example.mimo.musiquendo.Fragments;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.PopupMenu;
@@ -104,20 +103,48 @@ public class FragmentLibrary extends Fragment implements LibraryAdapter.OnItemCl
                     checkPlayMode(track, position);
                     return true;
                 case R.id.delete_track:
-                    File file = new File(track.getPath());
-                    Uri uri = MediaStore.Audio.Media.getContentUriForPath(track.getPath());
-                    if (file.delete()) {
-                        deleteItem = new DeleteDownloadedItem(position);
-                        deleteItem.execute(track);
-                    }
+                    if (isMyServiceRunning(TrackPlayer.class) && TrackQueue.SECTION.equals(BuildConfig.DOWNLOADED_TRACKS))
+                        Toast.makeText(getContext(), R.string.delete_track_warning, Toast.LENGTH_SHORT).show();
                     else
-                        Toast.makeText(getContext(), R.string.error_deleting_track, Toast.LENGTH_SHORT).show();
+                        deleteFileFromDirectory(track, position);
             }
             return true;
         });
         popupMenu.inflate(R.menu.library_item_options);
         popupMenu.show();
         return true;
+    }
+
+
+    /**
+     * Método que se encarga de borrar una canción del directorio de descargas
+     * @param track Canción que se desea eliminar
+     * @param position Posición de la canción dentro de la lista
+     */
+    private void deleteFileFromDirectory(DownloadItem track, int position) {
+        File file = new File(track.getPath());
+        if (file.delete()) {
+            deleteItem = new DeleteDownloadedItem(position);
+            deleteItem.execute(track);
+        }
+        else
+            Toast.makeText(getContext(), R.string.error_deleting_track, Toast.LENGTH_SHORT).show();
+    }
+
+
+    /**
+     * Método que permite conocer si el servicio que se encarga de reproducir las canciones está activo
+     * @param serviceClass Servicio del que se desea conocer su estado
+     * @return Verdadero si el servicio está activo y falso en caso contrario
+     */
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getContext().getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
     }
 
 
@@ -208,9 +235,11 @@ public class FragmentLibrary extends Fragment implements LibraryAdapter.OnItemCl
             this.itemPosition = position;
         }
 
+
         @Override
         protected Void doInBackground(DownloadItem... downloadItems) {
             database.downloadsDAO().deleteDownload(downloadItems[0]);
+
             return null;
         }
 

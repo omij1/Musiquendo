@@ -31,10 +31,12 @@ public class ArtistsTracksAdapter extends RecyclerView.Adapter<ArtistsTracksAdap
     private final OnItemClickListener listener;
     private int itemPlaying = -1;
 
+
     public ArtistsTracksAdapter(List<ArtistTracks> artistTracks, OnItemClickListener listener) {
         this.artistTracks = artistTracks;
         this.listener = listener;
     }
+
 
     /**
      * Método que permite mostrar un item como seleccionado cuando se pulsa sobre él y que desactiva
@@ -49,12 +51,14 @@ public class ArtistsTracksAdapter extends RecyclerView.Adapter<ArtistsTracksAdap
         notifyItemChanged(itemPlaying);
     }
 
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.track_item, parent, false);
 
         return new ViewHolder(view);
     }
+
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
@@ -65,10 +69,12 @@ public class ArtistsTracksAdapter extends RecyclerView.Adapter<ArtistsTracksAdap
         holder.bind(artistTracks.get(position), listener, position);
     }
 
+
     @Override
     public int getItemCount() {
         return artistTracks.size();
     }
+
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -83,10 +89,12 @@ public class ArtistsTracksAdapter extends RecyclerView.Adapter<ArtistsTracksAdap
         @BindView(R.id.track_playing)
         View playing;
 
+
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
+
 
         public void bind(ArtistTracks track, OnItemClickListener listener, int position) {
             track.setMinutes(convertToMinutes(track.getTrackDuration()));
@@ -96,6 +104,7 @@ public class ArtistsTracksAdapter extends RecyclerView.Adapter<ArtistsTracksAdap
             itemView.setOnClickListener(v -> listener.onTrackClick(itemView, track, position));
             downloadSong.setOnClickListener(downloadSong -> listener.onDownloadSongClick(track));
         }
+
 
         private String convertToMinutes(int trackDuration) {
             int minutes, seconds;

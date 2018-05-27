@@ -16,7 +16,9 @@ public class TrackQueue {
     public static String SECTION = "";
     public static int currentTrack;
 
+
     private TrackQueue() {}
+
 
     public static synchronized TrackQueue getInstance() {
         if (trackQueue == null) {
@@ -24,6 +26,7 @@ public class TrackQueue {
         }
         return trackQueue;
     }
+
 
     public static synchronized List<Track> getTrackQueue() {
         return queue;
@@ -44,6 +47,7 @@ public class TrackQueue {
         queue.add(track);
     }
 
+
     /**
      * Método que añade la lista con las nuevas canciones a la cola cuando se está en el modo automático
      * @param list Nueva lista de canciones
@@ -60,6 +64,7 @@ public class TrackQueue {
         queue = list;
     }
 
+
     /**
      * Método que establece el tipo de elementos que se van a reproducir
      * @param section Álbumes, artistas o listas de reproducción
@@ -71,6 +76,7 @@ public class TrackQueue {
             SECTION = section;
         }
     }
+
 
     /**
      * Borra la cola de canciones actual

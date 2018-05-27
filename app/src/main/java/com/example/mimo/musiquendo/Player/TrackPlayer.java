@@ -3,10 +3,8 @@ package com.example.mimo.musiquendo.Player;
 import android.app.Service;
 import android.content.Intent;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import com.example.mimo.musiquendo.BuildConfig;
 
@@ -100,6 +98,7 @@ public class TrackPlayer extends Service implements MediaPlayer.OnCompletionList
             player = null;
         }
         stopForeground(true);
+        stopSelf();
     }
 
 

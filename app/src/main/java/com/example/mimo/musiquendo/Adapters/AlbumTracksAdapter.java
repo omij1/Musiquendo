@@ -32,10 +32,12 @@ public class AlbumTracksAdapter extends RecyclerView.Adapter<AlbumTracksAdapter.
     private final OnItemClickListener listener;
     private int itemPlaying = -1;
 
+
     public AlbumTracksAdapter(List<AlbumTracks> albumTracks, OnItemClickListener listener) {
         this.albumTracks = albumTracks;
         this.listener = listener;
     }
+
 
     /**
      * Método que permite mostrar un item como seleccionado cuando se pulsa sobre él y que desactiva
@@ -50,12 +52,14 @@ public class AlbumTracksAdapter extends RecyclerView.Adapter<AlbumTracksAdapter.
         notifyItemChanged(itemPlaying);
     }
 
+
     @Override
     public AlbumTracksAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.track_item, parent, false);
 
         return new ViewHolder(view);
     }
+
 
     @Override
     public void onBindViewHolder(AlbumTracksAdapter.ViewHolder holder, int position) {
@@ -65,6 +69,7 @@ public class AlbumTracksAdapter extends RecyclerView.Adapter<AlbumTracksAdapter.
             holder.playing.setVisibility(View.INVISIBLE);
         holder.bind(albumTracks.get(position), listener, position);
     }
+
 
     @Override
     public int getItemCount() {

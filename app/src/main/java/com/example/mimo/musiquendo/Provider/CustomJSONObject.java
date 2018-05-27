@@ -16,8 +16,10 @@ import java.util.Map;
  * Clase para realizar peticiones personalizadas
  */
 public class CustomJSONObject extends Request<JSONObject> {
+
     private Response.Listener<JSONObject> listener;
     private Map<String, String> params;
+
 
     /**
      * Primer constructor de la clase CustomJSONObject
@@ -32,6 +34,7 @@ public class CustomJSONObject extends Request<JSONObject> {
         this.listener = reponseListener;
         this.params = params;
     }
+
 
     public CustomJSONObject(int method, String url, Map<String, String> params,
                             Response.Listener<JSONObject> responseListener, Response.ErrorListener errorListener) {
@@ -50,6 +53,7 @@ public class CustomJSONObject extends Request<JSONObject> {
         return params;
     };
 
+
     @Override
     protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
         try {
@@ -63,6 +67,7 @@ public class CustomJSONObject extends Request<JSONObject> {
             return Response.error(new ParseError(je));
         }
     }
+
 
     @Override
     protected void deliverResponse(JSONObject response) {
