@@ -88,6 +88,7 @@ public class FragmentLibrary extends Fragment implements LibraryAdapter.OnItemCl
         downloadedTracks.execute(getContext());
     }
 
+
     @Override
     public void onDownloadItemClick(View view, DownloadItem track, int position) {
         checkPlayMode(track, position);
