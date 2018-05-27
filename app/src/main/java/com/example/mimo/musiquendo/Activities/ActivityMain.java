@@ -143,7 +143,4 @@ public class ActivityMain extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         return onOptionsItemSelected(item);
     }
-
-
-
 }

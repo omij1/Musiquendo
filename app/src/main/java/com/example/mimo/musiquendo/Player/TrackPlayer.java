@@ -139,6 +139,7 @@ public class TrackPlayer extends Service implements MediaPlayer.OnCompletionList
             });
         } catch (IOException e) {
             e.printStackTrace();
+            disableForegroundMode();
         }
     }
 

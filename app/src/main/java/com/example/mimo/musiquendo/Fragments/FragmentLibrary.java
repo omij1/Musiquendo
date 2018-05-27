@@ -1,5 +1,6 @@
 package com.example.mimo.musiquendo.Fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -8,10 +9,8 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.os.EnvironmentCompat;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,6 +48,7 @@ public class FragmentLibrary extends Fragment implements LibraryAdapter.OnItemCl
     private static List<DownloadItem> downloadItemList;
     private PreferencesManager preferencesManager;
     private GetDownloadedTracks downloadedTracks;
+    private DeleteDownloadedItem deleteItem;
 
 
     public static FragmentLibrary newInstance() {
@@ -76,12 +76,17 @@ public class FragmentLibrary extends Fragment implements LibraryAdapter.OnItemCl
         registerForContextMenu(downloadList);
         downloadList.setAdapter(adapter);
         database = AppDatabase.getInstance(getContext());
-        downloadedTracks = new GetDownloadedTracks();
-        downloadedTracks.execute();
 
         return view;
     }
 
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        downloadedTracks = new GetDownloadedTracks();
+        downloadedTracks.execute(getContext());
+    }
 
     @Override
     public void onDownloadItemClick(View view, DownloadItem track, int position) {
@@ -100,14 +105,12 @@ public class FragmentLibrary extends Fragment implements LibraryAdapter.OnItemCl
                 case R.id.delete_track:
                     File file = new File(track.getPath());
                     Uri uri = MediaStore.Audio.Media.getContentUriForPath(track.getPath());
-                    Log.d("LONG", "onLongItemClick: "+ track.getPath());
                     if (file.delete()) {
-                        DeleteDownloadedItem deleteItem = new DeleteDownloadedItem(position);
+                        deleteItem = new DeleteDownloadedItem(position);
                         deleteItem.execute(track);
                     }
                     else
                         Toast.makeText(getContext(), R.string.error_deleting_track, Toast.LENGTH_SHORT).show();
-                    Log.d("LONG", "onLongItemClick: "+ Arrays.toString(getContext().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).list()));
             }
             return true;
         });
@@ -156,15 +159,34 @@ public class FragmentLibrary extends Fragment implements LibraryAdapter.OnItemCl
     public void onStop() {
         if (downloadedTracks != null)
             downloadedTracks.cancel(true);
+        if (deleteItem != null)
+            deleteItem.cancel(true);
         super.onStop();
     }
 
 
-    private static class GetDownloadedTracks extends AsyncTask<Void, Void, List<DownloadItem>> {
+    private static class GetDownloadedTracks extends AsyncTask<Context, Void, List<DownloadItem>> {
 
         @Override
-        protected List<DownloadItem> doInBackground(Void... voids) {
+        protected List<DownloadItem> doInBackground(Context... contexts) {
+            checkDatabaseContent(contexts[0]);
             return database.downloadsDAO().getAll();
+        }
+
+
+        /**
+         * Método que se encarga de comprobar si el contenido de la base de datos está actualizado
+         * respecto a las canciones que se encuentran descargadas
+         * @param context Contexto para acceder a la base de datos
+         */
+        private void checkDatabaseContent(Context context) {
+            List<DownloadItem> itemList = database.downloadsDAO().getAll();
+            String[] list = context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).list();
+
+            for (DownloadItem item: itemList) {
+                if (!Arrays.asList(list).contains(item.getTrackName().concat(".mp3")))
+                    database.downloadsDAO().deleteDownload(item);
+            }
         }
 
 

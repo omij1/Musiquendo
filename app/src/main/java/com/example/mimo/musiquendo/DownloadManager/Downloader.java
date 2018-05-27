@@ -53,6 +53,7 @@ public class Downloader extends AsyncTask<String, Void, Boolean> {
         int trackDuration = Integer.parseInt(strings[3]);
         String minutes = strings[4];
         String cover = strings[5];
+        String trackPath = mContext.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getPath().concat("/").concat(trackName).concat(".mp3");
 
         DownloadManager downloadManager = (DownloadManager) mContext.getSystemService(Context.DOWNLOAD_SERVICE);
         Uri downloadUri= Uri.parse(downloadUrl);
@@ -65,7 +66,6 @@ public class Downloader extends AsyncTask<String, Void, Boolean> {
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
         request.allowScanningByMediaScanner();
         request.setDestinationInExternalFilesDir(mContext, Environment.DIRECTORY_DOWNLOADS, trackName.concat(".mp3"));
-        String trackPath = mContext.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getPath().concat("/").concat(trackName).concat(".mp3");
         if (downloadManager != null) refId = downloadManager.enqueue(request);
         database.downloadsDAO().insertDownload(new DownloadItem(trackPath, trackName, parentName, trackDuration, minutes, cover));
     }
