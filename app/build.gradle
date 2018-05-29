@@ -12,7 +12,7 @@ android {
     }
     buildTypes {
         debug {
-            buildConfigField "String", "JAMENDO_API_KEY", "\"bb029cf9\""
+            buildConfigField "String", "JAMENDO_API_KEY", "\"1695f1c6\""
             buildConfigField "String", "ALBUM_LIST", "\"https://api.jamendo.com/v3.0/albums/\""
             buildConfigField "String", "ARTIST_LIST", "\"https://api.jamendo.com/v3.0/artists/\""
             buildConfigField "String", "PLAYLIST_LIST", "\"https://api.jamendo.com/v3.0/playlists/\""
@@ -33,7 +33,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            buildConfigField "String", "JAMENDO_API_KEY", "\"bb029cf9\""
+            buildConfigField "String", "JAMENDO_API_KEY", "\"1695f1c6\""
             buildConfigField "String", "ALBUM_LIST", "\"https://api.jamendo.com/v3.0/albums/\""
             buildConfigField "String", "ARTIST_LIST", "\"https://api.jamendo.com/v3.0/artists/\""
             buildConfigField "String", "PLAYLIST_LIST", "\"https://api.jamendo.com/v3.0/playlists/\""
