@@ -27,7 +27,12 @@
         <item name="android:layout_marginEnd">@dimen/item_controller_marginEnd</item>
     </style>
 
-    <style name="SettingsItemController.ToggleStyle">
+    <style name="SettingsItemController.Free">
+        <item name="android:backgroundTint">@color/cardview_shadow_start_color</item>
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
+    <style name="SettingsItemController.Premium">
         <item name="android:backgroundTint">@color/colorPrimary</item>
         <item name="android:textColor">@color/colorAccent</item>
     </style>

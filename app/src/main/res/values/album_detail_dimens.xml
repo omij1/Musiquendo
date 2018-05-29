@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <dimen name="album_detail_name">28sp</dimen>
+    <dimen name="album_detail_name">25sp</dimen>
     <dimen name="album_detail_name_land">23sp</dimen>
     <dimen name="album_detail_artist">21sp</dimen>
     <dimen name="album_detail_item_radius">6dp</dimen>

@@ -6,9 +6,8 @@
     android:layout_height="wrap_content"
     android:layout_marginEnd="8dp"
     android:layout_marginStart="8dp"
-    app:cardBackgroundColor="@color/colorPrimary"
+    app:cardBackgroundColor="@color/cardview_shadow_start_color"
     app:cardCornerRadius="@dimen/card_corner_radius"
-    app:cardElevation="@dimen/card_elevation"
     app:cardUseCompatPadding="true"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
@@ -48,7 +47,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="@dimen/description_margin_start"
                 android:layout_weight="0.6"
-                android:text="@string/download_description"
+                android:text="@string/not_free_feature"
                 style="@style/SettingsDescription"/>
 
             <RelativeLayout
@@ -60,7 +59,8 @@
                     android:id="@+id/download_mode"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/SettingsItemController.ToggleStyle"/>
+                    android:enabled="false"
+                    style="@style/SettingsItemController.Free"/>
 
             </RelativeLayout>
 

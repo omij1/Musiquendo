@@ -28,8 +28,8 @@ android {
             buildConfigField "String", "ARTISTS", "\"com.example.mimo.musiquendo.ARTISTS\""
             buildConfigField "String", "PLAYLISTS", "\"com.example.mimo.musiquendo.PLAYLISTS\""
             buildConfigField "String", "DOWNLOADED_TRACKS", "\"com.example.mimo.musiquendo.DOWNLOADED_TRACKS\""
+            applicationIdSuffix '.debug'
         }
-
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -50,11 +50,23 @@ android {
             buildConfigField "String", "PLAYLISTS", "\"com.example.mimo.musiquendo.PLAYLISTS\""
             buildConfigField "String", "DOWNLOADED_TRACKS", "\"com.example.mimo.musiquendo.DOWNLOADED_TRACKS\""
         }
-
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    flavorDimensions "default"
+
+    productFlavors {
+        premium {
+            minSdkVersion 21
+            applicationIdSuffix '.premium'
+        }
+        free {
+            minSdkVersion 21
+            applicationIdSuffix '.free'
+        }
     }
 }
 
@@ -66,8 +78,8 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     implementation 'com.android.support:support-v4:26.1.0'
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     implementation 'com.squareup.picasso:picasso:2.71828'

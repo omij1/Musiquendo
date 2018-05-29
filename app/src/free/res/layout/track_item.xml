@@ -2,7 +2,6 @@
 <android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardElevation="@dimen/toolbar_elevation"
@@ -24,17 +23,9 @@
             android:id="@+id/track_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.70"
+            android:layout_weight="0.80"
             style="@style/TrackItemName"/>
 
-        <ImageButton
-            android:id="@+id/download_song"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.10"
-            android:src="@drawable/ic_file_download"
-            style="@style/TrackItemDownload"/>
-        
         <TextView
             android:id="@+id/track_duration"
             android:layout_width="0dp"

@@ -126,6 +126,8 @@
     <string name="delete_track">Delete track</string>
     <string name="error_deleting_track">An error has occurred deleting the track</string>
     <string name="delete_track_warning">Can not erase a song while playing downloaded songs</string>
+    <string name="not_free_available">Not available in the free version</string>
+    <string name="not_free_feature">Feature not available in the free version</string>
 
 
     <!-- Strings related to Albums filter-->

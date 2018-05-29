@@ -54,7 +54,7 @@ public class PreferencesManager {
 
 
     public boolean getDownloadSettings() {
-        return getPreferences().getBoolean(DOWNLOAD, true);
+        return getPreferences().getBoolean(DOWNLOAD, false);
     }
 
 

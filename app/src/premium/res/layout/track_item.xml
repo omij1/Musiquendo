@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardElevation="@dimen/toolbar_elevation"
+    app:cardBackgroundColor="@color/backgroundColor">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/track_item_height"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/track_number"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.10"
+            style="@style/TrackItemNumber"/>
+
+        <TextView
+            android:id="@+id/track_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.70"
+            style="@style/TrackItemName"/>
+
+        <ImageButton
+            android:id="@+id/download_song"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.10"
+            android:src="@drawable/ic_file_download"
+            style="@style/TrackItemDownload"/>
+        
+        <TextView
+            android:id="@+id/track_duration"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.15"
+            style="@style/TrackItemDuration"/>
+
+        <View
+            android:id="@+id/track_playing"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.02"
+            android:visibility="invisible"
+            android:background="@color/colorAccent"/>
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

@@ -1,29 +1,20 @@
 package com.example.mimo.musiquendo.Fragments;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.wifi.WifiManager;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.mimo.musiquendo.Adapters.AlbumTracksAdapter;
 import com.example.mimo.musiquendo.BuildConfig;
 import com.example.mimo.musiquendo.Dialogs.SimpleDialog;
 import com.example.mimo.musiquendo.DownloadManager.Downloader;
@@ -33,6 +24,8 @@ import com.example.mimo.musiquendo.Model.Track;
 import com.example.mimo.musiquendo.Player.TrackPlayer;
 import com.example.mimo.musiquendo.Player.TrackQueue;
 import com.example.mimo.musiquendo.Provider.JamendoProvider;
+
+import com.example.mimo.musiquendo.Adapters.AlbumTracksAdapter;
 import com.example.mimo.musiquendo.R;
 import com.squareup.picasso.Picasso;
 
@@ -62,13 +55,10 @@ public class FragmentAlbumDetail extends Fragment implements AlbumTracksAdapter.
     private static final String NAME = "NAME";
     private static final String ARTIST = "ARTIST";
     private static final int PADDING = 2;
-    private static final int REQUEST_CODE = 1;
     private List<AlbumTracks> tracks;
     private AlbumTracksAdapter adapter;
     private String albumCover;
     private PreferencesManager preferencesManager;
-    private Downloader downloader;
-    private AlbumTracks trackSelected;
 
 
     /**
@@ -172,39 +162,6 @@ public class FragmentAlbumDetail extends Fragment implements AlbumTracksAdapter.
     }
 
 
-    @Override
-    public void onDownloadSongClick(AlbumTracks track) {
-        trackSelected = track;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
-                downloadTrack();
-            else
-                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE);
-        }
-        else
-            downloadTrack();
-    }
-
-
-    private void downloadTrack() {
-        WifiManager wifi = (WifiManager) getContext().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-        //Comprobamos la conexión a internet
-        if (isOnline()){
-            String[] dialogContent = getResources().getStringArray(R.array.lost_connection);
-            callDialog(R.drawable.ic_signal_wifi_off, dialogContent[0], dialogContent[1]);
-            return;
-        }
-        if (!preferencesManager.getDownloadSettings() || wifi != null && wifi.isWifiEnabled()) {
-            downloader = new Downloader(getContext());
-            downloader.execute(trackSelected.getAudioDownload(), trackSelected.getTrackName(),
-                    getArguments().getString(NAME), String.valueOf(trackSelected.getTrackDuration()),
-                    trackSelected.getMinutes(), albumCover);
-        }
-        else
-            Toast.makeText(getContext(), R.string.unavailable_download, Toast.LENGTH_SHORT).show();
-    }
-
-
     /**
      * Método que comprueba si el dispositivo tiene conexión a internet
      * @return Si tiene internet o no
@@ -238,21 +195,5 @@ public class FragmentAlbumDetail extends Fragment implements AlbumTracksAdapter.
         SimpleDialog dialog = SimpleDialog.newInstance(icon, title, content);
         FragmentManager fm = getFragmentManager();
         dialog.show(fm, ID);
-    }
-
-
-    @Override
-    public void onStop() {
-        if (downloader != null)
-            downloader.cancel(true);
-        super.onStop();
-    }
-
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == REQUEST_CODE && grantResults[0] == PackageManager.PERMISSION_GRANTED)
-            downloadTrack();
     }
 }
