@@ -19,7 +19,7 @@
     <fragment
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="com.example.mimo.musiquendo.Fragments.FragmentSettings"
+        android:name="com.mimo.musiquendo.Fragments.FragmentSettings"
         android:id="@+id/settings"/>
 
 </LinearLayout>

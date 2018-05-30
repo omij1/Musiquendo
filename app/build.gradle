@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 26
     defaultConfig {
-        applicationId "com.example.mimo.musiquendo"
+        applicationId "com.mimo.musiquendo"
         minSdkVersion 21
         targetSdkVersion 26
         versionCode 1
@@ -19,15 +19,15 @@ android {
             buildConfigField "String", "ARTIST_DETAILS", "\"https://api.jamendo.com/v3.0/artists/tracks/\""
             buildConfigField "String", "ALBUM_DETAILS", "\"https://api.jamendo.com/v3.0/albums/tracks/\""
             buildConfigField "String", "PLAYLIST_DETAILS", "\"https://api.jamendo.com/v3.0/playlists/tracks\""
-            buildConfigField "String", "PLAY", "\"com.example.mimo.musiquendo.PLAY\""
-            buildConfigField "String", "STARTSTOP", "\"com.example.mimo.musiquendo.STARTSTOP\""
-            buildConfigField "String", "PREVIOUS", "\"com.example.mimo.musiquendo.PREVIOUS\""
-            buildConfigField "String", "NEXT", "\"com.example.mimo.musiquendo.NEXT\""
-            buildConfigField "String", "DELETE", "\"com.example.mimo.musiquendo.DELETE\""
-            buildConfigField "String", "ALBUMS", "\"com.example.mimo.musiquendo.ALBUMS\""
-            buildConfigField "String", "ARTISTS", "\"com.example.mimo.musiquendo.ARTISTS\""
-            buildConfigField "String", "PLAYLISTS", "\"com.example.mimo.musiquendo.PLAYLISTS\""
-            buildConfigField "String", "DOWNLOADED_TRACKS", "\"com.example.mimo.musiquendo.DOWNLOADED_TRACKS\""
+            buildConfigField "String", "PLAY", "\"com.mimo.musiquendo.PLAY\""
+            buildConfigField "String", "STARTSTOP", "\"com.mimo.musiquendo.STARTSTOP\""
+            buildConfigField "String", "PREVIOUS", "\"com.mimo.musiquendo.PREVIOUS\""
+            buildConfigField "String", "NEXT", "\"com.mimo.musiquendo.NEXT\""
+            buildConfigField "String", "DELETE", "\"com.mimo.musiquendo.DELETE\""
+            buildConfigField "String", "ALBUMS", "\"com.mimo.musiquendo.ALBUMS\""
+            buildConfigField "String", "ARTISTS", "\"com.mimo.musiquendo.ARTISTS\""
+            buildConfigField "String", "PLAYLISTS", "\"com.mimo.musiquendo.PLAYLISTS\""
+            buildConfigField "String", "DOWNLOADED_TRACKS", "\"com.mimo.musiquendo.DOWNLOADED_TRACKS\""
             applicationIdSuffix '.debug'
         }
         release {
@@ -40,15 +40,15 @@ android {
             buildConfigField "String", "ARTIST_DETAILS", "\"https://api.jamendo.com/v3.0/artists/tracks/\""
             buildConfigField "String", "ALBUM_DETAILS", "\"https://api.jamendo.com/v3.0/albums/tracks/\""
             buildConfigField "String", "PLAYLIST_DETAILS", "\"https://api.jamendo.com/v3.0/playlists/tracks\""
-            buildConfigField "String", "PLAY", "\"com.example.mimo.musiquendo.PLAY\""
-            buildConfigField "String", "STARTSTOP", "\"com.example.mimo.musiquendo.STARTSTOP\""
-            buildConfigField "String", "PREVIOUS", "\"com.example.mimo.musiquendo.PREVIOUS\""
-            buildConfigField "String", "NEXT", "\"com.example.mimo.musiquendo.NEXT\""
-            buildConfigField "String", "DELETE", "\"com.example.mimo.musiquendo.DELETE\""
-            buildConfigField "String", "ALBUMS", "\"com.example.mimo.musiquendo.ALBUMS\""
-            buildConfigField "String", "ARTISTS", "\"com.example.mimo.musiquendo.ARTISTS\""
-            buildConfigField "String", "PLAYLISTS", "\"com.example.mimo.musiquendo.PLAYLISTS\""
-            buildConfigField "String", "DOWNLOADED_TRACKS", "\"com.example.mimo.musiquendo.DOWNLOADED_TRACKS\""
+            buildConfigField "String", "PLAY", "\"com.mimo.musiquendo.PLAY\""
+            buildConfigField "String", "STARTSTOP", "\"com.mimo.musiquendo.STARTSTOP\""
+            buildConfigField "String", "PREVIOUS", "\"com.mimo.musiquendo.PREVIOUS\""
+            buildConfigField "String", "NEXT", "\"com.mimo.musiquendo.NEXT\""
+            buildConfigField "String", "DELETE", "\"com.mimo.musiquendo.DELETE\""
+            buildConfigField "String", "ALBUMS", "\"com.mimo.musiquendo.ALBUMS\""
+            buildConfigField "String", "ARTISTS", "\"com.mimo.musiquendo.ARTISTS\""
+            buildConfigField "String", "PLAYLISTS", "\"com.mimo.musiquendo.PLAYLISTS\""
+            buildConfigField "String", "DOWNLOADED_TRACKS", "\"com.mimo.musiquendo.DOWNLOADED_TRACKS\""
         }
     }
     compileOptions {
